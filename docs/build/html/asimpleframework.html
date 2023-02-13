@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>A Simple Framework &#8212; Climate Investing with NLP 0 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="Blind Spots of Climate Investing" href="introduction.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Climate Investing with NLP 0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Blind Spots of Climate Investing
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   A Simple Framework
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/asimpleframework.md.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#firm-level-exposure-to-a-climate-theme-with-nlp">
+   Firm-Level Exposure to a Climate Theme with NLP
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keywords-extraction-and-theme-specific-keywords">
+     Keywords Extraction and Theme-Specific Keywords
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#embeddings">
+     Embeddings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cosine-similarity">
+     Cosine Similarity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exposure">
+     Exposure
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#climate-tilting">
+   Climate Tilting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benchmark-greeness">
+     Benchmark Greeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracking-error-volatility-and-excess-greeness">
+     Tracking Error Volatility and Excess Greeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#climate-investing-objectives">
+     Climate Investing Objectives
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>A Simple Framework</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#firm-level-exposure-to-a-climate-theme-with-nlp">
+   Firm-Level Exposure to a Climate Theme with NLP
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keywords-extraction-and-theme-specific-keywords">
+     Keywords Extraction and Theme-Specific Keywords
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#embeddings">
+     Embeddings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cosine-similarity">
+     Cosine Similarity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exposure">
+     Exposure
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#climate-tilting">
+   Climate Tilting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benchmark-greeness">
+     Benchmark Greeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracking-error-volatility-and-excess-greeness">
+     Tracking Error Volatility and Excess Greeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#climate-investing-objectives">
+     Climate Investing Objectives
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="a-simple-framework">
+<h1>A Simple Framework<a class="headerlink" href="#a-simple-framework" title="Permalink to this headline">#</a></h1>
+<section id="firm-level-exposure-to-a-climate-theme-with-nlp">
+<h2>Firm-Level Exposure to a Climate Theme with NLP<a class="headerlink" href="#firm-level-exposure-to-a-climate-theme-with-nlp" title="Permalink to this headline">#</a></h2>
+<p>Following Sautner et al. (2020) <span id="id1">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> approach, one can build a firm-level theme exposure to a specific theme (in Sautner et al., climate risks exposure) based on text mining.</p>
+<p>More specifically, we can define the firm-level exposure to a theme as <em>the percentage of keywords from the firm’s text (in the following of this proposal earnings call transcripts or business description) that are related (ie. semantically similar) to a list of specific theme keywords.</em></p>
+<section id="keywords-extraction-and-theme-specific-keywords">
+<h3>Keywords Extraction and Theme-Specific Keywords<a class="headerlink" href="#keywords-extraction-and-theme-specific-keywords" title="Permalink to this headline">#</a></h3>
+<p>We first need to extract, for each firm, a set of keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> from the firm specific text. We also need to define a set <span class="math notranslate nohighlight">\(S\)</span> of theme-specific keywords to be compared with.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install keyphrase-vectorizers
+
+from keyphrase_vectorizers import KeyphraseCountVectorizer  
+
+vectorizer = KeyphraseCountVectorizer(stop_words = &#39;english&#39;)
+
+firm_text = &quot;The profitable growth in the gas and low carbon electricity integrated value chains is one of the key axes of Total&#39;s strategy. In order to give more visibility to these businesses, a new reporting structure for the business segments’ financial information has been put in place, effective January 1, 2019 and organized around four business segments: Exploration &amp; Production (EP), Integrated Gas, Renewables &amp; Power segment (iGRP), Refining &amp; Chemicals (RC) and Marketing &amp; Services (MS). The iGRP segment spearheads Total’s ambitions in integrated gas (including LNG, liquefied natural gas) and low carbon electricity businesses. It consists of the upstream and midstream LNG activity that was previously reported in the EP segment (refer to the indicative list of assets in the Annex) and the activity previously reported in the Gas Renewables &amp; Power segment. The new EP segment is adjusted accordingly&quot;
+
+K = vectorizer.fit([firm_text]).get_feature_names_out()
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;key axes&#39;</span><span class="p">,</span> <span class="s1">&#39;services&#39;</span><span class="p">,</span> <span class="s1">&#39;natural gas&#39;</span><span class="p">,</span> <span class="s1">&#39;new ep segment&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;exploration&#39;</span><span class="p">,</span> <span class="s1">&#39;power segment&#39;</span><span class="p">,</span> <span class="s1">&#39;ambitions&#39;</span><span class="p">,</span> <span class="s1">&#39;activity&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;low carbon electricity businesses&#39;</span><span class="p">,</span> <span class="s1">&#39;business segments&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;refining&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;value chains&#39;</span><span class="p">,</span> <span class="s1">&#39;lng&#39;</span><span class="p">,</span> <span class="s1">&#39;gas renewables&#39;</span><span class="p">,</span> <span class="s1">&#39;ep&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;indicative list&#39;</span><span class="p">,</span> <span class="s1">&#39;profitable growth&#39;</span><span class="p">,</span> <span class="s1">&#39;place&#39;</span><span class="p">,</span> <span class="s1">&#39;renewables&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;ep segment&#39;</span><span class="p">,</span> <span class="s1">&#39;businesses&#39;</span><span class="p">,</span> <span class="s1">&#39;integrated gas&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="s1">&#39;strategy&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;more visibility&#39;</span><span class="p">,</span> <span class="s1">&#39;rc&#39;</span><span class="p">,</span> <span class="s1">&#39;effective january&#39;</span><span class="p">,</span> <span class="s1">&#39;production&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;low carbon electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;annex&#39;</span><span class="p">,</span> <span class="s1">&#39;financial information&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;midstream lng activity&#39;</span><span class="p">,</span> <span class="s1">&#39;chemicals&#39;</span><span class="p">,</span> <span class="s1">&#39;igrp segment&#39;</span><span class="p">,</span> <span class="s1">&#39;marketing&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;new reporting structure&#39;</span><span class="p">,</span> <span class="s1">&#39;gas&#39;</span><span class="p">,</span> <span class="s1">&#39;assets&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solar pv&#39;</span><span class="p">,</span> <span class="s1">&#39;wind technology&#39;</span><span class="p">,</span><span class="s1">&#39;renewables equipment&#39;</span><span class="p">]</span>
+
+</pre></div>
+</div>
+</section>
+<section id="embeddings">
+<h3>Embeddings<a class="headerlink" href="#embeddings" title="Permalink to this headline">#</a></h3>
+<p>Once firm’s keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> are extracted and the set of theme-specific keywords <span class="math notranslate nohighlight">\(S\)</span> are defined, we need to transform those unstructured data (text) into a numerical representation. To do so, we use Sentence Transformer capacities to create numerical vector representation of the meanings of <span class="math notranslate nohighlight">\(K_{i,t}\)</span> and keywords in <span class="math notranslate nohighlight">\(S\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e6469ef4-8828-4447-862f-3326ba7c3646">
+<span class="eqno">(1)<a class="headerlink" href="#equation-e6469ef4-8828-4447-862f-3326ba7c3646" title="Permalink to this equation">#</a></span>\[\begin{equation}
+Emb^{k_{i,t}} = ST(k_{i,t})
+\end{equation}\]</div>
+<p>and</p>
+<div class="amsmath math notranslate nohighlight" id="equation-14a65121-31f6-4048-a2d0-baec1bdc4e06">
+<span class="eqno">(2)<a class="headerlink" href="#equation-14a65121-31f6-4048-a2d0-baec1bdc4e06" title="Permalink to this equation">#</a></span>\[\begin{equation}
+Emb^{s} = ST(s)
+\end{equation}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{s}\)</span> are the numerical vector representation (embeddings) of the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> and the keyword <span class="math notranslate nohighlight">\(s\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install sentence_transformers
+
+from sentence_transformers import SentenceTransformer, util
+import torch
+
+ST = SentenceTransformer(&#39;all-MiniLM-L6-v2&#39;)
+
+emb_K = ST.encode(K, convert_to_tensor=True)
+emb_S = ST.encode(S, convert_to_tensor=True)
+</pre></div>
+</div>
+</section>
+<section id="cosine-similarity">
+<h3>Cosine Similarity<a class="headerlink" href="#cosine-similarity" title="Permalink to this headline">#</a></h3>
+<p>We want to be able to determine if the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> is related to our theme, thanks to the theme-specific keywords.</p>
+<p>As we now have numerical vector representations of our keywords <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^s\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the keywords, computing the closeness of our vectors allows for determining the semantic similarity between our keywords.</p>
+<p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the keywords are:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-03f214f8-6909-4d5d-b923-d3236af6639c">
+<span class="eqno">(3)<a class="headerlink" href="#equation-03f214f8-6909-4d5d-b923-d3236af6639c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||Emb^s||}
+\end{equation}\]</div>
+<p>For each keyword extracted from firm’s text <span class="math notranslate nohighlight">\(k_{i,t}\)</span>, the cosine similarity is computed against each theme-specific keywords <span class="math notranslate nohighlight">\(s\)</span>. The maximum cosine similarity measure is retained, and then compared to a predefined threshold (0.6) in order to finally determined if the keyword is related to our theme:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-abcb1b36-ce5f-40e0-b580-4f60e04ca05f">
+<span class="eqno">(4)<a class="headerlink" href="#equation-abcb1b36-ce5f-40e0-b580-4f60e04ca05f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+  \tau(k_{i,t})=
+  \begin{cases}
+    0, &amp; \text{if}\ cos(\theta_{k_{i,t},s}) &lt; 0.6 \\
+    1, &amp; \text{otherwise}
+  \end{cases}
+\end{equation}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\tau(k_{i,t})\)</span> corresponds to an indicator taking the value 1 if the keyword is related to our specific theme and 0 otherwise.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">emb_K</span><span class="p">,</span> <span class="n">emb_S</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hits</span><span class="p">)):</span>
+  <span class="k">if</span> <span class="n">hits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.6</span><span class="p">:</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="n">T</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;gas renewables&#39;</span> <span class="s1">&#39;renewables&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="exposure">
+<h3>Exposure<a class="headerlink" href="#exposure" title="Permalink to this headline">#</a></h3>
+<p>Finally, we can compute our theme exposure such as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9e97cdc1-aaea-40b3-9f3d-85405a0b4ab5">
+<span class="eqno">(5)<a class="headerlink" href="#equation-9e97cdc1-aaea-40b3-9f3d-85405a0b4ab5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Exposure</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Exposure</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.05</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="climate-tilting">
+<h2>Climate Tilting<a class="headerlink" href="#climate-tilting" title="Permalink to this headline">#</a></h2>
+<section id="benchmark-greeness">
+<h3>Benchmark Greeness<a class="headerlink" href="#benchmark-greeness" title="Permalink to this headline">#</a></h3>
+<p>Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of a benchmark which is equally-weighted:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-eb15ac85-786b-4c12-8032-f62966344ea7">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eb15ac85-786b-4c12-8032-f62966344ea7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+b = \begin{bmatrix}
+           0.2 \\
+           0.2 \\
+           0.2 \\
+           0.2 \\
+           0.2
+         \end{bmatrix}
+\end{equation}\]</div>
+<p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d45916d2-dfc9-4df3-8286-bd792e90d808">
+<span class="eqno">(7)<a class="headerlink" href="#equation-d45916d2-dfc9-4df3-8286-bd792e90d808" title="Permalink to this equation">#</a></span>\[\begin{equation}
+G = \begin{bmatrix}
+           0.95 \\
+           0.08 \\
+           0.67 \\
+           0.12 \\
+           0.47
+         \end{bmatrix}
+\end{equation}\]</div>
+<p>The benchmark greeness can be computed as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0a572622-729f-4b0d-96be-030486b120f5">
+<span class="eqno">(8)<a class="headerlink" href="#equation-0a572622-729f-4b0d-96be-030486b120f5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+G(b) = b^TG
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.67</span><span class="p">,</span><span class="mf">0.12</span><span class="p">,</span><span class="mf">0.47</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.4580000000000001</span>
+</pre></div>
+</div>
+</section>
+<section id="tracking-error-volatility-and-excess-greeness">
+<h3>Tracking Error Volatility and Excess Greeness<a class="headerlink" href="#tracking-error-volatility-and-excess-greeness" title="Permalink to this headline">#</a></h3>
+<p>Having the previous benchmark, let’s assume a portfolio with the same issuers than the benchmark, but with different weights <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-82a0d005-a83c-444b-b224-fd82dbe64317">
+<span class="eqno">(9)<a class="headerlink" href="#equation-82a0d005-a83c-444b-b224-fd82dbe64317" title="Permalink to this equation">#</a></span>\[\begin{equation}
+x = \begin{bmatrix}
+           0.10 \\
+           0.15 \\
+           0.30 \\
+           0.20 \\
+           0.25
+         \end{bmatrix}
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Let’s have the following covariance matrix:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-594b7e80-e7da-4538-a59a-9facbdd7e65f">
+<span class="eqno">(10)<a class="headerlink" href="#equation-594b7e80-e7da-4538-a59a-9facbdd7e65f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+\Sigma = 
+\begin{pmatrix}
+0.1536 &amp; 0.006 &amp; 0.0108 &amp; 0.0156 &amp; 0.024 \\
+0.006 &amp; 0.17 &amp; 0.018 &amp; 0.026 &amp; 0.04 \\
+0.0108 &amp; 0.018 &amp; 0.1324 &amp; 0.0468 &amp; 0.072 \\
+0.0156 &amp; 0.026 &amp; 0.0468 &amp; 0.1776 &amp; 0.104 \\
+0.024 &amp; 0.04 &amp; 0.072 &amp; 0.104 &amp; 0.28 \\
+\end{pmatrix}
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.1536</span><span class="p">,</span>  <span class="mf">0.006</span><span class="p">,</span>  <span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.024</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mf">0.006</span><span class="p">,</span>   <span class="mf">0.17</span><span class="p">,</span>   <span class="mf">0.018</span><span class="p">,</span>   <span class="mf">0.026</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.018</span><span class="p">,</span>  <span class="mf">0.1324</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.072</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.026</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.1776</span><span class="p">,</span>  <span class="mf">0.104</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mf">0.024</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">,</span>   <span class="mf">0.072</span><span class="p">,</span>   <span class="mf">0.104</span><span class="p">,</span>   <span class="mf">0.28</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>We can compare the relative performance of the tilted portfolio compared to the benchmark with the tracking error volatility:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0e3d9c88-8821-4d7f-82b0-4e86d4feecb4">
+<span class="eqno">(11)<a class="headerlink" href="#equation-0e3d9c88-8821-4d7f-82b0-4e86d4feecb4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.06268173577685926</span>
+</pre></div>
+</div>
+<p>and the excess greeness:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a248955b-873d-4549-a84d-ae6f126e4140">
+<span class="eqno">(12)<a class="headerlink" href="#equation-a248955b-873d-4549-a84d-ae6f126e4140" title="Permalink to this equation">#</a></span>\[\begin{equation}
+G(x|b) = (x - b)^T G
+\end{equation}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">excess_greeness</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.008500000000000021</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-investing-objectives">
+<h3>Climate Investing Objectives<a class="headerlink" href="#climate-investing-objectives" title="Permalink to this headline">#</a></h3>
+<p>The objective of investors is to improve the benchmark greeness while controlling the tracking error volatility.</p>
+<p>Denoting <span class="math notranslate nohighlight">\(\gamma\)</span> as the risk tolerance parameter, we have the following optimization problem:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\begin{aligned}
+&amp; x^* = 
+&amp; &amp; argmin \frac{1}{2} \sigma^2 (x |b) - \gamma G (x | b) \\
+&amp; \text{subject to}
+&amp; &amp; 1_5^Tx = 1, \\
+&amp;&amp;&amp; 0_5 \leq x \leq 1_5.
+\end{aligned}
+\end{equation*}\]</div>
+<p>Varying the parameter value of <span class="math notranslate nohighlight">\(\gamma\)</span> gives you the efficient frontier of tracking a benchmark with a greeness objective.</p>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="introduction.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Blind Spots of Climate Investing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="references.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Thomas Lorans<br/>
+  
+      &copy; Copyright 2023, Thomas Lorans.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

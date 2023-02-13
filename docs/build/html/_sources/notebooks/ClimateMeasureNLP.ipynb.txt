@@ -1,88 +1,72 @@
 {
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": []
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
   "cells": [
     {
       "cell_type": "markdown",
-      "source": [
-        "# Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework"
-      ],
       "metadata": {
         "id": "uF9JzVeKnmI4"
-      }
+      },
+      "source": [
+        "# Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework"
+      ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
+      "metadata": {
+        "id": "A8CJ9ux3Xcke"
+      },
       "source": [
         "Following Sautner et al. (2022) approach, one can build a firm-level theme exposure to a specific theme (in Sautner et al., climate risks exposure) based on text mining. \n",
         "\n",
         "More specifically, we can define the firm-level exposure to a theme as *the percentage of keywords from the firm's text (in the following of this proposal earnings call transcripts or business description) that are related (ie. semantically similar) to a list of specific theme keywords.*\n"
-      ],
-      "metadata": {
-        "id": "A8CJ9ux3Xcke"
-      }
+      ]
     },
     {
       "cell_type": "markdown",
-      "source": [
-        "## Keywords extraction and Theme-specific keywords"
-      ],
       "metadata": {
         "id": "deB5R77knv6A"
-      }
+      },
+      "source": [
+        "## Keywords extraction and Theme-specific keywords"
+      ]
     },
     {
       "cell_type": "markdown",
-      "source": [
-        "We first need to extract, for each firm, a set of keywords $K_{i,t}$ from the firm specific text. We also need to define a set $S$ of theme-specific keywords to be compared with."
-      ],
       "metadata": {
         "id": "lQbkwA5Qc-Zi"
-      }
+      },
+      "source": [
+        "We first need to extract, for each firm, a set of keywords $K_{i,t}$ from the firm specific text. We also need to define a set $S$ of theme-specific keywords to be compared with."
+      ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "!pip install keyphrase-vectorizers"
-      ],
+      "execution_count": null,
       "metadata": {
         "id": "sH8FPbDophDy"
       },
-      "execution_count": null,
-      "outputs": []
+      "outputs": [],
+      "source": [
+        "!pip install keyphrase-vectorizers"
+      ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "02Bya4wpphxh"
+      },
+      "outputs": [],
       "source": [
         "from keyphrase_vectorizers import KeyphraseCountVectorizer  \n",
         "vectorizer = KeyphraseCountVectorizer(stop_words = 'english')\n",
         "\n",
         "firm_text = \"The profitable growth in the gas and low carbon electricity integrated value chains is one of the key axes of Total's strategy. In order to give more visibility to these businesses, a new reporting structure for the business segments’ financial information has been put in place, effective January 1, 2019 and organized around four business segments: Exploration & Production (EP), Integrated Gas, Renewables & Power segment (iGRP), Refining & Chemicals (RC) and Marketing & Services (MS). The iGRP segment spearheads Total’s ambitions in integrated gas (including LNG, liquefied natural gas) and low carbon electricity businesses. It consists of the upstream and midstream LNG activity that was previously reported in the EP segment (refer to the indicative list of assets in the Annex) and the activity previously reported in the Gas Renewables & Power segment. The new EP segment is adjusted accordingly\"\n"
-      ],
-      "metadata": {
-        "id": "02Bya4wpphxh"
-      },
-      "execution_count": null,
-      "outputs": []
+      ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "K = vectorizer.fit([firm_text]).get_feature_names_out()\n",
-        "K"
-      ],
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -90,10 +74,8 @@
         "id": "2hkztWq3rrCJ",
         "outputId": "c8c0d57f-092d-49b2-8382-20e40ba822de"
       },
-      "execution_count": null,
       "outputs": [
         {
-          "output_type": "execute_result",
           "data": {
             "text/plain": [
               "array(['key axes', 'services', 'natural gas', 'new ep segment',\n",
@@ -108,17 +90,19 @@
               "       'new reporting structure', 'gas', 'assets', 'total'], dtype=object)"
             ]
           },
+          "execution_count": 8,
           "metadata": {},
-          "execution_count": 8
+          "output_type": "execute_result"
         }
+      ],
+      "source": [
+        "K = vectorizer.fit([firm_text]).get_feature_names_out()\n",
+        "K"
       ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "S = ['solar pv', 'wind technology','renewables equipment']\n",
-        "S"
-      ],
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -126,22 +110,28 @@
         "id": "3f5-yYo3wRZt",
         "outputId": "9165b158-d27e-49c8-deb9-4063d50cf5d5"
       },
-      "execution_count": null,
       "outputs": [
         {
-          "output_type": "execute_result",
           "data": {
             "text/plain": [
               "['solar pv', 'wind technology', 'renewables equipment']"
             ]
           },
+          "execution_count": 10,
           "metadata": {},
-          "execution_count": 10
+          "output_type": "execute_result"
         }
+      ],
+      "source": [
+        "S = ['solar pv', 'wind technology','renewables equipment']\n",
+        "S"
       ]
     },
     {
       "cell_type": "markdown",
+      "metadata": {
+        "id": "c3lBlGlOquwJ"
+      },
       "source": [
         "## Embeddings\n",
         "\n",
@@ -158,43 +148,36 @@
         "\\end{equation}\n",
         "\n",
         "Where $Emb^{k_{i,t}}$ and $Emb^{s}$ are the numerical vector representation (embeddings) of the keyword $k_{i,t}$ and the keyword $s$, performed with the Sentence Transformer model $ST()$."
-      ],
-      "metadata": {
-        "id": "c3lBlGlOquwJ"
-      }
+      ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "!pip install sentence_transformers"
-      ],
+      "execution_count": null,
       "metadata": {
         "id": "uLl4EXK1wp8u"
       },
-      "execution_count": null,
-      "outputs": []
+      "outputs": [],
+      "source": [
+        "!pip install sentence_transformers"
+      ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "JGkyCYFpwoaz"
+      },
+      "outputs": [],
       "source": [
         "from sentence_transformers import SentenceTransformer, util\n",
         "import torch\n",
         "\n",
         "ST = SentenceTransformer('all-MiniLM-L6-v2')"
-      ],
-      "metadata": {
-        "id": "JGkyCYFpwoaz"
-      },
-      "execution_count": null,
-      "outputs": []
+      ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "emb_K = ST.encode(K, convert_to_tensor=True)\n",
-        "print(emb_K[0].shape)\n",
-        "print(emb_K[0])"
-      ],
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -202,11 +185,10 @@
         "id": "IEez4lX_w4zG",
         "outputId": "61295f1e-ee12-433d-84b6-341c4b2100d3"
       },
-      "execution_count": null,
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
             "torch.Size([384])\n",
             "tensor([ 6.0319e-04, -4.7906e-02, -1.3035e-01, -7.0738e-02, -5.9981e-02,\n",
@@ -288,21 +270,29 @@
             "        -2.0040e-02,  3.6741e-02, -9.4886e-02, -3.8128e-02])\n"
           ]
         }
+      ],
+      "source": [
+        "emb_K = ST.encode(K, convert_to_tensor=True)\n",
+        "print(emb_K[0].shape)\n",
+        "print(emb_K[0])"
       ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "emb_S = ST.encode(S, convert_to_tensor=True)"
-      ],
+      "execution_count": null,
       "metadata": {
         "id": "sUSWFcC-xXm4"
       },
-      "execution_count": null,
-      "outputs": []
+      "outputs": [],
+      "source": [
+        "emb_S = ST.encode(S, convert_to_tensor=True)"
+      ]
     },
     {
       "cell_type": "markdown",
+      "metadata": {
+        "id": "G5uJbj3MoilR"
+      },
       "source": [
         "## Identifying Keywords Theme-Related with Cosine Similarity\n",
         "\n",
@@ -315,13 +305,13 @@
         "\\begin{equation}\n",
         "cos(\\theta_{k_{i,t},s}) = \\frac{Emb^{k_{i,t}} \\cdot Emb^s}{||Emb^{k_{i,t}}|| ||Emb^s||}\n",
         "\\end{equation}"
-      ],
-      "metadata": {
-        "id": "G5uJbj3MoilR"
-      }
+      ]
     },
     {
       "cell_type": "markdown",
+      "metadata": {
+        "id": "4McgvgESrj4T"
+      },
       "source": [
         "For each keyword extracted from firm's text $k_{i,t}$, the cosine similarity is computed against each theme-specific keywords $s$. The maximum cosine similarity measure is retained, and then compared to a predefined threshold (0.6) in order to finally determined if the keyword is related to our theme:\n",
         "\n",
@@ -335,17 +325,11 @@
         "\\end{equation}\n",
         "\n",
         "Where $\\tau(k_{i,t})$ corresponds to an indicator taking the value 1 if the keyword is related to our specific theme and 0 otherwise."
-      ],
-      "metadata": {
-        "id": "4McgvgESrj4T"
-      }
+      ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "hits = util.semantic_search(emb_K, emb_S, top_k=1)\n",
-        "hits"
-      ],
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -353,10 +337,8 @@
         "id": "Tu-uXZw0x3_I",
         "outputId": "e27f9d05-4dd4-46f0-d3e0-59d572d561d5"
       },
-      "execution_count": null,
       "outputs": [
         {
-          "output_type": "execute_result",
           "data": {
             "text/plain": [
               "[[{'corpus_id': 1, 'score': 0.08907477557659149}],\n",
@@ -401,16 +383,19 @@
               " [{'corpus_id': 0, 'score': 0.1651279330253601}]]"
             ]
           },
+          "execution_count": 21,
           "metadata": {},
-          "execution_count": 21
+          "output_type": "execute_result"
         }
+      ],
+      "source": [
+        "hits = util.semantic_search(emb_K, emb_S, top_k=1)\n",
+        "hits"
       ]
     },
     {
       "cell_type": "code",
-      "source": [
-        "hits[1][0]['score']"
-      ],
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -418,22 +403,41 @@
         "id": "ZMAd6qiry1Kf",
         "outputId": "c1b86832-2751-4678-cb9f-631ac9057f3c"
       },
-      "execution_count": null,
       "outputs": [
         {
-          "output_type": "execute_result",
           "data": {
             "text/plain": [
               "0.2804577648639679"
             ]
           },
+          "execution_count": 26,
           "metadata": {},
-          "execution_count": 26
+          "output_type": "execute_result"
         }
+      ],
+      "source": [
+        "hits[1][0]['score']"
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "06-yBQTcynk5",
+        "outputId": "b8a73909-1f2c-45ab-96a2-1c3ae7f17083"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "['gas renewables' 'renewables']\n"
+          ]
+        }
+      ],
       "source": [
         "T = []\n",
         "\n",
@@ -443,27 +447,13 @@
         "\n",
         "\n",
         "print(K[T])"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "06-yBQTcynk5",
-        "outputId": "b8a73909-1f2c-45ab-96a2-1c3ae7f17083"
-      },
-      "execution_count": null,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "['gas renewables' 'renewables']\n"
-          ]
-        }
       ]
     },
     {
       "cell_type": "markdown",
+      "metadata": {
+        "id": "xeFg9bc6o5kF"
+      },
       "source": [
         "## Computing Theme Exposure\n",
         "\n",
@@ -472,25 +462,22 @@
         "\\begin{equation}\n",
         "Exposure_{i,t} = \\frac{1}{K_{i,t}}\\sum_{k}^{K_{i,t}}\\tau(k_{i,t})\n",
         "\\end{equation}"
-      ],
-      "metadata": {
-        "id": "xeFg9bc6o5kF"
-      }
+      ]
     },
     {
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
-        "id": "9Di6F0QMndFc",
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
+        "id": "9Di6F0QMndFc",
         "outputId": "2c5a7ae7-6687-4917-ba31-96b831e52cd8"
       },
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
             "0.05\n"
           ]
@@ -501,5 +488,26 @@
         "print(Exposure)"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.10.10"
+    },
+    "vscode": {
+      "interpreter": {
+        "hash": "34ebb4f4c1e50b2ab3ea99334d8c88e59436e8a9275f9853df5abc7801baaf4b"
+      }
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
 }

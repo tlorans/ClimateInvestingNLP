@@ -38,5 +38,14 @@ Second, for the physical risks dimension, fundamental data are sparse and diffic
 
 In order to overcome those issues, a recent literature propose to use **text-mining in order to measure firm-level exposure to climate risks** (Sautner et al. 2020 {cite:p}`2020:Sautneretal`) and Hu et al. 2022 {cite:p}`2022:Huetal`). In the following, we will follow a similar approach.
 
-```{bibliography} refs.bib
-```
+## About the Use of Natural Language Processing for Uncovering Hidden Dimensions in Climate Investing
+
+In what we've seen above, current hidden dimensions in climate investing (transition in net zero investing and firms level climate risks exposure in climate risks hedging) aren't due to unwilligness of investors or regulators. 
+
+Indeed, the most stringent root of shortcomings in current climate impact or climate risks strategies are due to the lack of proper data, noteworthy in the context of indices tilting, where large coverage needs to be ensure.
+
+To address the transition dimension in net zero investing, we need to tackle the issue regarding the green activities from issuers. We will propose an exploratory approach, with a **text-based measure of exposure to green activities and the corresponding index tilted towards transition activities**.
+
+To address the need for firm-level climate risks exposure measure, we will propose a **text-based measure and the corresponding index hedging for exposure to climate risks**.
+
+In the following part, we will briefly present a common simple framework in order to address these dimensions with Natural Language Processing and explore the implications for a tilted benchmark.

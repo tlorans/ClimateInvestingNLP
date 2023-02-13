@@ -34,7 +34,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework" href="notebooks/ClimateMeasureNLP.html" />
+    <link rel="next" title="A Simple Framework" href="asimpleframework.html" />
     <link rel="prev" title="Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Exploratory Approach" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -94,8 +94,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notebooks/ClimateMeasureNLP.html">
-   Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework
+  <a class="reference internal" href="asimpleframework.html">
+   A Simple Framework
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
   </a>
  </li>
 </ul>
@@ -240,6 +245,11 @@ title="Print to PDF"
    Will Hedging for Climate Risks Exposure at Firm Level Still Unreachable?
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-the-use-of-natural-language-processing-for-uncovering-hidden-dimensions-in-climate-investing">
+   About the Use of Natural Language Processing for Uncovering Hidden Dimensions in Climate Investing
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -269,6 +279,11 @@ title="Print to PDF"
    Will Hedging for Climate Risks Exposure at Firm Level Still Unreachable?
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-the-use-of-natural-language-processing-for-uncovering-hidden-dimensions-in-climate-investing">
+   About the Use of Natural Language Processing for Uncovering Hidden Dimensions in Climate Investing
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -279,65 +294,39 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="blind-spots-of-climate-investing">
+  <section class="tex2jax_ignore mathjax_ignore" id="blind-spots-of-climate-investing">
 <h1>Blind Spots of Climate Investing<a class="headerlink" href="#blind-spots-of-climate-investing" title="Permalink to this headline">#</a></h1>
 <p>Climate investing is the new investment theme for asset owners and managers. Climate investing can be roughly divided into two main categories categories: (i) climate impact and (ii) climate change risks.</p>
-<p>In <strong>climate impact strategies</strong>, the explicit objective is to <strong>decarbonize the portfolio</strong>. In the context of index offering, this involved initially in constructing low-carbon indices. However, as stated by Roncalli et al. (2022) <span id="id1">[<a class="reference internal" href="#id19" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon indices were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy. Today’s reference approach in net zero investing is the Paris-aligned benchmark methodology. But we will see later that it falls short in adressing both dimensions (decarbonizing the portfolio and financing the transition).</p>
-<p>In <strong>climate risks strategies</strong>, the objective is to <strong>hedge for climate change-related risks exposure</strong> in the portfolio (Andersson 2016 <span id="id2">[<a class="reference internal" href="#id20" title="Mats Andersson, Patrick Bolton, and Frédéric Samama. Hedging Climate Risk. Financial Analysts Journal, vol. 72, no. 3, 2016.">ABS16</a>]</span>, Gorgen et al. 2020 <span id="id3">[<a class="reference internal" href="#id21" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span>, Engle et al. 2019 <span id="id4">[<a class="reference internal" href="#id22" title="Robert F. Engle, Stefano Giglio, Heebum Lee, Bryan T. Kelly, and Johannes Stroebel. Hedging Climate Change News. Yale ICF Working Paper No. 2019-02, 2019.">EGL+19</a>]</span>, Roncalli et al. 2020 <span id="id5">[<a class="reference internal" href="#id23" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>). Two dimensions of climate risks need to be addressed: (i) transition risks and (ii) physical risks.
+<p>In <strong>climate impact strategies</strong>, the explicit objective is to <strong>decarbonize the portfolio</strong>. In the context of index offering, this involved initially in constructing low-carbon indices. However, as stated by Roncalli et al. (2022) <span id="id1">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon indices were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy. Today’s reference approach in net zero investing is the Paris-aligned benchmark methodology. But we will see later that it falls short in adressing both dimensions (decarbonizing the portfolio and financing the transition).</p>
+<p>In <strong>climate risks strategies</strong>, the objective is to <strong>hedge for climate change-related risks exposure</strong> in the portfolio (Andersson 2016 <span id="id2">[<a class="reference internal" href="references.html#id3" title="Mats Andersson, Patrick Bolton, and Frédéric Samama. Hedging Climate Risk. Financial Analysts Journal, vol. 72, no. 3, 2016.">ABS16</a>]</span>, Gorgen et al. 2020 <span id="id3">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span>, Engle et al. 2019 <span id="id4">[<a class="reference internal" href="references.html#id5" title="Robert F. Engle, Stefano Giglio, Heebum Lee, Bryan T. Kelly, and Johannes Stroebel. Hedging Climate Change News. Yale ICF Working Paper No. 2019-02, 2019.">EGL+19</a>]</span>, Roncalli et al. 2020 <span id="id5">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>). Two dimensions of climate risks need to be addressed: (i) transition risks and (ii) physical risks.
 Transition risks correspond to the risks arising from the sudden shift towards a low carbon economy. Such transitions could mean that some sectors of the economy face big shifts in asset values or higher costs of doing business.
-Physical risks correspond to the financial losses that come from climate change such as droughts, storms, or floods. As stated by Le Guenedal and Roncalli (2022) <span id="id6">[<a class="reference internal" href="#id24" title="Théo Le Guenedal and Thierry Roncalli. Portfolio Construction with Climate Risk Measures. Amundi, 2022.">GR22</a>]</span>), investors have paid more attention to the transition risks than to the physical risks up to date.</p>
+Physical risks correspond to the financial losses that come from climate change such as droughts, storms, or floods. As stated by Le Guenedal and Roncalli (2022) <span id="id6">[<a class="reference internal" href="references.html#id7" title="Théo Le Guenedal and Thierry Roncalli. Portfolio Construction with Climate Risk Measures. Amundi, 2022.">GR22</a>]</span>), investors have paid more attention to the transition risks than to the physical risks up to date.</p>
 <p>In the first part, we will see why financing the transition is still an hidden dimension in the most popular approach of net zero investing. In the second part, we’ll see that idiosyncratic measures of exposure to climate risks are lacking, especially regarding the physical risks dimension.</p>
 <section id="financing-the-transition-the-hidden-dimension-in-paris-aligned-benchmarks">
 <h2>Financing the Transition: the Hidden Dimension in Paris-Aligned Benchmarks<a class="headerlink" href="#financing-the-transition-the-hidden-dimension-in-paris-aligned-benchmarks" title="Permalink to this headline">#</a></h2>
-<p>When asset owners and managers speak about net zero investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least two goals: <strong>decarbonizing the portfolio and financing the transition</strong> (Roncalli et al. 2022 <span id="id7">[<a class="reference internal" href="#id19" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>).</p>
+<p>When asset owners and managers speak about net zero investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least two goals: <strong>decarbonizing the portfolio and financing the transition</strong> (Roncalli et al. 2022 <span id="id7">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>).</p>
 <p>In net zero investing, the Paris-Aligned Benchmarks is a popular methodology. The EU Technical Expert Group (TEG) developed the PAB rulebook stipulating standards for an index to align with the Paris temperature goal of 1.5°C. The minimum requirements are (i) a 7% year-on-year average self-decarbonization in line with IPCC’s 1.5°C scenario and (ii) an initial carbon intensity reduction of 50% relative to the investable universe.</p>
-<p>However, the <strong>PAB rulebook falls short in incentivising the transition to a green economy</strong>. To achieve the trajectory, most current PAB actively under-weight high impact sectors such as Energy, Materials or Utilities (GICS sectors), and overweight Information Technology, Financials and Real Estate (Steffen 2022 <span id="id8">[<a class="reference internal" href="#id28" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
+<p>However, the <strong>PAB rulebook falls short in incentivising the transition to a green economy</strong>. To achieve the trajectory, most current PAB actively under-weight high impact sectors such as Energy, Materials or Utilities (GICS sectors), and overweight Information Technology, Financials and Real Estate (Steffen 2022 <span id="id8">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
 <p>Indeed, the PAB rulebook’s exposure constraint requires intensity reductions to be achieved within “<em>high impact sectors</em>”, not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example.</p>
-<p>In practice, this means that there is a <strong>clear decoupling between the real economy and PABs</strong>. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 <span id="id9">[<a class="reference internal" href="#id28" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
-<p>To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) <span id="id10">[<a class="reference internal" href="#id19" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate net zero transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar but simplified approach.</p>
+<p>In practice, this means that there is a <strong>clear decoupling between the real economy and PABs</strong>. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 <span id="id9">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
+<p>To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) <span id="id10">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate net zero transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar but simplified approach.</p>
 </section>
 <section id="will-hedging-for-climate-risks-exposure-at-firm-level-still-unreachable">
 <h2>Will Hedging for Climate Risks Exposure at Firm Level Still Unreachable?<a class="headerlink" href="#will-hedging-for-climate-risks-exposure-at-firm-level-still-unreachable" title="Permalink to this headline">#</a></h2>
 <p>One can divide the issue in climate risks hedging strategies into two dimensions: (i) systematic or idiosyncratic measure of risks and (ii) the type of risks addressed (transition or physical risks).</p>
-<p>Some recent literature propose to address the exposure to the <strong>systematic transition risks with market measures</strong> (Gorgen et al. 2020 <span id="id11">[<a class="reference internal" href="#id21" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span>, Roncalli et al. 2020 <span id="id12">[<a class="reference internal" href="#id23" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>). To the best of our knowledge, no equivalent approach has been developed for exposure to systematic physical risks up to data. This underlies the focus on the transition risks dimension by investors.</p>
+<p>Some recent literature propose to address the exposure to the <strong>systematic transition risks with market measures</strong> (Gorgen et al. 2020 <span id="id11">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span>, Roncalli et al. 2020 <span id="id12">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>). To the best of our knowledge, no equivalent approach has been developed for exposure to systematic physical risks up to data. This underlies the focus on the transition risks dimension by investors.</p>
 <p>Regarding the <strong>idiosyncratic exposure to climate risks</strong>, some <strong>critics arised concerning the fundamental</strong> data traditionaly used to address them.</p>
-<p>First, for the transition risks dimension, <strong>carbon emissions</strong> are frequently used as fundamental. However, Aswani et al. (2022) <span id="id13">[<a class="reference internal" href="#id25" title="Jitendra Aswani, Aneesh Raghunandan, and Shivaram Rajgopal. Are Carbon Emissions Associated with Stock Returns? Columbia Business School Research Paper, 2022.">ARR22</a>]</span> shows that <strong>more than half of the observations reported by Trucost are estimated</strong> and not disclosed by firms (up to 80% for the most recent data). Hu et al. (2022) <span id="id14">[<a class="reference internal" href="#id26" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> state that this figure put question on the quality of analysis to be conducted using these data as fundamental as the estimated emissions are “<em><strong>are systematically biased as the estimation methods rely heavily on firm fundamentals and industry-level factors</strong></em>”.</p>
-<p>Second, for the physical risks dimension, fundamental data are sparse and difficult to handle to say the least. This mainly involves the modelling of projected event-intensity and <strong>disasters exposure</strong> at fine-grained geolocation level (county-level for US for example). This requires the <strong>geolocation fo the portfolio</strong>. Hu et al. (2022) <span id="id15">[<a class="reference internal" href="#id26" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> point out two main issues regarding the use of these data as fundamental data for assessing firms’ level exposure to physicals risks: (i) these data <strong>cannot distinguish impacts on different firms in the same geographic location</strong> (either country in some database / modelling approaches or county-level); (ii) the use of these data generally assume that <strong>firms are affected only if headquarters are located in the disaster area</strong>.</p>
-<p>In order to overcome those issues, a recent literature propose to use <strong>text-mining in order to measure firm-level exposure to climate risks</strong> (Sautner et al. 2020 <span id="id16">[<a class="reference internal" href="#id27" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span>) and Hu et al. 2022 <span id="id17">[<a class="reference internal" href="#id26" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span>). In the following, we will follow a similar approach.</p>
-<div class="docutils container" id="id18">
-<dl class="citation">
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id2">ABS16</a></span></dt>
-<dd><p>Mats Andersson, Patrick Bolton, and Frédéric Samama. <em>Hedging Climate Risk</em>. Financial Analysts Journal, vol. 72, no. 3, 2016.</p>
-</dd>
-<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id13">ARR22</a></span></dt>
-<dd><p>Jitendra Aswani, Aneesh Raghunandan, and Shivaram Rajgopal. <em>Are Carbon Emissions Associated with Stock Returns?</em> Columbia Business School Research Paper, 2022.</p>
-</dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id4">EGL+19</a></span></dt>
-<dd><p>Robert F. Engle, Stefano Giglio, Heebum Lee, Bryan T. Kelly, and Johannes Stroebel. <em>Hedging Climate Change News</em>. Yale ICF Working Paper No. 2019-02, 2019.</p>
-</dd>
-<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id6">GR22</a></span></dt>
-<dd><p>Théo Le Guenedal and Thierry Roncalli. <em>Portfolio Construction with Climate Risk Measures</em>. Amundi, 2022.</p>
-</dd>
-<dt class="label" id="id21"><span class="brackets">GJN+20</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id11">2</a>)</span></dt>
-<dd><p>Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. <em>Carbon Risk</em>. SSRN, 2020.</p>
-</dd>
-<dt class="label" id="id26"><span class="brackets">HLY22</span><span class="fn-backref">(<a href="#id14">1</a>,<a href="#id15">2</a>,<a href="#id17">3</a>)</span></dt>
-<dd><p>Weiwei Hu, Kai Li, and Tingyu Yu. <em>A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure</em>. SSRN, 2022.</p>
-</dd>
-<dt class="label" id="id19"><span class="brackets">IMNT22</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id7">2</a>,<a href="#id10">3</a>)</span></dt>
-<dd><p>Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. <em>Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach</em>. Amundi, 2022.</p>
-</dd>
-<dt class="label" id="id23"><span class="brackets">RGL+20</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id12">2</a>)</span></dt>
-<dd><p>Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. <em>Measuring and Managing Carbon Risk in Investment Portfolios</em>. Amundi, 2020.</p>
-</dd>
-<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id16">SvLVZ20</a></span></dt>
-<dd><p>Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. <em>Firm-level Climate Change Exposure</em>. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.</p>
-</dd>
-<dt class="label" id="id28"><span class="brackets">Ste22</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id9">2</a>)</span></dt>
-<dd><p>Tom Steffen. <em>A Critique of Paris Aligned Benchmarks</em>. Osmosis, 2022.</p>
-</dd>
-</dl>
-</div>
+<p>First, for the transition risks dimension, <strong>carbon emissions</strong> are frequently used as fundamental. However, Aswani et al. (2022) <span id="id13">[<a class="reference internal" href="references.html#id8" title="Jitendra Aswani, Aneesh Raghunandan, and Shivaram Rajgopal. Are Carbon Emissions Associated with Stock Returns? Columbia Business School Research Paper, 2022.">ARR22</a>]</span> shows that <strong>more than half of the observations reported by Trucost are estimated</strong> and not disclosed by firms (up to 80% for the most recent data). Hu et al. (2022) <span id="id14">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> state that this figure put question on the quality of analysis to be conducted using these data as fundamental as the estimated emissions are “<em><strong>are systematically biased as the estimation methods rely heavily on firm fundamentals and industry-level factors</strong></em>”.</p>
+<p>Second, for the physical risks dimension, fundamental data are sparse and difficult to handle to say the least. This mainly involves the modelling of projected event-intensity and <strong>disasters exposure</strong> at fine-grained geolocation level (county-level for US for example). This requires the <strong>geolocation fo the portfolio</strong>. Hu et al. (2022) <span id="id15">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> point out two main issues regarding the use of these data as fundamental data for assessing firms’ level exposure to physicals risks: (i) these data <strong>cannot distinguish impacts on different firms in the same geographic location</strong> (either country in some database / modelling approaches or county-level); (ii) the use of these data generally assume that <strong>firms are affected only if headquarters are located in the disaster area</strong>.</p>
+<p>In order to overcome those issues, a recent literature propose to use <strong>text-mining in order to measure firm-level exposure to climate risks</strong> (Sautner et al. 2020 <span id="id16">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span>) and Hu et al. 2022 <span id="id17">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span>). In the following, we will follow a similar approach.</p>
+</section>
+<section id="about-the-use-of-natural-language-processing-for-uncovering-hidden-dimensions-in-climate-investing">
+<h2>About the Use of Natural Language Processing for Uncovering Hidden Dimensions in Climate Investing<a class="headerlink" href="#about-the-use-of-natural-language-processing-for-uncovering-hidden-dimensions-in-climate-investing" title="Permalink to this headline">#</a></h2>
+<p>In what we’ve seen above, current hidden dimensions in climate investing (transition in net zero investing and firms level climate risks exposure in climate risks hedging) aren’t due to unwilligness of investors or regulators.</p>
+<p>Indeed, the most stringent root of shortcomings in current climate impact or climate risks strategies are due to the lack of proper data, noteworthy in the context of indices tilting, where large coverage needs to be ensure.</p>
+<p>To address the transition dimension in net zero investing, we need to tackle the issue regarding the green activities from issuers. We will propose an exploratory approach, with a <strong>text-based measure of exposure to green activities and the corresponding index tilted towards transition activities</strong>.</p>
+<p>To address the need for firm-level climate risks exposure measure, we will propose a <strong>text-based measure and the corresponding index hedging for exposure to climate risks</strong>.</p>
+<p>In the following part, we will briefly present a common simple framework in order to address these dimensions with Natural Language Processing and explore the implications for a tilted benchmark.</p>
 </section>
 </section>
 
@@ -356,10 +345,10 @@ Physical risks correspond to the financial losses that come from climate change 
             <p class="prev-next-title">Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Exploratory Approach</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="notebooks/ClimateMeasureNLP.html" title="next page">
+    <a class='right-next' id="next-link" href="asimpleframework.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework</p>
+        <p class="prev-next-title">A Simple Framework</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

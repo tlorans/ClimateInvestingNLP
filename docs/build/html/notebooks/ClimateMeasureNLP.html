@@ -1,0 +1,934 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework &#8212; Climate Investing with NLP 0 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Climate Investing with NLP 0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction.html">
+   Blind Spots of Climate Investing
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/ClimateMeasureNLP.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Keywords-extraction-and-Theme-specific-keywords">
+   Keywords extraction and Theme-specific keywords
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Embeddings">
+   Embeddings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Identifying-Keywords-Theme-Related-with-Cosine-Similarity">
+   Identifying Keywords Theme-Related with Cosine Similarity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Computing-Theme-Exposure">
+   Computing Theme Exposure
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Keywords-extraction-and-Theme-specific-keywords">
+   Keywords extraction and Theme-specific keywords
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Embeddings">
+   Embeddings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Identifying-Keywords-Theme-Related-with-Cosine-Similarity">
+   Identifying Keywords Theme-Related with Cosine Similarity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Computing-Theme-Exposure">
+   Computing Theme Exposure
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<section id="Quantifying-Firm-Level-Exposure-to-a-Climate-Theme-with-Natural-Language-Processing:-a-Simple-Framework">
+<h1>Quantifying Firm-Level Exposure to a Climate Theme with Natural Language Processing: a Simple Framework<a class="headerlink" href="#Quantifying-Firm-Level-Exposure-to-a-Climate-Theme-with-Natural-Language-Processing:-a-Simple-Framework" title="Permalink to this headline">#</a></h1>
+<p>Following Sautner et al. (2022) approach, one can build a firm-level theme exposure to a specific theme (in Sautner et al., climate risks exposure) based on text mining.</p>
+<p>More specifically, we can define the firm-level exposure to a theme as <em>the percentage of keywords from the firm’s text (in the following of this proposal earnings call transcripts or business description) that are related (ie. semantically similar) to a list of specific theme keywords.</em></p>
+<section id="Keywords-extraction-and-Theme-specific-keywords">
+<h2>Keywords extraction and Theme-specific keywords<a class="headerlink" href="#Keywords-extraction-and-Theme-specific-keywords" title="Permalink to this headline">#</a></h2>
+<p>We first need to extract, for each firm, a set of keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> from the firm specific text. We also need to define a set <span class="math notranslate nohighlight">\(S\)</span> of theme-specific keywords to be compared with.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install keyphrase-vectorizers
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keyphrase_vectorizers</span> <span class="kn">import</span> <span class="n">KeyphraseCountVectorizer</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">KeyphraseCountVectorizer</span><span class="p">(</span><span class="n">stop_words</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">)</span>
+
+<span class="n">firm_text</span> <span class="o">=</span> <span class="s2">&quot;The profitable growth in the gas and low carbon electricity integrated value chains is one of the key axes of Total&#39;s strategy. In order to give more visibility to these businesses, a new reporting structure for the business segments’ financial information has been put in place, effective January 1, 2019 and organized around four business segments: Exploration &amp; Production (EP), Integrated Gas, Renewables &amp; Power segment (iGRP), Refining &amp; Chemicals (RC) and Marketing &amp; Services (MS). The iGRP segment spearheads Total’s ambitions in integrated gas (including LNG, liquefied natural gas) and low carbon electricity businesses. It consists of the upstream and midstream LNG activity that was previously reported in the EP segment (refer to the indicative list of assets in the Annex) and the activity previously reported in the Gas Renewables &amp; Power segment. The new EP segment is adjusted accordingly&quot;</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">firm_text</span><span class="p">])</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="n">K</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;key axes&#39;, &#39;services&#39;, &#39;natural gas&#39;, &#39;new ep segment&#39;,
+       &#39;exploration&#39;, &#39;power segment&#39;, &#39;ambitions&#39;, &#39;activity&#39;,
+       &#39;low carbon electricity businesses&#39;, &#39;business segments&#39;,
+       &#39;refining&#39;, &#39;ms&#39;, &#39;value chains&#39;, &#39;lng&#39;, &#39;gas renewables&#39;, &#39;ep&#39;,
+       &#39;indicative list&#39;, &#39;profitable growth&#39;, &#39;place&#39;, &#39;renewables&#39;,
+       &#39;ep segment&#39;, &#39;businesses&#39;, &#39;integrated gas&#39;, &#39;order&#39;, &#39;strategy&#39;,
+       &#39;more visibility&#39;, &#39;rc&#39;, &#39;effective january&#39;, &#39;production&#39;,
+       &#39;low carbon electricity&#39;, &#39;annex&#39;, &#39;financial information&#39;,
+       &#39;midstream lng activity&#39;, &#39;chemicals&#39;, &#39;igrp segment&#39;, &#39;marketing&#39;,
+       &#39;new reporting structure&#39;, &#39;gas&#39;, &#39;assets&#39;, &#39;total&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solar pv&#39;</span><span class="p">,</span> <span class="s1">&#39;wind technology&#39;</span><span class="p">,</span><span class="s1">&#39;renewables equipment&#39;</span><span class="p">]</span>
+<span class="n">S</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;solar pv&#39;, &#39;wind technology&#39;, &#39;renewables equipment&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Embeddings">
+<h2>Embeddings<a class="headerlink" href="#Embeddings" title="Permalink to this headline">#</a></h2>
+<p>Once firm’s keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> are extracted and the set of theme-specific keywords <span class="math notranslate nohighlight">\(S\)</span> are defined, we need to transform those unstructured data (text) into a numerical representation. To do so, we use Sentence Transformer capacities to create numerical vector representation of the meanings of <span class="math notranslate nohighlight">\(K_{i,t}\)</span> and keywords in <span class="math notranslate nohighlight">\(S\)</span>:</p>
+<p><span class="math">\begin{equation}
+Emb^{k_{i,t}} = ST(k_{i,t})
+\end{equation}</span></p>
+<p>and</p>
+<p><span class="math">\begin{equation}
+Emb^{s} = ST(s)
+\end{equation}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{s}\)</span> are the numerical vector representation (embeddings) of the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> and the keyword <span class="math notranslate nohighlight">\(s\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install sentence_transformers
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span><span class="p">,</span> <span class="n">util</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">ST</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">emb_K</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">emb_K</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">emb_K</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+torch.Size([384])
+tensor([ 6.0319e-04, -4.7906e-02, -1.3035e-01, -7.0738e-02, -5.9981e-02,
+        -2.3404e-02,  3.2279e-02, -8.2857e-03,  7.3527e-02,  9.1478e-02,
+         1.1488e-01,  6.6241e-02,  1.1704e-02, -6.7941e-03, -1.5293e-02,
+         2.6211e-04, -9.4862e-02, -2.5783e-02, -5.4984e-02,  1.9077e-02,
+        -1.7698e-02, -8.5624e-02,  3.7961e-02, -9.3274e-03, -2.8578e-02,
+         4.0039e-02,  6.8037e-02,  9.6512e-02,  4.1532e-02, -3.9542e-02,
+        -2.8297e-02,  7.7898e-03, -8.0047e-03,  3.8723e-02, -1.3231e-01,
+         1.9708e-02,  5.8352e-02,  2.9194e-02, -5.1628e-02,  2.8699e-02,
+        -6.5272e-03,  4.1512e-02,  8.5519e-02,  3.4931e-02,  4.3499e-02,
+         1.0456e-01, -6.8079e-02, -4.3619e-02,  3.9288e-03, -7.3304e-04,
+        -1.4330e-02, -4.3029e-03, -7.0102e-02, -2.6189e-02,  2.5443e-02,
+         1.6860e-02, -1.9855e-02,  1.1232e-03,  8.1846e-02, -3.4303e-02,
+         2.7013e-02,  5.2045e-02, -7.3718e-03, -2.5660e-02, -5.9664e-03,
+         2.7971e-02, -5.2767e-02, -7.9512e-02, -9.9387e-02,  6.2026e-02,
+        -3.3658e-02, -8.4043e-02,  9.3570e-03, -1.1433e-01, -3.1001e-02,
+        -1.9453e-02, -2.2890e-02, -7.4868e-02,  1.3017e-02, -2.6641e-02,
+        -7.2699e-02,  2.7575e-02, -1.8862e-02,  1.3297e-01,  2.8072e-02,
+         6.1019e-02, -2.8116e-02,  2.5376e-03, -3.2326e-03,  2.1872e-02,
+         3.4381e-03, -2.1207e-02,  4.9859e-02,  2.3749e-02,  2.7290e-02,
+        -5.7494e-03,  8.0976e-02, -4.9740e-02, -7.0971e-02,  1.0174e-01,
+         2.2548e-02, -8.1329e-02,  1.3616e-02, -1.4752e-02, -7.1383e-03,
+         2.6850e-02,  4.9872e-02, -1.7436e-02, -4.7995e-02, -1.9420e-02,
+        -3.7335e-02,  1.1119e-02, -3.9378e-02,  6.1053e-03,  5.9105e-02,
+         3.5028e-02, -3.7214e-02,  1.0512e-02,  2.7275e-02, -2.8099e-02,
+         4.2189e-02, -7.9656e-03, -6.3284e-02,  5.8900e-02, -8.1370e-02,
+         5.4323e-03, -2.4179e-02, -2.5576e-33, -4.3884e-02,  6.8354e-02,
+        -3.6952e-03, -8.9474e-02, -3.5839e-02, -4.0436e-02, -5.8439e-02,
+        -4.9167e-03,  6.8180e-02,  1.4679e-01, -8.4061e-02,  4.2336e-02,
+        -1.2441e-02,  1.4736e-02,  4.1263e-02, -9.8096e-02,  8.8994e-02,
+         1.1955e-01, -1.1300e-01, -9.0212e-02, -3.6214e-02, -1.0135e-02,
+        -3.5100e-03, -1.1905e-02,  7.3957e-03,  9.8804e-02,  2.5448e-02,
+         3.2968e-03, -7.1482e-03, -1.1025e-02,  9.8673e-04,  6.3649e-02,
+        -7.5920e-02, -7.3323e-02, -3.2329e-02, -3.3275e-02,  1.1949e-02,
+        -4.7970e-03, -3.4881e-02,  1.9667e-02, -2.2067e-03, -3.8711e-02,
+        -2.4693e-02, -3.3023e-02,  1.8130e-02,  4.9609e-02,  5.2483e-02,
+         1.5481e-02,  3.1898e-02,  4.8397e-03, -2.5455e-02,  1.7212e-02,
+        -4.7140e-02, -3.2268e-02,  4.6685e-02, -2.2196e-03,  1.1297e-02,
+         3.5229e-02, -2.1023e-02,  3.6479e-03, -3.2116e-02, -7.3615e-02,
+         3.5769e-02,  3.4351e-02, -1.6073e-03, -4.9878e-03,  1.3705e-02,
+        -8.0440e-02,  8.2345e-03,  4.2787e-02, -7.8822e-02, -3.5565e-02,
+         9.4920e-03,  2.2536e-02, -4.1556e-02,  2.7755e-03, -2.7831e-02,
+        -1.2307e-02,  1.0239e-02, -2.1181e-02, -8.6555e-02,  8.7811e-02,
+        -9.5663e-02, -4.5663e-02,  5.6588e-02,  2.5552e-02,  1.5746e-02,
+        -4.0060e-02,  5.6614e-03, -1.4472e-02, -8.7304e-02, -3.4315e-02,
+        -3.9388e-02, -2.3290e-02, -4.8980e-02,  7.6562e-34, -5.8203e-02,
+         4.3894e-02, -2.2217e-02,  5.2253e-02, -5.6479e-02,  5.6716e-02,
+         4.6260e-02, -8.9913e-03, -1.0918e-02,  5.1986e-02,  4.4450e-03,
+        -6.5120e-03,  4.6033e-02, -8.4244e-02,  1.0962e-01, -8.8652e-03,
+        -8.5053e-02,  1.0775e-01, -1.3044e-02, -7.7940e-02,  2.2134e-05,
+        -8.2040e-02, -2.9821e-02,  3.1278e-02,  3.8800e-02,  9.1137e-02,
+         2.3193e-02,  3.5260e-02, -5.4488e-02,  2.2528e-02, -2.9126e-02,
+        -6.1534e-03,  4.5513e-04, -1.5260e-02,  4.4769e-03,  4.0083e-02,
+         1.9450e-03, -2.6282e-02, -1.0435e-01,  2.4503e-02, -4.9161e-03,
+         2.2369e-02,  1.0196e-01,  7.6014e-02, -6.3936e-02, -1.4797e-02,
+         3.4844e-02,  8.3217e-02, -2.1255e-02,  4.2084e-02,  2.8338e-03,
+         2.8771e-02,  4.7359e-02, -1.4181e-01, -5.1101e-02,  1.3638e-02,
+        -5.5205e-02,  6.7438e-03,  9.0382e-02, -2.2310e-02, -3.4229e-03,
+        -4.0894e-02,  2.4828e-02,  6.5463e-02,  1.7387e-02, -5.3055e-02,
+         9.2002e-02, -2.7910e-02, -4.7123e-02,  7.5017e-02,  5.6088e-02,
+         3.8105e-02,  2.9930e-02, -3.7540e-02,  3.1607e-02, -8.5717e-02,
+        -1.2737e-02, -1.8067e-02, -1.2325e-02, -5.3510e-03,  7.8701e-02,
+        -2.0912e-02,  7.1306e-02,  8.7455e-02, -2.7917e-02,  7.0674e-02,
+        -2.7644e-02,  4.7822e-02,  3.2145e-02,  5.4341e-02,  2.6188e-02,
+         3.0423e-02,  1.4170e-02,  2.5028e-02,  5.3790e-02, -1.1275e-08,
+        -4.9572e-02,  1.1138e-01,  8.6166e-03, -2.9381e-02, -3.8988e-02,
+        -7.4658e-03, -1.2223e-02,  5.3203e-02, -2.2746e-02, -3.0748e-02,
+         2.1745e-02, -8.4958e-03, -5.4263e-02,  5.2940e-03, -2.8448e-02,
+         4.2296e-02, -2.8996e-04,  3.2922e-02,  3.7901e-02,  2.3852e-02,
+         3.1369e-02, -1.5624e-03,  7.0010e-02,  9.4230e-03, -7.8551e-02,
+         1.6800e-02, -5.2656e-02,  1.3897e-01,  5.9427e-02,  7.9529e-02,
+         4.5043e-02, -2.1802e-02,  1.4607e-01, -7.5472e-03, -2.9905e-02,
+        -4.0346e-02, -5.3599e-02,  6.3155e-02, -1.4472e-02,  1.5306e-02,
+        -5.3410e-02, -5.4940e-02, -4.6256e-02, -1.7636e-02, -9.1280e-02,
+         1.1237e-01,  2.5239e-02,  2.3367e-02, -6.8188e-02, -6.5153e-02,
+        -2.9118e-02, -4.4626e-02,  6.4052e-02,  1.6805e-02, -3.0919e-02,
+         7.6303e-02,  2.4738e-02,  2.3109e-02,  4.0332e-02,  5.7550e-03,
+        -2.0040e-02,  3.6741e-02, -9.4886e-02, -3.8128e-02])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">emb_S</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Identifying-Keywords-Theme-Related-with-Cosine-Similarity">
+<h2>Identifying Keywords Theme-Related with Cosine Similarity<a class="headerlink" href="#Identifying-Keywords-Theme-Related-with-Cosine-Similarity" title="Permalink to this headline">#</a></h2>
+<p>We want to be able to determine if the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> is related to our theme, thanks to the theme-specific keywords.</p>
+<p>As we now have numerical vector representations of our keywords <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^s\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the keywords, computing the closeness of our vectors allows for determining the semantic similarity between our keywords.</p>
+<p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the keywords are:</p>
+<p><span class="math">\begin{equation}
+cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||Emb^s||}
+\end{equation}</span></p>
+<p>For each keyword extracted from firm’s text <span class="math notranslate nohighlight">\(k_{i,t}\)</span>, the cosine similarity is computed against each theme-specific keywords <span class="math notranslate nohighlight">\(s\)</span>. The maximum cosine similarity measure is retained, and then compared to a predefined threshold (0.6) in order to finally determined if the keyword is related to our theme:</p>
+<dl>
+<dt>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{equation}</dt><dd><p>tau(k_{i,t})=
+begin{cases}</p>
+<blockquote>
+<div><p>0, &amp; text{if}cos(theta_{k_{i,t},s}) &lt; 0.6 \
+1, &amp; text{otherwise}</p>
+</div></blockquote>
+<p>end{cases}</p>
+</dd>
+</dl>
+<p>end{equation}`</p>
+<p>Where <span class="math notranslate nohighlight">\(\tau(k_{i,t})\)</span> corresponds to an indicator taking the value 1 if the keyword is related to our specific theme and 0 otherwise.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">emb_K</span><span class="p">,</span> <span class="n">emb_S</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hits</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[{&#39;corpus_id&#39;: 1, &#39;score&#39;: 0.08907477557659149}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.2804577648639679}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.2923046946525574}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.11122070252895355}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.10033018887042999}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.2162817418575287}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.09399345517158508}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.2687630355358124}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.39827126264572144}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.12914493680000305}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.15724506974220276}],
+ [{&#39;corpus_id&#39;: 1, &#39;score&#39;: 0.1424086093902588}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.25599735975265503}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.14899525046348572}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.6965174674987793}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.18591859936714172}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.08812528103590012}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.19480028748512268}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.15173721313476562}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.7917177081108093}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.14508482813835144}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.25476109981536865}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.22349005937576294}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.09128467738628387}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.13581551611423492}],
+ [{&#39;corpus_id&#39;: 1, &#39;score&#39;: 0.14822091162204742}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.15621855854988098}],
+ [{&#39;corpus_id&#39;: 1, &#39;score&#39;: 0.09564703702926636}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.27780526876449585}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.3770102858543396}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.08056971430778503}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.06822887808084488}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.20004017651081085}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.2466813027858734}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.10576629638671875}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.2104777693748474}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.10618101060390472}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.2792923152446747}],
+ [{&#39;corpus_id&#39;: 2, &#39;score&#39;: 0.2769312262535095}],
+ [{&#39;corpus_id&#39;: 0, &#39;score&#39;: 0.1651279330253601}]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.2804577648639679
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hits</span><span class="p">)):</span>
+  <span class="k">if</span> <span class="n">hits</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.6</span><span class="p">:</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="n">T</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;gas renewables&#39; &#39;renewables&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Computing-Theme-Exposure">
+<h2>Computing Theme Exposure<a class="headerlink" href="#Computing-Theme-Exposure" title="Permalink to this headline">#</a></h2>
+<p>Finally, we can compute our theme exposure such as:</p>
+<p><span class="math">\begin{equation}
+Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
+\end{equation}</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Exposure</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Exposure</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.05
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Thomas Lorans<br/>
+  
+      &copy; Copyright 2023, Thomas Lorans.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

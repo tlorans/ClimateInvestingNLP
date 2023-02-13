@@ -31,7 +31,11 @@ extensions = [
     'myst_parser',
     'sphinx.ext.autosectionlabel',
     "nbsphinx",
+    "sphinxcontrib.bibtex",
 ]
+
+bibtex_bibfiles = ['refs.bib']
+
 
 templates_path = ['_templates']
 exclude_patterns = []

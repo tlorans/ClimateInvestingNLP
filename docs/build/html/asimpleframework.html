@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>A Simple Framework &#8212; Climate Investing with NLP 0 documentation</title>
+    <title>A Simple End to End Framework &#8212; Climate Investing with NLP 0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -97,7 +97,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   A Simple Framework
+   A Simple End to End Framework
   </a>
  </li>
  <li class="toctree-l1">
@@ -295,7 +295,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>A Simple Framework</h1>
+                <h1>A Simple End to End Framework</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -364,15 +364,19 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="a-simple-framework">
-<h1>A Simple Framework<a class="headerlink" href="#a-simple-framework" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="a-simple-end-to-end-framework">
+<h1>A Simple End to End Framework<a class="headerlink" href="#a-simple-end-to-end-framework" title="Permalink to this headline">#</a></h1>
+<p>In order to explore how Natural Language Processing can help in addressing climate investing issues, we propose a simple end to end framework, starting with an algorithm adapted from Sautner et al. (2020) <span id="id1">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> to construct firm-level exposure to a climate theme (later exposure to green activities and exposure to climate risks) and follow Roncalli’s approach (2023) <span id="id2">[<a class="reference internal" href="references.html#id12" title="Thierry Roncalli. Handbook of Sustainable Finance. SSRN, 2023.">Ron23</a>]</span> for the benchmark tilting.</p>
 <section id="firm-level-exposure-to-a-climate-theme-with-nlp">
 <h2>Firm-Level Exposure to a Climate Theme with NLP<a class="headerlink" href="#firm-level-exposure-to-a-climate-theme-with-nlp" title="Permalink to this headline">#</a></h2>
-<p>Following Sautner et al. (2020) <span id="id1">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> approach, one can build a firm-level theme exposure to a specific theme (in Sautner et al., climate risks exposure) based on text mining.</p>
+<p>Following Sautner et al. (2020) <span id="id3">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> approach, one can build a firm-level theme exposure to a specific theme (in Sautner et al., climate risks exposure) based on text mining.</p>
 <p>More specifically, we can define the firm-level exposure to a theme as <em>the percentage of keywords from the firm’s text (in the following of this proposal earnings call transcripts or business description) that are related (ie. semantically similar) to a list of specific theme keywords.</em></p>
 <section id="keywords-extraction-and-theme-specific-keywords">
 <h3>Keywords Extraction and Theme-Specific Keywords<a class="headerlink" href="#keywords-extraction-and-theme-specific-keywords" title="Permalink to this headline">#</a></h3>
 <p>We first need to extract, for each firm, a set of keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> from the firm specific text. We also need to define a set <span class="math notranslate nohighlight">\(S\)</span> of theme-specific keywords to be compared with.</p>
+<p>Let’s have an example with the following text:</p>
+<p><em>The profitable growth in the gas and low carbon electricity integrated value chains is one of the key axes of Total’s strategy. In order to give more visibility to these businesses, a new reporting structure for the business segments’ financial information has been put in place, effective January 1, 2019 and organized around four business segments: Exploration &amp; Production (EP), Integrated Gas, Renewables &amp; Power segment (iGRP), Refining &amp; Chemicals (RC) and Marketing &amp; Services (MS). The iGRP segment spearheads Total’s ambitions in integrated gas (including LNG, liquefied natural gas) and low carbon electricity businesses. It consists of the upstream and midstream LNG activity that was previously reported in the EP segment (refer to the indicative list of assets in the Annex) and the activity previously reported in the Gas Renewables &amp; Power segment. The new EP segment is adjusted accordingly.</em></p>
+<p>Below, we install the package <code class="docutils literal notranslate"><span class="pre">keyphrase-vectorizers</span></code> that will extract keywords from the text above.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install keyphrase-vectorizers
 
 from keyphrase_vectorizers import KeyphraseCountVectorizer  
@@ -384,7 +388,8 @@ firm_text = &quot;The profitable growth in the gas and low carbon electricity in
 K = vectorizer.fit([firm_text]).get_feature_names_out()
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;key axes&#39;</span><span class="p">,</span> <span class="s1">&#39;services&#39;</span><span class="p">,</span> <span class="s1">&#39;natural gas&#39;</span><span class="p">,</span> <span class="s1">&#39;new ep segment&#39;</span><span class="p">,</span>
+<p>The resulting list of keywords would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;key axes&#39;</span><span class="p">,</span> <span class="s1">&#39;services&#39;</span><span class="p">,</span> <span class="s1">&#39;natural gas&#39;</span><span class="p">,</span> <span class="s1">&#39;new ep segment&#39;</span><span class="p">,</span>
        <span class="s1">&#39;exploration&#39;</span><span class="p">,</span> <span class="s1">&#39;power segment&#39;</span><span class="p">,</span> <span class="s1">&#39;ambitions&#39;</span><span class="p">,</span> <span class="s1">&#39;activity&#39;</span><span class="p">,</span>
        <span class="s1">&#39;low carbon electricity businesses&#39;</span><span class="p">,</span> <span class="s1">&#39;business segments&#39;</span><span class="p">,</span>
        <span class="s1">&#39;refining&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;value chains&#39;</span><span class="p">,</span> <span class="s1">&#39;lng&#39;</span><span class="p">,</span> <span class="s1">&#39;gas renewables&#39;</span><span class="p">,</span> <span class="s1">&#39;ep&#39;</span><span class="p">,</span>
@@ -396,24 +401,25 @@ K = vectorizer.fit([firm_text]).get_feature_names_out()
        <span class="s1">&#39;new reporting structure&#39;</span><span class="p">,</span> <span class="s1">&#39;gas&#39;</span><span class="p">,</span> <span class="s1">&#39;assets&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Let’s store a short list of theme specific keywords for later use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solar pv&#39;</span><span class="p">,</span> <span class="s1">&#39;wind technology&#39;</span><span class="p">,</span><span class="s1">&#39;renewables equipment&#39;</span><span class="p">]</span>
-
 </pre></div>
 </div>
 </section>
 <section id="embeddings">
 <h3>Embeddings<a class="headerlink" href="#embeddings" title="Permalink to this headline">#</a></h3>
 <p>Once firm’s keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> are extracted and the set of theme-specific keywords <span class="math notranslate nohighlight">\(S\)</span> are defined, we need to transform those unstructured data (text) into a numerical representation. To do so, we use Sentence Transformer capacities to create numerical vector representation of the meanings of <span class="math notranslate nohighlight">\(K_{i,t}\)</span> and keywords in <span class="math notranslate nohighlight">\(S\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e6469ef4-8828-4447-862f-3326ba7c3646">
-<span class="eqno">(1)<a class="headerlink" href="#equation-e6469ef4-8828-4447-862f-3326ba7c3646" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e0b0faed-904b-486c-be86-2ba041aaf53d">
+<span class="eqno">(1)<a class="headerlink" href="#equation-e0b0faed-904b-486c-be86-2ba041aaf53d" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{k_{i,t}} = ST(k_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14a65121-31f6-4048-a2d0-baec1bdc4e06">
-<span class="eqno">(2)<a class="headerlink" href="#equation-14a65121-31f6-4048-a2d0-baec1bdc4e06" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b4e4fdcf-e109-4d71-ae8d-b8a71819ca84">
+<span class="eqno">(2)<a class="headerlink" href="#equation-b4e4fdcf-e109-4d71-ae8d-b8a71819ca84" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{s} = ST(s)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{s}\)</span> are the numerical vector representation (embeddings) of the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> and the keyword <span class="math notranslate nohighlight">\(s\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
+<p>Below we install and apply the package <code class="docutils literal notranslate"><span class="pre">sentence-transformers</span></code> for our keywords embeddings.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install sentence_transformers
 
 from sentence_transformers import SentenceTransformer, util
@@ -431,13 +437,13 @@ emb_S = ST.encode(S, convert_to_tensor=True)
 <p>We want to be able to determine if the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> is related to our theme, thanks to the theme-specific keywords.</p>
 <p>As we now have numerical vector representations of our keywords <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^s\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the keywords, computing the closeness of our vectors allows for determining the semantic similarity between our keywords.</p>
 <p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the keywords are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-03f214f8-6909-4d5d-b923-d3236af6639c">
-<span class="eqno">(3)<a class="headerlink" href="#equation-03f214f8-6909-4d5d-b923-d3236af6639c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e2745888-70f2-400d-b9a1-db7512998823">
+<span class="eqno">(3)<a class="headerlink" href="#equation-e2745888-70f2-400d-b9a1-db7512998823" title="Permalink to this equation">#</a></span>\[\begin{equation}
 cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||Emb^s||}
 \end{equation}\]</div>
 <p>For each keyword extracted from firm’s text <span class="math notranslate nohighlight">\(k_{i,t}\)</span>, the cosine similarity is computed against each theme-specific keywords <span class="math notranslate nohighlight">\(s\)</span>. The maximum cosine similarity measure is retained, and then compared to a predefined threshold (0.6) in order to finally determined if the keyword is related to our theme:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-abcb1b36-ce5f-40e0-b580-4f60e04ca05f">
-<span class="eqno">(4)<a class="headerlink" href="#equation-abcb1b36-ce5f-40e0-b580-4f60e04ca05f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6045a7a8-f582-4e4d-9960-53dff5d6265e">
+<span class="eqno">(4)<a class="headerlink" href="#equation-6045a7a8-f582-4e4d-9960-53dff5d6265e" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \tau(k_{i,t})=
   \begin{cases}
     0, &amp; \text{if}\ cos(\theta_{k_{i,t},s}) &lt; 0.6 \\
@@ -445,6 +451,7 @@ cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||E
   \end{cases}
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\tau(k_{i,t})\)</span> corresponds to an indicator taking the value 1 if the keyword is related to our specific theme and 0 otherwise.</p>
+<p>Below we use the <code class="docutils literal notranslate"><span class="pre">semantic_search</span></code> function from the <code class="docutils literal notranslate"><span class="pre">sentence-transformers</span></code> package, that compute the cosine similarity between our embeddings.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">emb_K</span><span class="p">,</span> <span class="n">emb_S</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
@@ -457,6 +464,7 @@ cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||E
 <span class="nb">print</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="n">T</span><span class="p">])</span>
 </pre></div>
 </div>
+<p>Among the keywords extracted from our example, two are identified as close to our theme specific keywords:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;gas renewables&#39;</span> <span class="s1">&#39;renewables&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -464,8 +472,8 @@ cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||E
 <section id="exposure">
 <h3>Exposure<a class="headerlink" href="#exposure" title="Permalink to this headline">#</a></h3>
 <p>Finally, we can compute our theme exposure such as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9e97cdc1-aaea-40b3-9f3d-85405a0b4ab5">
-<span class="eqno">(5)<a class="headerlink" href="#equation-9e97cdc1-aaea-40b3-9f3d-85405a0b4ab5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-824435a4-7fda-4297-a859-6f03b991b818">
+<span class="eqno">(5)<a class="headerlink" href="#equation-824435a4-7fda-4297-a859-6f03b991b818" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
 \end{equation}\]</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Exposure</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
@@ -482,8 +490,8 @@ Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
 <section id="benchmark-greeness">
 <h3>Benchmark Greeness<a class="headerlink" href="#benchmark-greeness" title="Permalink to this headline">#</a></h3>
 <p>Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of a benchmark which is equally-weighted:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eb15ac85-786b-4c12-8032-f62966344ea7">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eb15ac85-786b-4c12-8032-f62966344ea7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-86cc9575-56d3-43f4-b163-770668a68536">
+<span class="eqno">(6)<a class="headerlink" href="#equation-86cc9575-56d3-43f4-b163-770668a68536" title="Permalink to this equation">#</a></span>\[\begin{equation}
 b = \begin{bmatrix}
            0.2 \\
            0.2 \\
@@ -493,8 +501,8 @@ b = \begin{bmatrix}
          \end{bmatrix}
 \end{equation}\]</div>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d45916d2-dfc9-4df3-8286-bd792e90d808">
-<span class="eqno">(7)<a class="headerlink" href="#equation-d45916d2-dfc9-4df3-8286-bd792e90d808" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9ce45c36-59b0-4863-afff-792a04b34e18">
+<span class="eqno">(7)<a class="headerlink" href="#equation-9ce45c36-59b0-4863-afff-792a04b34e18" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G = \begin{bmatrix}
            0.95 \\
            0.08 \\
@@ -504,8 +512,8 @@ G = \begin{bmatrix}
          \end{bmatrix}
 \end{equation}\]</div>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0a572622-729f-4b0d-96be-030486b120f5">
-<span class="eqno">(8)<a class="headerlink" href="#equation-0a572622-729f-4b0d-96be-030486b120f5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-dc4fb0eb-e6bf-49ad-92a9-2e79a1c38ccb">
+<span class="eqno">(8)<a class="headerlink" href="#equation-dc4fb0eb-e6bf-49ad-92a9-2e79a1c38ccb" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -522,8 +530,8 @@ G(b) = b^TG
 <section id="tracking-error-volatility-and-excess-greeness">
 <h3>Tracking Error Volatility and Excess Greeness<a class="headerlink" href="#tracking-error-volatility-and-excess-greeness" title="Permalink to this headline">#</a></h3>
 <p>Having the previous benchmark, let’s assume a portfolio with the same issuers than the benchmark, but with different weights <span class="math notranslate nohighlight">\(x\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-82a0d005-a83c-444b-b224-fd82dbe64317">
-<span class="eqno">(9)<a class="headerlink" href="#equation-82a0d005-a83c-444b-b224-fd82dbe64317" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ae77eccd-6230-47e6-b0f4-b47b837e9cc1">
+<span class="eqno">(9)<a class="headerlink" href="#equation-ae77eccd-6230-47e6-b0f4-b47b837e9cc1" title="Permalink to this equation">#</a></span>\[\begin{equation}
 x = \begin{bmatrix}
            0.10 \\
            0.15 \\
@@ -536,8 +544,8 @@ x = \begin{bmatrix}
 </pre></div>
 </div>
 <p>Let’s have the following covariance matrix:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-594b7e80-e7da-4538-a59a-9facbdd7e65f">
-<span class="eqno">(10)<a class="headerlink" href="#equation-594b7e80-e7da-4538-a59a-9facbdd7e65f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-19819ea0-c08f-4db5-bb55-ce471132ea08">
+<span class="eqno">(10)<a class="headerlink" href="#equation-19819ea0-c08f-4db5-bb55-ce471132ea08" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \Sigma = 
 \begin{pmatrix}
 0.1536 &amp; 0.006 &amp; 0.0108 &amp; 0.0156 &amp; 0.024 \\
@@ -555,8 +563,8 @@ x = \begin{bmatrix}
 </pre></div>
 </div>
 <p>We can compare the relative performance of the tilted portfolio compared to the benchmark with the tracking error volatility:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0e3d9c88-8821-4d7f-82b0-4e86d4feecb4">
-<span class="eqno">(11)<a class="headerlink" href="#equation-0e3d9c88-8821-4d7f-82b0-4e86d4feecb4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6fe7029b-c266-4100-8f25-7f3986d8645b">
+<span class="eqno">(11)<a class="headerlink" href="#equation-6fe7029b-c266-4100-8f25-7f3986d8645b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
 \end{equation}\]</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
@@ -566,8 +574,8 @@ x = \begin{bmatrix}
 </pre></div>
 </div>
 <p>and the excess greeness:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a248955b-873d-4549-a84d-ae6f126e4140">
-<span class="eqno">(12)<a class="headerlink" href="#equation-a248955b-873d-4549-a84d-ae6f126e4140" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2108e450-2542-40a8-9fa2-201b837a6dd4">
+<span class="eqno">(12)<a class="headerlink" href="#equation-2108e450-2542-40a8-9fa2-201b837a6dd4" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">excess_greeness</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G</span>

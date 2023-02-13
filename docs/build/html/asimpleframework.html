@@ -409,13 +409,13 @@ K = vectorizer.fit([firm_text]).get_feature_names_out()
 <section id="embeddings">
 <h3>Embeddings<a class="headerlink" href="#embeddings" title="Permalink to this headline">#</a></h3>
 <p>Once firm’s keywords <span class="math notranslate nohighlight">\(K_{i,t}\)</span> are extracted and the set of theme-specific keywords <span class="math notranslate nohighlight">\(S\)</span> are defined, we need to transform those unstructured data (text) into a numerical representation. To do so, we use Sentence Transformer capacities to create numerical vector representation of the meanings of <span class="math notranslate nohighlight">\(K_{i,t}\)</span> and keywords in <span class="math notranslate nohighlight">\(S\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e0b0faed-904b-486c-be86-2ba041aaf53d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-e0b0faed-904b-486c-be86-2ba041aaf53d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d09b7b2e-3b0a-425b-8901-b0f44464139c">
+<span class="eqno">(1)<a class="headerlink" href="#equation-d09b7b2e-3b0a-425b-8901-b0f44464139c" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{k_{i,t}} = ST(k_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b4e4fdcf-e109-4d71-ae8d-b8a71819ca84">
-<span class="eqno">(2)<a class="headerlink" href="#equation-b4e4fdcf-e109-4d71-ae8d-b8a71819ca84" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c21e4362-7088-46df-8c8c-37a672de3456">
+<span class="eqno">(2)<a class="headerlink" href="#equation-c21e4362-7088-46df-8c8c-37a672de3456" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{s} = ST(s)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{s}\)</span> are the numerical vector representation (embeddings) of the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> and the keyword <span class="math notranslate nohighlight">\(s\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
@@ -437,13 +437,13 @@ emb_S = ST.encode(S, convert_to_tensor=True)
 <p>We want to be able to determine if the keyword <span class="math notranslate nohighlight">\(k_{i,t}\)</span> is related to our theme, thanks to the theme-specific keywords.</p>
 <p>As we now have numerical vector representations of our keywords <span class="math notranslate nohighlight">\(Emb^{k_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(Emb^s\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the keywords, computing the closeness of our vectors allows for determining the semantic similarity between our keywords.</p>
 <p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the keywords are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e2745888-70f2-400d-b9a1-db7512998823">
-<span class="eqno">(3)<a class="headerlink" href="#equation-e2745888-70f2-400d-b9a1-db7512998823" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-8ecc0020-2177-492f-b221-8ff9731908d8">
+<span class="eqno">(3)<a class="headerlink" href="#equation-8ecc0020-2177-492f-b221-8ff9731908d8" title="Permalink to this equation">#</a></span>\[\begin{equation}
 cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||Emb^s||}
 \end{equation}\]</div>
 <p>For each keyword extracted from firm’s text <span class="math notranslate nohighlight">\(k_{i,t}\)</span>, the cosine similarity is computed against each theme-specific keywords <span class="math notranslate nohighlight">\(s\)</span>. The maximum cosine similarity measure is retained, and then compared to a predefined threshold (0.6) in order to finally determined if the keyword is related to our theme:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6045a7a8-f582-4e4d-9960-53dff5d6265e">
-<span class="eqno">(4)<a class="headerlink" href="#equation-6045a7a8-f582-4e4d-9960-53dff5d6265e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5d260369-25e7-4273-889b-41eeca2019e4">
+<span class="eqno">(4)<a class="headerlink" href="#equation-5d260369-25e7-4273-889b-41eeca2019e4" title="Permalink to this equation">#</a></span>\[\begin{equation}
   \tau(k_{i,t})=
   \begin{cases}
     0, &amp; \text{if}\ cos(\theta_{k_{i,t},s}) &lt; 0.6 \\
@@ -472,8 +472,8 @@ cos(\theta_{k_{i,t},s}) = \frac{Emb^{k_{i,t}} \cdot Emb^s}{||Emb^{k_{i,t}}|| ||E
 <section id="exposure">
 <h3>Exposure<a class="headerlink" href="#exposure" title="Permalink to this headline">#</a></h3>
 <p>Finally, we can compute our theme exposure such as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-824435a4-7fda-4297-a859-6f03b991b818">
-<span class="eqno">(5)<a class="headerlink" href="#equation-824435a4-7fda-4297-a859-6f03b991b818" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-850e91f3-77d9-43d7-83a1-6ed881608824">
+<span class="eqno">(5)<a class="headerlink" href="#equation-850e91f3-77d9-43d7-83a1-6ed881608824" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
 \end{equation}\]</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Exposure</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
@@ -487,11 +487,13 @@ Exposure_{i,t} = \frac{1}{K_{i,t}}\sum_{k}^{K_{i,t}}\tau(k_{i,t})
 </section>
 <section id="climate-tilting">
 <h2>Climate Tilting<a class="headerlink" href="#climate-tilting" title="Permalink to this headline">#</a></h2>
+<p>In what follows we present our simple framework for tilting a benchmark according to a dual objective: (i) minimizing the tracking error volatility risk and (ii) improving the <em>greeness</em> of the tilted version compared to the benchmark. To do so, we follow the approach from Roncalli (2023) <span id="id4">[<a class="reference internal" href="references.html#id12" title="Thierry Roncalli. Handbook of Sustainable Finance. SSRN, 2023.">Ron23</a>]</span>, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.</p>
 <section id="benchmark-greeness">
 <h3>Benchmark Greeness<a class="headerlink" href="#benchmark-greeness" title="Permalink to this headline">#</a></h3>
-<p>Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of a benchmark which is equally-weighted:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-86cc9575-56d3-43f4-b163-770668a68536">
-<span class="eqno">(6)<a class="headerlink" href="#equation-86cc9575-56d3-43f4-b163-770668a68536" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>We need first to define the <em>benchmark greeness</em>.
+Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of a benchmark which is equally-weighted:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1eb5c608-a69b-4ebb-b096-4a01199ad87b">
+<span class="eqno">(6)<a class="headerlink" href="#equation-1eb5c608-a69b-4ebb-b096-4a01199ad87b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 b = \begin{bmatrix}
            0.2 \\
            0.2 \\
@@ -501,8 +503,8 @@ b = \begin{bmatrix}
          \end{bmatrix}
 \end{equation}\]</div>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9ce45c36-59b0-4863-afff-792a04b34e18">
-<span class="eqno">(7)<a class="headerlink" href="#equation-9ce45c36-59b0-4863-afff-792a04b34e18" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-63565a88-dfa4-493b-9186-2b0dde5ed473">
+<span class="eqno">(7)<a class="headerlink" href="#equation-63565a88-dfa4-493b-9186-2b0dde5ed473" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G = \begin{bmatrix}
            0.95 \\
            0.08 \\
@@ -512,10 +514,11 @@ G = \begin{bmatrix}
          \end{bmatrix}
 \end{equation}\]</div>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dc4fb0eb-e6bf-49ad-92a9-2e79a1c38ccb">
-<span class="eqno">(8)<a class="headerlink" href="#equation-dc4fb0eb-e6bf-49ad-92a9-2e79a1c38ccb" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-76918cf4-a8ef-4277-a049-fe52120590f6">
+<span class="eqno">(8)<a class="headerlink" href="#equation-76918cf4-a8ef-4277-a049-fe52120590f6" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
+<p>Below we import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in order to compute the benchmark greeness.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
@@ -523,15 +526,16 @@ G(b) = b^TG
 <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.4580000000000001</span>
+<p>According to the illustrative data we use, the benchmark greeness is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.4580000000000001</span>
 </pre></div>
 </div>
 </section>
 <section id="tracking-error-volatility-and-excess-greeness">
 <h3>Tracking Error Volatility and Excess Greeness<a class="headerlink" href="#tracking-error-volatility-and-excess-greeness" title="Permalink to this headline">#</a></h3>
 <p>Having the previous benchmark, let’s assume a portfolio with the same issuers than the benchmark, but with different weights <span class="math notranslate nohighlight">\(x\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ae77eccd-6230-47e6-b0f4-b47b837e9cc1">
-<span class="eqno">(9)<a class="headerlink" href="#equation-ae77eccd-6230-47e6-b0f4-b47b837e9cc1" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c61e16fc-4830-461f-a712-cab94d1ddb34">
+<span class="eqno">(9)<a class="headerlink" href="#equation-c61e16fc-4830-461f-a712-cab94d1ddb34" title="Permalink to this equation">#</a></span>\[\begin{equation}
 x = \begin{bmatrix}
            0.10 \\
            0.15 \\
@@ -540,12 +544,9 @@ x = \begin{bmatrix}
            0.25
          \end{bmatrix}
 \end{equation}\]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
-</pre></div>
-</div>
 <p>Let’s have the following covariance matrix:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-19819ea0-c08f-4db5-bb55-ce471132ea08">
-<span class="eqno">(10)<a class="headerlink" href="#equation-19819ea0-c08f-4db5-bb55-ce471132ea08" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-39dc8569-3159-4035-8939-da3de35387ed">
+<span class="eqno">(10)<a class="headerlink" href="#equation-39dc8569-3159-4035-8939-da3de35387ed" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \Sigma = 
 \begin{pmatrix}
 0.1536 &amp; 0.006 &amp; 0.0108 &amp; 0.0156 &amp; 0.024 \\
@@ -555,39 +556,44 @@ x = \begin{bmatrix}
 0.024 &amp; 0.04 &amp; 0.072 &amp; 0.104 &amp; 0.28 \\
 \end{pmatrix}
 \end{equation}\]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.1536</span><span class="p">,</span>  <span class="mf">0.006</span><span class="p">,</span>  <span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.024</span><span class="p">],</span>
+<p>We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0af0b596-5033-4cb5-bd9c-5a80cb2526d1">
+<span class="eqno">(11)<a class="headerlink" href="#equation-0af0b596-5033-4cb5-bd9c-5a80cb2526d1" title="Permalink to this equation">#</a></span>\[\begin{equation}
+\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
+\end{equation}\]</div>
+<p>Below we compute the tracking error volatility:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.1536</span><span class="p">,</span>  <span class="mf">0.006</span><span class="p">,</span>  <span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.024</span><span class="p">],</span>
                  <span class="p">[</span><span class="mf">0.006</span><span class="p">,</span>   <span class="mf">0.17</span><span class="p">,</span>   <span class="mf">0.018</span><span class="p">,</span>   <span class="mf">0.026</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">],</span>
                  <span class="p">[</span><span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.018</span><span class="p">,</span>  <span class="mf">0.1324</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.072</span><span class="p">],</span>
                  <span class="p">[</span><span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.026</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.1776</span><span class="p">,</span>  <span class="mf">0.104</span><span class="p">],</span>
                  <span class="p">[</span><span class="mf">0.024</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">,</span>   <span class="mf">0.072</span><span class="p">,</span>   <span class="mf">0.104</span><span class="p">,</span>   <span class="mf">0.28</span><span class="p">]])</span>
+
+<span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>We can compare the relative performance of the tilted portfolio compared to the benchmark with the tracking error volatility:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6fe7029b-c266-4100-8f25-7f3986d8645b">
-<span class="eqno">(11)<a class="headerlink" href="#equation-6fe7029b-c266-4100-8f25-7f3986d8645b" title="Permalink to this equation">#</a></span>\[\begin{equation}
-\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
-\end{equation}\]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
+<p>And the result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.06268173577685926</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.06268173577685926</span>
-</pre></div>
-</div>
-<p>and the excess greeness:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2108e450-2542-40a8-9fa2-201b837a6dd4">
-<span class="eqno">(12)<a class="headerlink" href="#equation-2108e450-2542-40a8-9fa2-201b837a6dd4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>We also need to define the <em>excess greeness</em> of our portfolio, that is the positive or negative deviation from our benchmark greeness:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-74399fa5-f7a4-4674-901b-fd19ce7a4dcc">
+<span class="eqno">(12)<a class="headerlink" href="#equation-74399fa5-f7a4-4674-901b-fd19ce7a4dcc" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
+<p>Below is the code to compute the excess greeness of our portfolio:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">excess_greeness</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.008500000000000021</span>
+<p>And the result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.008500000000000021</span>
 </pre></div>
 </div>
 </section>
 <section id="climate-investing-objectives">
 <h3>Climate Investing Objectives<a class="headerlink" href="#climate-investing-objectives" title="Permalink to this headline">#</a></h3>
-<p>The objective of investors is to improve the benchmark greeness while controlling the tracking error volatility.</p>
+<p>In the previous example, we compared the climate performance of a portfolio against a benchmark, with predefined portfolio’s weights.</p>
+<p>However, the objective of investors is to improve the portfolio’s greeness while controlling the tracking error volatility.</p>
 <p>Denoting <span class="math notranslate nohighlight">\(\gamma\)</span> as the risk tolerance parameter, we have the following optimization problem:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -599,7 +605,67 @@ G(x|b) = (x - b)^T G
 &amp;&amp;&amp; 0_5 \leq x \leq 1_5.
 \end{aligned}
 \end{equation*}\]</div>
+<p>Where the constraints simply mean that the sum of the resulting weights <span class="math notranslate nohighlight">\(x\)</span> need to be 1 and that individual weights <span class="math notranslate nohighlight">\(x_i\)</span> need to between 0 and 1.</p>
 <p>Varying the parameter value of <span class="math notranslate nohighlight">\(\gamma\)</span> gives you the efficient frontier of tracking a benchmark with a greeness objective.</p>
+<p>Below we install and import the <code class="docutils literal notranslate"><span class="pre">qpsolvers</span></code> package and formulate the QP problem of the optimization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install qpsolvers 
+
+from qpsolvers import solve_qp
+
+def portfolio_tilting(Sigma, G, b, gamma):
+  &quot;&quot;&quot;QP formulation&quot;&quot;&quot;
+  
+  P = Sigma # Q 
+  q = - (gamma * G + Sigma @ b) # R, minus because we want to maximize it!
+  A = np.ones(len(G)).T # A
+  b = np.array([1.]) # B
+  lb = np.zeros(len(G))
+  ub = np.ones(len(G))
+  print(q)
+  x = solve_qp(P = P,
+               q = q,
+               A = A, 
+               b = b,
+               lb = lb,
+               ub = ub,
+               solver = &#39;osqp&#39;)
+  
+  return x
+
+</pre></div>
+</div>
+<p>Below is the code to draw the efficient frontier, varying <span class="math notranslate nohighlight">\(\gamma\)</span> value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results_excess_greeness</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">results_te</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span>
+
+<span class="n">list_gammas</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">list_gammas</span><span class="p">:</span>
+   <span class="n">x</span> <span class="o">=</span> <span class="n">portfolio_tilting</span><span class="p">(</span><span class="n">Sigma</span> <span class="o">=</span> <span class="n">Sigma</span><span class="p">,</span> 
+                    <span class="n">G</span> <span class="o">=</span> <span class="n">G</span><span class="p">,</span>
+                    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span>
+                    <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">)</span>
+   <span class="n">excess_greeness</span><span class="p">,</span> <span class="n">te</span> <span class="o">=</span> <span class="n">get_perf_tilting</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> 
+                                       <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> 
+                                       <span class="n">Sigma</span> <span class="o">=</span> <span class="n">Sigma</span><span class="p">,</span>
+                                       <span class="n">G</span> <span class="o">=</span> <span class="n">G</span><span class="p">)</span>
+   <span class="n">results_excess_greeness</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">excess_greeness</span><span class="p">)</span>
+   <span class="n">results_te</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">te</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_te</span><span class="p">,</span> <span class="n">results_excess_greeness</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;TE Volatility&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Greeness Excess&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Efficient frontier" src="_images/efficientfrontier.PNG" /></p>
 </section>
 </section>
 </section>

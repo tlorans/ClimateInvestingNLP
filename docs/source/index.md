@@ -3,7 +3,7 @@
 % You can adapt this file completely to your liking, but it should at least
 % contain the root `toctree` directive.
 
-# Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Explorative Approach
+# Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Exploratory Approach
 
 ```{toctree}
 :caption: 'Contents:'

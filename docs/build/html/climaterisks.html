@@ -268,7 +268,7 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id14">
    Climate Risks Hedging
   </a>
  </li>
@@ -312,7 +312,7 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id14">
    Climate Risks Hedging
   </a>
  </li>
@@ -336,36 +336,45 @@ title="Print to PDF"
 <p>In this part, we propose an exploratory approach of Natural Language Processing usages for constructing a climate risks hedged version of the S&amp;P 500.</p>
 <p>While Gorgen et al. (2020) <span id="id1">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span> and Roncalli et al. (2020) <span id="id2">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span> use a factor-based approach to estimate firm’s loading to the systematic carbon risk (with a Brown-Minus-Green Factor), we propose to follow Sautner et al. (2020) <span id="id3">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> and Hu et al. (2022) <span id="id4">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by estimating directly a firm-level measure of exposure to climate risks using text mining.</p>
 <p>In contrast to Gorgen et al. (2020) <span id="id5">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span> and Roncalli et al. (2020) <span id="id6">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>, this approach allows us to address both transition and physical risks.</p>
-<p>In contrast with Roncalli et al. (2020)<span id="id7">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>, we consider the construction of the climate risks hedged portfolio as a benchmark optimization problem and not as a minimum variance problem.</p>
+<p>In contrast with Roncalli et al. (2020) <span id="id7">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>, we consider the construction of the climate risks hedged portfolio as a benchmark optimization problem and not as a minimum variance problem.</p>
 <section id="using-earnings-calls-transcripts-for-a-firm-level-estimate-of-climate-risks-exposure">
 <h2>Using Earnings Calls Transcripts for a Firm-Level Estimate of Climate Risks Exposure<a class="headerlink" href="#using-earnings-calls-transcripts-for-a-firm-level-estimate-of-climate-risks-exposure" title="Permalink to this headline">#</a></h2>
 <p>We follow Sautner et al. (2020) <span id="id8">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> and Hu et al. (2022) <span id="id9">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> in constructing firm-level measure of exposure to climate risks using earnings calls transcripts.</p>
 <p>We apply the framework described previously, using the keywords contained in the earnings calls transcripts of S&amp;P 500 firms, as <span class="math notranslate nohighlight">\(K^{transcripts}_{i,t}\)</span>.</p>
 <p>We use the list of initial keywords from Sautner et al. (2020) <span id="id10">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> as the source for our theme-specific keywords <span class="math notranslate nohighlight">\(S^{transition}\)</span> and <span class="math notranslate nohighlight">\(S^{physical}\)</span>.</p>
 <p>We obtain two different <em>rough</em> exposure measures:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d4cfd2ae-198f-44b3-9135-bd6aedb14e20">
-<span class="eqno">(1)<a class="headerlink" href="#equation-d4cfd2ae-198f-44b3-9135-bd6aedb14e20" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-4262c138-72aa-46f8-b6a6-16eed687c324">
+<span class="eqno">(1)<a class="headerlink" href="#equation-4262c138-72aa-46f8-b6a6-16eed687c324" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{transition}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-aa39061c-094f-40b1-aae4-0f5eab1d3e44">
-<span class="eqno">(2)<a class="headerlink" href="#equation-aa39061c-094f-40b1-aae4-0f5eab1d3e44" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-443478d0-4238-430f-b96d-0d1e34d72050">
+<span class="eqno">(2)<a class="headerlink" href="#equation-443478d0-4238-430f-b96d-0d1e34d72050" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{physical}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>That can be summed in order to get the <em>rough</em> climate risks exposure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3e96bf9e-bbc9-4599-8432-28f27b382a66">
-<span class="eqno">(3)<a class="headerlink" href="#equation-3e96bf9e-bbc9-4599-8432-28f27b382a66" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-55a7e07a-827e-48a1-9bae-fd8bf107f1b6">
+<span class="eqno">(3)<a class="headerlink" href="#equation-55a7e07a-827e-48a1-9bae-fd8bf107f1b6" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,t}
 \end{equation}\]</div>
 </section>
 <section id="absolute-vs-relative-climate-risks-exposure">
 <h2>Absolute vs. Relative Climate Risks Exposure<a class="headerlink" href="#absolute-vs-relative-climate-risks-exposure" title="Permalink to this headline">#</a></h2>
+<p>However, as we’ve denoted above, our current exposure measure is a <em>rough</em> measure in the sense that it doesn’t distinguish between positive or negative mention of the risk discussed. This distinction is related to the distinction between relative and absolute risk made by Roncalli et al. (2020) <span id="id11">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>.</p>
+<p>Relative risk measure objective is to be more exposed to firms positively exposed to climate risks and less exposed to firms negatively exposed to climate risks. On the other side, absolute climate risks considers that both large positive and negative climate risks exposure incur a financial risk that must be reduced. In what follow, we will focus on relative risk measure.</p>
+<p>Our <em>rough</em> climate risks exposure measure doesn’t comes with any sign associated with, as it only measure the percentage of keywords from the transcripts related to one of the climate risks. It is not directly comparable to the carbon risk measure from Roncalli et al. (2020) <span id="id12">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span> resulting from a multi-factor regression approach with a positive or negative sign associated with it.</p>
+<p>To transform our <em>rough</em> measure to a relative risk measure, we follow Hu et al. (2022) <span id="id13">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by applying FinBERT to identify the sentiment behind each keyword from the transcripts identified as related to one of the climate risks, considering the context of this keyword.</p>
+<ol class="arabic simple">
+<li><p>We first need to find <span class="math notranslate nohighlight">\(p^{k^{transition}_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(p^{k^{physical}_{i,t}}\)</span> the sentences where the keywords are located with a simple regular expression search.</p></li>
+<li><p>We apply FinBERT on the sentences in order to obtain <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>, that are scores between -1 (negative) and 1 (positive), with 0 corresponding to a neutral tone.</p></li>
+<li><p>We finally get a modified exposure measure <span class="math notranslate nohighlight">\(RExposure^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(RExposure^{physical}_{i,t}\)</span> by the corresponding sentiment score <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>.</p></li>
+</ol>
 </section>
 <section id="climate-risks-exposure-in-the-s-p-500-universe">
 <h2>Climate Risks Exposure in the S&amp;P 500 Universe<a class="headerlink" href="#climate-risks-exposure-in-the-s-p-500-universe" title="Permalink to this headline">#</a></h2>
 </section>
-<section id="id11">
-<h2>Climate Risks Hedging<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
+<section id="id14">
+<h2>Climate Risks Hedging<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h2>
 </section>
 <section id="climate-risks-s-p-500">
 <h2>Climate Risks S&amp;P 500<a class="headerlink" href="#climate-risks-s-p-500" title="Permalink to this headline">#</a></h2>

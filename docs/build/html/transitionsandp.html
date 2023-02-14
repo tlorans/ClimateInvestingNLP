@@ -248,8 +248,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-business-description-for-a-firm-level-estimation-of-greeness">
-   Using Business Description for a Firm-Level Estimation of Greeness
+  <a class="reference internal nav-link" href="#using-business-description-for-a-firm-level-estimate-of-greeness">
+   Using Business Description for a Firm-Level Estimate of Greeness
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -292,8 +292,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-business-description-for-a-firm-level-estimation-of-greeness">
-   Using Business Description for a Firm-Level Estimation of Greeness
+  <a class="reference internal nav-link" href="#using-business-description-for-a-firm-level-estimate-of-greeness">
+   Using Business Description for a Firm-Level Estimate of Greeness
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -334,15 +334,15 @@ title="Print to PDF"
 <p>The main drawback of this initiative is that underlying data simply doesn’t exist at the issuer level yet (Alessi and Battiston, 2022 <span id="id7">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span>), at least as long as the Corporate Sustainability Reporting Directive (CSRD) is not implemented yet.</p>
 <p>Recognizing the current impossibility to assess firm’s greeness based on the EU Taxonomy, we choose to follow the taxonomy of climate solutions proposed by the Project Drawdown <span id="id8">[<a class="reference internal" href="references.html#id16" title="Paul Hawken. Drawdown: The Most Comprehensive Plan Ever Proposed to Reverse Global Warming. Penguin Books, 2017.">Haw17</a>]</span>. The Project Drawdown’s taxonomy lists green technologies supposed to significantly contribute to the green transition into the following sectors: (i) electricity; (ii) other energy; (iii) food, agriculture and land use; (iv) industry; (v) transportation; (vi) buildings; (vii) health and education; (viii) land sinks; (ix) land sinks; (x) coastal and ocean sinks and (xi) engineered sinks.</p>
 </section>
-<section id="using-business-description-for-a-firm-level-estimation-of-greeness">
-<h2>Using Business Description for a Firm-Level Estimation of Greeness<a class="headerlink" href="#using-business-description-for-a-firm-level-estimation-of-greeness" title="Permalink to this headline">#</a></h2>
+<section id="using-business-description-for-a-firm-level-estimate-of-greeness">
+<h2>Using Business Description for a Firm-Level Estimate of Greeness<a class="headerlink" href="#using-business-description-for-a-firm-level-estimate-of-greeness" title="Permalink to this headline">#</a></h2>
 <p>As Alessi and Battiston (2022) <span id="id9">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span> have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors).</p>
 <p>As we want to estimate a firm level measure of greeness, we develop a text-mining framework based on the green technologies listed by the Project Drawdown (2017) <span id="id10">[<a class="reference internal" href="references.html#id16" title="Paul Hawken. Drawdown: The Most Comprehensive Plan Ever Proposed to Reverse Global Warming. Penguin Books, 2017.">Haw17</a>]</span>.</p>
 <p>We apply the framework described previously, using the keywords contained in the business description of S&amp;P 500 firms, extracted from 10-K fillings as <span class="math notranslate nohighlight">\(K^{activity}_{i,t}\)</span>.</p>
 <p>We use the list of green technologies from the Project Drawdown as the list of theme-specific keywords <span class="math notranslate nohighlight">\(S^{green}\)</span>.</p>
 <p>Finally, we obtained the exposure to green activities such as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e483ee79-3a13-4098-9739-e2e8a45c7e0d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-e483ee79-3a13-4098-9739-e2e8a45c7e0d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a7c19fce-b92a-4ef3-83c3-5273e064850f">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a7c19fce-b92a-4ef3-83c3-5273e064850f" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{green}_{i,t} = \frac{1}{K^{activity}_{i,t}}\sum_{k^{activity}}^{K^{activity}_{i,t}}\tau(k^{activity}_{i,t})
 \end{equation}\]</div>
 </section>

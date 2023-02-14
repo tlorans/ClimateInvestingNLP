@@ -18,7 +18,7 @@ The main drawback of this initiative is that underlying data simply doesn't exis
 
 Recognizing the current impossibility to assess firm's greeness based on the EU Taxonomy, we choose to follow the taxonomy of climate solutions proposed by the Project Drawdown {cite:p}`2017:Drawdown`. The Project Drawdown's taxonomy lists green technologies supposed to significantly contribute to the green transition into the following sectors: (i) electricity; (ii) other energy; (iii) food, agriculture and land use; (iv) industry; (v) transportation; (vi) buildings; (vii) health and education; (viii) land sinks; (ix) land sinks; (x) coastal and ocean sinks and (xi) engineered sinks.
 
-## Using Business Description for a Firm-Level Estimation of Greeness
+## Using Business Description for a Firm-Level Estimate of Greeness
 
 As Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
 

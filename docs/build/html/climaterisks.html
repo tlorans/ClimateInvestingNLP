@@ -343,18 +343,18 @@ title="Print to PDF"
 <p>We apply the framework described previously, using the keywords contained in the earnings calls transcripts of S&amp;P 500 firms, as <span class="math notranslate nohighlight">\(K^{transcripts}_{i,t}\)</span>.</p>
 <p>We use the list of initial keywords from Sautner et al. (2020) <span id="id10">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> as the source for our theme-specific keywords <span class="math notranslate nohighlight">\(S^{transition}\)</span> and <span class="math notranslate nohighlight">\(S^{physical}\)</span>.</p>
 <p>We obtain two different <em>rough</em> exposure measures:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ffd41181-92e9-429c-b2d1-6175d9d82a31">
-<span class="eqno">(1)<a class="headerlink" href="#equation-ffd41181-92e9-429c-b2d1-6175d9d82a31" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-427d9c1a-70d8-4cdd-a592-0b44c1bd9376">
+<span class="eqno">(1)<a class="headerlink" href="#equation-427d9c1a-70d8-4cdd-a592-0b44c1bd9376" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{transition}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-867a19e3-c65e-4638-9554-35a2e3bb83e8">
-<span class="eqno">(2)<a class="headerlink" href="#equation-867a19e3-c65e-4638-9554-35a2e3bb83e8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-09794a4e-f5f7-43f1-b6fd-355c8202b17f">
+<span class="eqno">(2)<a class="headerlink" href="#equation-09794a4e-f5f7-43f1-b6fd-355c8202b17f" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{physical}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>That can be summed in order to get the <em>rough</em> climate risks exposure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-79684e38-6a1e-48a1-a24b-65145b38eff8">
-<span class="eqno">(3)<a class="headerlink" href="#equation-79684e38-6a1e-48a1-a24b-65145b38eff8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-de983ea8-1242-46ef-88bf-9220a46fa60b">
+<span class="eqno">(3)<a class="headerlink" href="#equation-de983ea8-1242-46ef-88bf-9220a46fa60b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,t}
 \end{equation}\]</div>
 </section>
@@ -370,8 +370,8 @@ Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,
 <li><p>We finally get a modified exposure measure <span class="math notranslate nohighlight">\(RExposure^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(RExposure^{physical}_{i,t}\)</span> by the corresponding sentiment score <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>.</p></li>
 <li><p>The final exposure measure is computed as the rough one:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-fb8dd0e2-bcc0-4715-bb3f-d7acf3bd57ee">
-<span class="eqno">(4)<a class="headerlink" href="#equation-fb8dd0e2-bcc0-4715-bb3f-d7acf3bd57ee" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2ed37432-b0f3-449c-baf6-e5aa7614f254">
+<span class="eqno">(4)<a class="headerlink" href="#equation-2ed37432-b0f3-449c-baf6-e5aa7614f254" title="Permalink to this equation">#</a></span>\[\begin{equation}
 RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 \end{equation}\]</div>
 </section>
@@ -380,6 +380,18 @@ RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 </section>
 <section id="id14">
 <h2>Climate Risks Hedging<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h2>
+<p>We use the firm-level measure of climate risks exposure computed previously as our main feature to be integrated in our benchmark optimization problem.</p>
+<p>We follow the framework described previously and our optimization problem becomes:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\begin{aligned}
+&amp; x^* = 
+&amp; &amp; argmin \frac{1}{2} \sigma^2 (x |b) - \gamma RExposure^{climate} (x | b) \\
+&amp; \text{subject to}
+&amp; &amp; 1_n^Tx = 1, \\
+&amp;&amp;&amp; 0_n \leq x \leq 1_n.
+\end{aligned}
+\end{equation*}\]</div>
 </section>
 <section id="climate-risks-s-p-500">
 <h2>Climate Risks S&amp;P 500<a class="headerlink" href="#climate-risks-s-p-500" title="Permalink to this headline">#</a></h2>

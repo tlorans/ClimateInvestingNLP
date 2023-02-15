@@ -267,16 +267,6 @@ title="Print to PDF"
    Climate Risks Exposure in the S&amp;P 500 Universe
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
-   Climate Risks Hedging
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#climate-risks-s-p-500">
-   Climate Risks S&amp;P 500
-  </a>
- </li>
 </ul>
 
     </nav>
@@ -311,16 +301,6 @@ title="Print to PDF"
    Climate Risks Exposure in the S&amp;P 500 Universe
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
-   Climate Risks Hedging
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#climate-risks-s-p-500">
-   Climate Risks S&amp;P 500
-  </a>
- </li>
 </ul>
 
                         </nav>
@@ -336,65 +316,232 @@ title="Print to PDF"
 <p>In this part, we propose an exploratory approach of Natural Language Processing usages for constructing a climate risks hedged version of the S&amp;P 500.</p>
 <p>While Gorgen et al. (2020) <span id="id1">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span> and Roncalli et al. (2020) <span id="id2">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span> use a factor-based approach to estimate firm’s loading to the systematic carbon risk (with a Brown-Minus-Green Factor), we propose to follow Sautner et al. (2020) <span id="id3">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> and Hu et al. (2022) <span id="id4">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by estimating directly a firm-level measure of exposure to climate risks using text mining.</p>
 <p>In contrast to Gorgen et al. (2020) <span id="id5">[<a class="reference internal" href="references.html#id4" title="Maximilian Görgen, Andrea Jacob, Martin Nerlinger, Ryan Riordan, Martin Rohleder, and Marco Wilkens. Carbon Risk. SSRN, 2020.">GJN+20</a>]</span> and Roncalli et al. (2020) <span id="id6">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>, this approach allows us to address both transition and physical risks.</p>
-<p>In contrast with Roncalli et al. (2020) <span id="id7">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>, we consider the construction of the climate risks hedged portfolio as a benchmark optimization problem and not as a minimum variance problem.</p>
 <section id="using-earnings-calls-transcripts-for-a-firm-level-estimate-of-climate-risks-exposure">
 <h2>Using Earnings Calls Transcripts for a Firm-Level Estimate of Climate Risks Exposure<a class="headerlink" href="#using-earnings-calls-transcripts-for-a-firm-level-estimate-of-climate-risks-exposure" title="Permalink to this headline">#</a></h2>
-<p>We follow Sautner et al. (2020) <span id="id8">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> and Hu et al. (2022) <span id="id9">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> in constructing firm-level measure of exposure to climate risks using earnings calls transcripts.</p>
+<p>We follow Sautner et al. (2020) <span id="id7">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> and Hu et al. (2022) <span id="id8">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> in constructing firm-level measure of exposure to climate risks using earnings calls transcripts.</p>
 <p>We apply the framework described previously, using the keywords contained in the earnings calls transcripts of S&amp;P 500 firms, as <span class="math notranslate nohighlight">\(K^{transcripts}_{i,t}\)</span>.</p>
-<p>We use the list of initial keywords from Sautner et al. (2020) <span id="id10">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> as the source for our theme-specific keywords <span class="math notranslate nohighlight">\(S^{transition}\)</span> and <span class="math notranslate nohighlight">\(S^{physical}\)</span>.</p>
+<p>Below is the Python code loading the transcripts data and extracting the keywords, with the csv file located in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">transcripts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sandp_transcripts.csv&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">keyphrase_vectorizers</span> <span class="kn">import</span> <span class="n">KeyphraseCountVectorizer</span>  
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">KeyphraseCountVectorizer</span><span class="p">(</span><span class="n">stop_words</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">)</span>
+
+<span class="n">list_K</span> <span class="o">=</span> <span class="p">[</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;transcript&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+</pre></div>
+</div>
+<p>We use the list of initial keywords from Sautner et al. (2020) <span id="id9">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> as the source for our theme-specific keywords <span class="math notranslate nohighlight">\(S^{transition}\)</span> and <span class="math notranslate nohighlight">\(S^{physical}\)</span>.</p>
+<p>Below is the Python code to retrieve the climate risks keywords, located in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">risks_keywords</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;Risks_keywords.xlsx&#39;</span><span class="p">)</span>
+<span class="n">S_transition</span> <span class="o">=</span> <span class="n">risks_keywords</span><span class="p">[</span><span class="n">risks_keywords</span><span class="o">.</span><span class="n">Climate_risk</span> <span class="o">==</span> <span class="s1">&#39;Transition&#39;</span><span class="p">][</span><span class="s1">&#39;Keyword&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">S_physical</span> <span class="o">=</span> <span class="n">risks_keywords</span><span class="p">[</span><span class="n">risks_keywords</span><span class="o">.</span><span class="n">Climate_risk</span> <span class="o">==</span> <span class="s1">&#39;Physical&#39;</span><span class="p">][</span><span class="s1">&#39;Keyword&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For example, transition keywords are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;heat power&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;renewable energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;electric vehicle&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;clean energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;new energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wind power&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wind energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;solar energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;plug hybrid&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;renewable resource&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;solar farm&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;electric hybrid&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;rooftop solar&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sustainable energy&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;hybrid car&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;renewable electricity&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wave power&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;geothermal power&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;greenhouse gas&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;reduce emission&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon emission&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon dioxide&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gas emission&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;air pollution&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;reduce carbon&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;energy regulatory&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon tax&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon price&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;environmental standard&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;nox emission&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;emission trade&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dioxide emission&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;epa regulation&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;energy independence&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon reduction&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;carbon market&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;mercury emission&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Below is the Python code to find the climate risks related keywords:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span><span class="p">,</span> <span class="n">util</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">ST</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+
+<span class="n">list_emb_K</span> <span class="o">=</span> <span class="p">[</span><span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">list_K</span><span class="p">)]</span>
+<span class="n">emb_S_transition</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">S_transition</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">emb_S_physical</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">S_physical</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_related_keywords</span><span class="p">(</span><span class="n">emb_S</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">emb_K</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+  <span class="n">list_hits</span> <span class="o">=</span> <span class="p">[</span><span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">emb_S</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">list_emb_K</span><span class="p">)]</span>
+
+  <span class="n">list_T</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">list_hits</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sent</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">sent</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.6</span><span class="p">:</span>
+
+        <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">list_T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">list_T</span>
+
+
+<span class="n">list_T_transition</span> <span class="o">=</span> <span class="n">get_related_keywords</span><span class="p">(</span><span class="n">emb_S</span> <span class="o">=</span> <span class="n">emb_S_transition</span><span class="p">,</span>
+                                         <span class="n">emb_K</span> <span class="o">=</span> <span class="n">list_emb_K</span><span class="p">)</span>
+
+<span class="n">list_T_physical</span> <span class="o">=</span> <span class="n">get_related_keywords</span><span class="p">(</span><span class="n">emb_S</span> <span class="o">=</span> <span class="n">emb_S_physical</span><span class="p">,</span>
+                                         <span class="n">emb_K</span> <span class="o">=</span> <span class="n">list_emb_K</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>We obtain two different <em>rough</em> exposure measures:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3ac86c4b-dcde-4ee6-a5a1-764d2e78dd68">
-<span class="eqno">(1)<a class="headerlink" href="#equation-3ac86c4b-dcde-4ee6-a5a1-764d2e78dd68" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f2c2c27d-e3cb-4b7d-894b-03b2e044f91e">
+<span class="eqno">(1)<a class="headerlink" href="#equation-f2c2c27d-e3cb-4b7d-894b-03b2e044f91e" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{transition}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b45fc23f-e86a-484f-9bb1-6a697d7d3d68">
-<span class="eqno">(2)<a class="headerlink" href="#equation-b45fc23f-e86a-484f-9bb1-6a697d7d3d68" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6c2f2469-e709-4927-9e12-599140f33c67">
+<span class="eqno">(2)<a class="headerlink" href="#equation-6c2f2469-e709-4927-9e12-599140f33c67" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{physical}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>That can be summed in order to get the <em>rough</em> climate risks exposure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-464bbfa8-e493-48e9-8c58-e7615cc5310b">
-<span class="eqno">(3)<a class="headerlink" href="#equation-464bbfa8-e493-48e9-8c58-e7615cc5310b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9d185edd-c632-4943-97f0-293023b9b23d">
+<span class="eqno">(3)<a class="headerlink" href="#equation-9d185edd-c632-4943-97f0-293023b9b23d" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,t}
 \end{equation}\]</div>
+<p>Below is the Python code to obtain the <em>rough</em> exposure score:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Absolute_Transition_Risk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T_transition</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_K</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T_transition</span><span class="p">))]</span>
+<span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Absolute_Physical_Risk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T_physical</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_K</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T_physical</span><span class="p">))]</span>
+</pre></div>
+</div>
 </section>
 <section id="absolute-vs-relative-climate-risks-exposure">
 <h2>Absolute vs. Relative Climate Risks Exposure<a class="headerlink" href="#absolute-vs-relative-climate-risks-exposure" title="Permalink to this headline">#</a></h2>
-<p>However, as we’ve denoted above, our current exposure measure is a <em>rough</em> measure in the sense that it doesn’t distinguish between positive or negative mention of the risk discussed. This distinction is related to the distinction between relative and absolute risk made by Roncalli et al. (2020) <span id="id11">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>.</p>
+<p>However, as we’ve denoted above, our current exposure measure is a <em>rough</em> measure in the sense that it doesn’t distinguish between positive or negative mention of the risk discussed. This distinction is related to the distinction between relative and absolute risk made by Roncalli et al. (2020) <span id="id10">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span>.</p>
 <p>Relative risk measure objective is to be more exposed to firms positively exposed to climate risks and less exposed to firms negatively exposed to climate risks. On the other side, absolute climate risks considers that both large positive and negative climate risks exposure incur a financial risk that must be reduced. In what follow, we will focus on relative risk measure.</p>
-<p>Our <em>rough</em> climate risks exposure measure doesn’t comes with any sign associated with, as it only measure the percentage of keywords from the transcripts related to one of the climate risks. It is not directly comparable to the carbon risk measure from Roncalli et al. (2020) <span id="id12">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span> resulting from a multi-factor regression approach with a positive or negative sign associated with it.</p>
-<p>To transform our <em>rough</em> measure to a relative risk measure, we follow Hu et al. (2022) <span id="id13">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by applying FinBERT to identify the sentiment behind each keyword from the transcripts identified as related to one of the climate risks, considering the context of this keyword.</p>
+<p>Our <em>rough</em> climate risks exposure measure doesn’t comes with any sign associated with, as it only measure the percentage of keywords from the transcripts related to one of the climate risks. It is not directly comparable to the carbon risk measure from Roncalli et al. (2020) <span id="id11">[<a class="reference internal" href="references.html#id6" title="Théo Roncalli, Théo Le Guenedal, Frédric Lepetit, Thierry Roncalli, and Takaya Sekine. Measuring and Managing Carbon Risk in Investment Portfolios. Amundi, 2020.">RGL+20</a>]</span> resulting from a multi-factor regression approach with a positive or negative sign associated with it.</p>
+<p>To transform our <em>rough</em> measure to a relative risk measure, we follow Hu et al. (2022) <span id="id12">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by applying FinBERT to identify the sentiment behind each keyword from the transcripts identified as related to one of the climate risks, considering the context of this keyword.</p>
 <ol class="arabic simple">
-<li><p>We first need to find <span class="math notranslate nohighlight">\(p^{k^{transition}_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(p^{k^{physical}_{i,t}}\)</span> the sentences where the keywords are located with a simple regular expression search.</p></li>
+<li><p>We first need to find <span class="math notranslate nohighlight">\(p^{k^{transition}_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(p^{k^{physical}_{i,t}}\)</span> the paragraphs where the keywords are located with a simple regular expression search.</p></li>
 <li><p>We apply FinBERT on the sentences in order to obtain <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>, that can take the value of -1 (negative), 1 (positive), or 0 (corresponding to a neutral tone).</p></li>
 <li><p>We finally get a modified exposure measure <span class="math notranslate nohighlight">\(RExposure^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(RExposure^{physical}_{i,t}\)</span> by the corresponding sentiment score <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>.</p></li>
 <li><p>The final exposure measure is computed as the rough one:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-77298702-3061-47de-aa0f-ea3dba389325">
-<span class="eqno">(4)<a class="headerlink" href="#equation-77298702-3061-47de-aa0f-ea3dba389325" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c58ef681-ea55-48fe-af81-09dfcbff117e">
+<span class="eqno">(4)<a class="headerlink" href="#equation-c58ef681-ea55-48fe-af81-09dfcbff117e" title="Permalink to this equation">#</a></span>\[\begin{equation}
 RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 \end{equation}\]</div>
+<p>Below is the Python code to locate the climate risks related sentences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">get_paragraphs_related</span><span class="p">(</span><span class="n">list_transcripts</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">list_T</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">list_K</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+
+  <span class="c1"># get the keywords extracted from the transcripts flagged as related to the theme</span>
+  <span class="n">list_keywords_related</span> <span class="o">=</span> <span class="p">[[</span><span class="n">list_K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list_T</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_K</span><span class="p">))]</span>
+  <span class="c1"># get transcripts in the format of list of paragraphs</span>
+  <span class="n">list_transcripts_paragraphs</span> <span class="o">=</span> <span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;. &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">list_transcripts</span><span class="p">]</span>
+
+  <span class="n">list_paragraphs</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="c1"># get the paragraphs mentioning the related keywords</span>
+  <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_transcripts</span><span class="p">))):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_keywords_related</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">list_paragraphs_related</span> <span class="o">=</span> <span class="p">[</span><span class="nb">any</span><span class="p">(</span><span class="n">ele</span> <span class="ow">in</span> <span class="n">list_transcripts_paragraphs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">list_keywords_related</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_transcripts_paragraphs</span><span class="p">[</span><span class="n">t</span><span class="p">]))]</span>
+      <span class="n">list_related</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">list_paragraphs_related</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+      <span class="n">paragraphs_related</span> <span class="o">=</span> <span class="p">[</span><span class="n">list_transcripts_paragraphs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list_related</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paragraphs_related</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">paragraph</span> <span class="o">=</span> <span class="s1">&#39;. &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paragraphs_related</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">paragraph</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">paragraph</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+    <span class="n">list_paragraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paragraph</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">list_paragraphs</span>
+
+<span class="n">list_paragraphs_transition</span> <span class="o">=</span> <span class="n">get_paragraphs_related</span><span class="p">(</span><span class="n">list_transcripts</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;transcript&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                         <span class="n">list_T</span> <span class="o">=</span> <span class="n">list_T_transition</span><span class="p">,</span>
+                                         <span class="n">list_K</span> <span class="o">=</span> <span class="n">list_K</span><span class="p">)</span>
+
+<span class="n">list_paragraphs_physical</span> <span class="o">=</span> <span class="n">get_paragraphs_related</span><span class="p">(</span><span class="n">list_transcripts</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;transcript&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                         <span class="n">list_T</span> <span class="o">=</span> <span class="n">list_T_physical</span><span class="p">,</span>
+                                         <span class="n">list_K</span> <span class="o">=</span> <span class="n">list_K</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and here is the code to get the sentiment associated with the climate risks related measures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertForSequenceClassification</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="n">finbert</span> <span class="o">=</span> <span class="n">BertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;yiyanghkust/finbert-tone&#39;</span><span class="p">,</span><span class="n">num_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;yiyanghkust/finbert-tone&#39;</span><span class="p">)</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">finbert</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_sentiment</span><span class="p">(</span><span class="n">list_transcripts</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">list_T</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">list_K</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">nlp_model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;Get the tone of the paragraph (positive, neutral or negative)&quot;&quot;&quot;</span>
+  <span class="n">list_paragraphs</span> <span class="o">=</span> <span class="n">get_paragraphs_related</span><span class="p">(</span><span class="n">list_transcripts</span> <span class="o">=</span> <span class="n">list_transcripts</span><span class="p">,</span>
+                                         <span class="n">list_T</span> <span class="o">=</span> <span class="n">list_T</span><span class="p">,</span>
+                                         <span class="n">list_K</span> <span class="o">=</span> <span class="n">list_K</span><span class="p">)</span>
+  <span class="n">results</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">([</span><span class="n">paragraph</span><span class="p">[:</span><span class="mi">512</span><span class="p">]</span> <span class="k">for</span> <span class="n">paragraph</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">list_paragraphs</span><span class="p">)])</span>
+
+  <span class="n">results_num</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Positive&#39;</span><span class="p">:</span>
+      <span class="n">results_num</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Negative&#39;</span><span class="p">:</span>
+      <span class="n">results_num</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">results_num</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">results_num</span>
+
+<span class="n">results_transition</span> <span class="o">=</span> <span class="n">get_sentiment</span><span class="p">(</span><span class="n">list_transcripts</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;transcript&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                  <span class="n">list_T</span> <span class="o">=</span> <span class="n">list_T_transition</span><span class="p">,</span>
+                                  <span class="n">list_K</span> <span class="o">=</span> <span class="n">list_K</span><span class="p">,</span> 
+                                  <span class="n">nlp_model</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">)</span>
+<span class="n">results_physical</span> <span class="o">=</span> <span class="n">get_sentiment</span><span class="p">(</span><span class="n">list_transcripts</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;transcript&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                  <span class="n">list_T</span> <span class="o">=</span> <span class="n">list_T_physical</span><span class="p">,</span>
+                                  <span class="n">list_K</span> <span class="o">=</span> <span class="n">list_K</span><span class="p">,</span> 
+                                  <span class="n">nlp_model</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The final step (obtaining the relative climate risks score) is implented in Python as the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Relative_Transition_Risk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Absolute_Transition_Risk&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">results_transition</span>
+<span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Relative_Physical_Risk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Absolute_Physical_Risk&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">results_physical</span>
+<span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Relative_Climate_Risks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Relative_Transition_Risk&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">transcripts</span><span class="p">[</span><span class="s1">&#39;Relative_Physical_Risk&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="climate-risks-exposure-in-the-s-p-500-universe">
 <h2>Climate Risks Exposure in the S&amp;P 500 Universe<a class="headerlink" href="#climate-risks-exposure-in-the-s-p-500-universe" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="id14">
-<h2>Climate Risks Hedging<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h2>
-<p>We use the firm-level measure of climate risks exposure computed previously as our main feature to be integrated in our benchmark optimization problem.</p>
-<p>We follow the framework described previously and our optimization problem becomes:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-\begin{aligned}
-&amp; x^* = 
-&amp; &amp; argmin \frac{1}{2} \sigma^2 (x |b) - \gamma RExposure^{climate} (x | b) \\
-&amp; \text{subject to}
-&amp; &amp; 1_n^Tx = 1, \\
-&amp;&amp;&amp; 0_n \leq x \leq 1_n.
-\end{aligned}
-\end{equation*}\]</div>
-</section>
-<section id="climate-risks-s-p-500">
-<h2>Climate Risks S&amp;P 500<a class="headerlink" href="#climate-risks-s-p-500" title="Permalink to this headline">#</a></h2>
+<p>In terms of differences in sector exposure to climate risks, it seems that Energy and Utilities are by far the most exposed sectors. The exposure seems to be biased towards positive value according to the boxplot below:</p>
+<p><img alt="Boxplot Climate Risks" src="_images/box_plot_climate_risks.PNG" /></p>
+<p>Below is a bar plot with the 10 most positively and 10 most negatively exposed securities to climate risks:</p>
+<p><img alt="top_10_bottom_10_securities_climate_risks" src="_images/top_10_bottom_10_securities_climate_risks.PNG" /></p>
+<p>Below is an extract of the sequence in the Duke Energy’s earnings call transcript found as transition-related, and labelled as positive:</p>
+<p><em>She will also share insights on the company’s long-term strategy and clean energy investment plans. These results were driven by higher earnings at our electric utilities from rate case activities, strong O&amp;M and other mitigation actions and growth in our Commercial Renewables business.
+I am very proud of our workforce for their consistent focus on reducing costs and driving efficiencies to offset a number of headwinds this year while continuing to provide outstanding service for our customers. We expect to deliver at the top end of the 4% to 6% range through 2024 grounded in our robust investment plan to deliver cleaner energy and sustainable value for our communities and our industry-leading cost efficiency programs.
+We shared our vision in the significant runway of growth potential during our October 9th inaugural ESG Investor Day. During the event, we outlined the investment opportunities we are pursuing to support our goal to achieve net-zero carbon emissions by 2050.
+And while we are already an industry leader in carbon-free generation we have near-term ambitious plans to double our renewables portfolio by 2025, deploy energy storage across the Carolinas and Florida and extend the licenses of our nuclear fleet all to the benefit of our customers and communities.</em></p>
 </section>
 </section>
 

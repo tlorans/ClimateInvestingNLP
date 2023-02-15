@@ -258,3 +258,10 @@ Below is an extract of the sequence in the Duke Energy's earnings call transcrip
 I am very proud of our workforce for their consistent focus on reducing costs and driving efficiencies to offset a number of headwinds this year while continuing to provide outstanding service for our customers. We expect to deliver at the top end of the 4% to 6% range through 2024 grounded in our robust investment plan to deliver cleaner energy and sustainable value for our communities and our industry-leading cost efficiency programs.
 We shared our vision in the significant runway of growth potential during our October 9th inaugural ESG Investor Day. During the event, we outlined the investment opportunities we are pursuing to support our goal to achieve net-zero carbon emissions by 2050.
 And while we are already an industry leader in carbon-free generation we have near-term ambitious plans to double our renewables portfolio by 2025, deploy energy storage across the Carolinas and Florida and extend the licenses of our nuclear fleet all to the benefit of our customers and communities.*
+
+Despite this good example example, we were not entirely conviced by results of the relative climate risks measure after a qualitative review. We think much work is needed before obtaining a consistent signal of exposure to climate risks:
+
+1. The selection of climate risks related paragraphs is too noisy in our sense, with, in many cases, part of the transcripts selected while not really focused on climate risks. This leads to noisy raw inputs for the sentiment classifier. This could be improved by improved selection of specific keywords.
+2. We use FinBERT as a zero-shot classifier. However, climate risks is a specific topic with ambiguous vocabulary used for describing positive or negative situation. To improve the sentiment classification and the resulting relative measure, we should fine-tune the FinBERT model with some labelled examples.
+
+Due to these important drawbacks with these firsts results, we decide to stop here the investigation for the moment, as a potential portfolio built upon this measure wouldn't be consistent at the moment.

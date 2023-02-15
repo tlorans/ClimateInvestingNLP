@@ -413,18 +413,18 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>We obtain two different <em>rough</em> exposure measures:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f2c2c27d-e3cb-4b7d-894b-03b2e044f91e">
-<span class="eqno">(1)<a class="headerlink" href="#equation-f2c2c27d-e3cb-4b7d-894b-03b2e044f91e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-de6e11b8-5d3a-4bae-9526-64976e1aa538">
+<span class="eqno">(1)<a class="headerlink" href="#equation-de6e11b8-5d3a-4bae-9526-64976e1aa538" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{transition}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6c2f2469-e709-4927-9e12-599140f33c67">
-<span class="eqno">(2)<a class="headerlink" href="#equation-6c2f2469-e709-4927-9e12-599140f33c67" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e7a7bf98-ae51-49b3-a0ee-6435030428f1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-e7a7bf98-ae51-49b3-a0ee-6435030428f1" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{physical}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>That can be summed in order to get the <em>rough</em> climate risks exposure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9d185edd-c632-4943-97f0-293023b9b23d">
-<span class="eqno">(3)<a class="headerlink" href="#equation-9d185edd-c632-4943-97f0-293023b9b23d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6513aa07-320a-4ce6-a36d-d59e777f82a5">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6513aa07-320a-4ce6-a36d-d59e777f82a5" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,t}
 \end{equation}\]</div>
 <p>Below is the Python code to obtain the <em>rough</em> exposure score:</p>
@@ -445,8 +445,8 @@ Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,
 <li><p>We finally get a modified exposure measure <span class="math notranslate nohighlight">\(RExposure^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(RExposure^{physical}_{i,t}\)</span> by the corresponding sentiment score <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>.</p></li>
 <li><p>The final exposure measure is computed as the rough one:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-c58ef681-ea55-48fe-af81-09dfcbff117e">
-<span class="eqno">(4)<a class="headerlink" href="#equation-c58ef681-ea55-48fe-af81-09dfcbff117e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-fe0b23d6-06be-4068-971b-19c9cf0af4bf">
+<span class="eqno">(4)<a class="headerlink" href="#equation-fe0b23d6-06be-4068-971b-19c9cf0af4bf" title="Permalink to this equation">#</a></span>\[\begin{equation}
 RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 \end{equation}\]</div>
 <p>Below is the Python code to locate the climate risks related sentences:</p>
@@ -542,6 +542,12 @@ RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 I am very proud of our workforce for their consistent focus on reducing costs and driving efficiencies to offset a number of headwinds this year while continuing to provide outstanding service for our customers. We expect to deliver at the top end of the 4% to 6% range through 2024 grounded in our robust investment plan to deliver cleaner energy and sustainable value for our communities and our industry-leading cost efficiency programs.
 We shared our vision in the significant runway of growth potential during our October 9th inaugural ESG Investor Day. During the event, we outlined the investment opportunities we are pursuing to support our goal to achieve net-zero carbon emissions by 2050.
 And while we are already an industry leader in carbon-free generation we have near-term ambitious plans to double our renewables portfolio by 2025, deploy energy storage across the Carolinas and Florida and extend the licenses of our nuclear fleet all to the benefit of our customers and communities.</em></p>
+<p>Despite this good example example, we were not entirely conviced by results of the relative climate risks measure after a qualitative review. We think much work is needed before obtaining a consistent signal of exposure to climate risks:</p>
+<ol class="arabic simple">
+<li><p>The selection of climate risks related paragraphs is too noisy in our sense, with, in many cases, part of the transcripts selected while not really focused on climate risks. This leads to noisy raw inputs for the sentiment classifier. This could be improved by improved selection of specific keywords.</p></li>
+<li><p>We use FinBERT as a zero-shot classifier. However, climate risks is a specific topic with ambiguous vocabulary used for describing positive or negative situation. To improve the sentiment classification and the resulting relative measure, we should fine-tune the FinBERT model with some labelled examples.</p></li>
+</ol>
+<p>Due to these important drawbacks with these firsts results, we decide to stop here the investigation for the moment, as a potential portfolio built upon this measure wouldn’t be consistent at the moment.</p>
 </section>
 </section>
 

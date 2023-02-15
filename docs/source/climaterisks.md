@@ -47,7 +47,7 @@ Our *rough* climate risks exposure measure doesn't comes with any sign associate
 To transform our *rough* measure to a relative risk measure, we follow Hu et al. (2022) {cite:p}`2022:Huetal` by applying FinBERT to identify the sentiment behind each keyword from the transcripts identified as related to one of the climate risks, considering the context of this keyword.
 
 1. We first need to find $p^{k^{transition}_{i,t}}$ and $p^{k^{physical}_{i,t}}$ the sentences where the keywords are located with a simple regular expression search. 
-2. We apply FinBERT on the sentences in order to obtain $Sentiment^{transition}_{i,t}$ and $Sentiment^{physical}_{i,t}$, that are scores between -1 (negative) and 1 (positive), with 0 corresponding to a neutral tone.
+2. We apply FinBERT on the sentences in order to obtain $Sentiment^{transition}_{i,t}$ and $Sentiment^{physical}_{i,t}$, that can take the value of -1 (negative), 1 (positive), or 0 (corresponding to a neutral tone).
 3. We finally get a modified exposure measure $RExposure^{transition}_{i,t}$ and $RExposure^{physical}_{i,t}$ by the corresponding sentiment score $Sentiment^{transition}_{i,t}$ and $Sentiment^{physical}_{i,t}$.
 4. The final exposure measure is computed as the rough one:
 \begin{equation}

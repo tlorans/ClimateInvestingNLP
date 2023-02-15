@@ -343,18 +343,18 @@ title="Print to PDF"
 <p>We apply the framework described previously, using the keywords contained in the earnings calls transcripts of S&amp;P 500 firms, as <span class="math notranslate nohighlight">\(K^{transcripts}_{i,t}\)</span>.</p>
 <p>We use the list of initial keywords from Sautner et al. (2020) <span id="id10">[<a class="reference internal" href="references.html#id10" title="Zacharias Sautner, Laurence van Lent, Grigory Vilkov, and Ruishen Zhang. Firm-level Climate Change Exposure. European Corporate Governance Institute – Finance Working Paper No. 686/2020, 2020.">SvLVZ20</a>]</span> as the source for our theme-specific keywords <span class="math notranslate nohighlight">\(S^{transition}\)</span> and <span class="math notranslate nohighlight">\(S^{physical}\)</span>.</p>
 <p>We obtain two different <em>rough</em> exposure measures:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-427d9c1a-70d8-4cdd-a592-0b44c1bd9376">
-<span class="eqno">(1)<a class="headerlink" href="#equation-427d9c1a-70d8-4cdd-a592-0b44c1bd9376" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3ac86c4b-dcde-4ee6-a5a1-764d2e78dd68">
+<span class="eqno">(1)<a class="headerlink" href="#equation-3ac86c4b-dcde-4ee6-a5a1-764d2e78dd68" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{transition}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09794a4e-f5f7-43f1-b6fd-355c8202b17f">
-<span class="eqno">(2)<a class="headerlink" href="#equation-09794a4e-f5f7-43f1-b6fd-355c8202b17f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b45fc23f-e86a-484f-9bb1-6a697d7d3d68">
+<span class="eqno">(2)<a class="headerlink" href="#equation-b45fc23f-e86a-484f-9bb1-6a697d7d3d68" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{physical}_{i,t} = \frac{1}{K^{transcripts}_{i,t}}\sum_{k^{transcripts}}^{K^{transcripts}_{i,t}}\tau(k^{transcripts}_{i,t})
 \end{equation}\]</div>
 <p>That can be summed in order to get the <em>rough</em> climate risks exposure:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-de983ea8-1242-46ef-88bf-9220a46fa60b">
-<span class="eqno">(3)<a class="headerlink" href="#equation-de983ea8-1242-46ef-88bf-9220a46fa60b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-464bbfa8-e493-48e9-8c58-e7615cc5310b">
+<span class="eqno">(3)<a class="headerlink" href="#equation-464bbfa8-e493-48e9-8c58-e7615cc5310b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,t}
 \end{equation}\]</div>
 </section>
@@ -366,12 +366,12 @@ Exposure^{climate}_{i,t} = Exposure^{transition}_{i,t} + Exposure^{physical}_{i,
 <p>To transform our <em>rough</em> measure to a relative risk measure, we follow Hu et al. (2022) <span id="id13">[<a class="reference internal" href="references.html#id9" title="Weiwei Hu, Kai Li, and Tingyu Yu. A Machine Learning-based Anatomy of Firm-level Climate Risk Exposure. SSRN, 2022.">HLY22</a>]</span> by applying FinBERT to identify the sentiment behind each keyword from the transcripts identified as related to one of the climate risks, considering the context of this keyword.</p>
 <ol class="arabic simple">
 <li><p>We first need to find <span class="math notranslate nohighlight">\(p^{k^{transition}_{i,t}}\)</span> and <span class="math notranslate nohighlight">\(p^{k^{physical}_{i,t}}\)</span> the sentences where the keywords are located with a simple regular expression search.</p></li>
-<li><p>We apply FinBERT on the sentences in order to obtain <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>, that are scores between -1 (negative) and 1 (positive), with 0 corresponding to a neutral tone.</p></li>
+<li><p>We apply FinBERT on the sentences in order to obtain <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>, that can take the value of -1 (negative), 1 (positive), or 0 (corresponding to a neutral tone).</p></li>
 <li><p>We finally get a modified exposure measure <span class="math notranslate nohighlight">\(RExposure^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(RExposure^{physical}_{i,t}\)</span> by the corresponding sentiment score <span class="math notranslate nohighlight">\(Sentiment^{transition}_{i,t}\)</span> and <span class="math notranslate nohighlight">\(Sentiment^{physical}_{i,t}\)</span>.</p></li>
 <li><p>The final exposure measure is computed as the rough one:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-2ed37432-b0f3-449c-baf6-e5aa7614f254">
-<span class="eqno">(4)<a class="headerlink" href="#equation-2ed37432-b0f3-449c-baf6-e5aa7614f254" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-77298702-3061-47de-aa0f-ea3dba389325">
+<span class="eqno">(4)<a class="headerlink" href="#equation-77298702-3061-47de-aa0f-ea3dba389325" title="Permalink to this equation">#</a></span>\[\begin{equation}
 RExposure^{climate} = RExposure^{transition}_{i,t} + RExposure^{physical}_{i,t}
 \end{equation}\]</div>
 </section>

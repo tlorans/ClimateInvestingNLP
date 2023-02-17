@@ -32,8 +32,6 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -101,11 +99,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="business_desc.html">
    Using Business Description for a Firm-Level Estimate of Greeness
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="green_activities_sp.html">
-   Green Activities in the S&amp;P 500 Universe
   </a>
  </li>
  <li class="toctree-l1">
@@ -264,23 +257,6 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#climate-tilting">
    Climate Tilting
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#benchmark-greeness">
-     Benchmark Greeness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tracking-error-volatility-and-excess-greeness">
-     Tracking Error Volatility and Excess Greeness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#climate-investing-objectives">
-     Climate Investing Objectives
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -310,23 +286,6 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#climate-tilting">
    Climate Tilting
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#benchmark-greeness">
-     Benchmark Greeness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tracking-error-volatility-and-excess-greeness">
-     Tracking Error Volatility and Excess Greeness
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#climate-investing-objectives">
-     Climate Investing Objectives
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -346,186 +305,6 @@ title="Print to PDF"
 </section>
 <section id="climate-tilting">
 <h2>Climate Tilting<a class="headerlink" href="#climate-tilting" title="Permalink to this headline">#</a></h2>
-<p>In what follows we present our simple framework for tilting a benchmark according to a dual objective: (i) minimizing the tracking error volatility risk and (ii) improving the <em>greeness</em> of the tilted version compared to the benchmark. To do so, we follow the approach from Roncalli (2023) <span id="id3">[<a class="reference internal" href="references.html#id12" title="Thierry Roncalli. Handbook of Sustainable Finance. SSRN, 2023.">Ron23</a>]</span>, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.</p>
-<section id="benchmark-greeness">
-<h3>Benchmark Greeness<a class="headerlink" href="#benchmark-greeness" title="Permalink to this headline">#</a></h3>
-<p>We need first to define the <em>benchmark greeness</em>.
-Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of a benchmark which is equally-weighted:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3edc695f-bb82-466e-a14b-d318db9c7695">
-<span class="eqno">(1)<a class="headerlink" href="#equation-3edc695f-bb82-466e-a14b-d318db9c7695" title="Permalink to this equation">#</a></span>\[\begin{equation}
-b = \begin{bmatrix}
-           0.2 \\
-           0.2 \\
-           0.2 \\
-           0.2 \\
-           0.2
-         \end{bmatrix}
-\end{equation}\]</div>
-<p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e0bb39ff-c15b-421b-978b-fbea5ede7597">
-<span class="eqno">(2)<a class="headerlink" href="#equation-e0bb39ff-c15b-421b-978b-fbea5ede7597" title="Permalink to this equation">#</a></span>\[\begin{equation}
-G = \begin{bmatrix}
-           0.95 \\
-           0.08 \\
-           0.67 \\
-           0.12 \\
-           0.47
-         \end{bmatrix}
-\end{equation}\]</div>
-<p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a3234141-c0d3-4d7b-8cc1-93238d28a617">
-<span class="eqno">(3)<a class="headerlink" href="#equation-a3234141-c0d3-4d7b-8cc1-93238d28a617" title="Permalink to this equation">#</a></span>\[\begin{equation}
-G(b) = b^TG
-\end{equation}\]</div>
-<p>Below we import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in order to compute the benchmark greeness.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.67</span><span class="p">,</span><span class="mf">0.12</span><span class="p">,</span><span class="mf">0.47</span><span class="p">])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>According to the illustrative data we use, the benchmark greeness is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.4580000000000001</span>
-</pre></div>
-</div>
-</section>
-<section id="tracking-error-volatility-and-excess-greeness">
-<h3>Tracking Error Volatility and Excess Greeness<a class="headerlink" href="#tracking-error-volatility-and-excess-greeness" title="Permalink to this headline">#</a></h3>
-<p>Having the previous benchmark, let’s assume a portfolio with the same issuers than the benchmark, but with different weights <span class="math notranslate nohighlight">\(x\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-aa35cd8f-82ad-4104-a660-4ed63f0cd8ff">
-<span class="eqno">(4)<a class="headerlink" href="#equation-aa35cd8f-82ad-4104-a660-4ed63f0cd8ff" title="Permalink to this equation">#</a></span>\[\begin{equation}
-x = \begin{bmatrix}
-           0.10 \\
-           0.15 \\
-           0.30 \\
-           0.20 \\
-           0.25
-         \end{bmatrix}
-\end{equation}\]</div>
-<p>Let’s have the following covariance matrix:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-493c1ab3-82af-41f0-af37-3703e2e53e9c">
-<span class="eqno">(5)<a class="headerlink" href="#equation-493c1ab3-82af-41f0-af37-3703e2e53e9c" title="Permalink to this equation">#</a></span>\[\begin{equation}
-\Sigma = 
-\begin{pmatrix}
-0.1536 &amp; 0.006 &amp; 0.0108 &amp; 0.0156 &amp; 0.024 \\
-0.006 &amp; 0.17 &amp; 0.018 &amp; 0.026 &amp; 0.04 \\
-0.0108 &amp; 0.018 &amp; 0.1324 &amp; 0.0468 &amp; 0.072 \\
-0.0156 &amp; 0.026 &amp; 0.0468 &amp; 0.1776 &amp; 0.104 \\
-0.024 &amp; 0.04 &amp; 0.072 &amp; 0.104 &amp; 0.28 \\
-\end{pmatrix}
-\end{equation}\]</div>
-<p>We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fcd7c004-edf4-4183-a526-a110ef360515">
-<span class="eqno">(6)<a class="headerlink" href="#equation-fcd7c004-edf4-4183-a526-a110ef360515" title="Permalink to this equation">#</a></span>\[\begin{equation}
-\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
-\end{equation}\]</div>
-<p>Below we compute the tracking error volatility:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
-<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.1536</span><span class="p">,</span>  <span class="mf">0.006</span><span class="p">,</span>  <span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.024</span><span class="p">],</span>
-                 <span class="p">[</span><span class="mf">0.006</span><span class="p">,</span>   <span class="mf">0.17</span><span class="p">,</span>   <span class="mf">0.018</span><span class="p">,</span>   <span class="mf">0.026</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">],</span>
-                 <span class="p">[</span><span class="mf">0.0108</span><span class="p">,</span>  <span class="mf">0.018</span><span class="p">,</span>  <span class="mf">0.1324</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.072</span><span class="p">],</span>
-                 <span class="p">[</span><span class="mf">0.0156</span><span class="p">,</span>  <span class="mf">0.026</span><span class="p">,</span>  <span class="mf">0.0468</span><span class="p">,</span>  <span class="mf">0.1776</span><span class="p">,</span>  <span class="mf">0.104</span><span class="p">],</span>
-                 <span class="p">[</span><span class="mf">0.024</span><span class="p">,</span>   <span class="mf">0.04</span><span class="p">,</span>   <span class="mf">0.072</span><span class="p">,</span>   <span class="mf">0.104</span><span class="p">,</span>   <span class="mf">0.28</span><span class="p">]])</span>
-
-<span class="n">te</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Sigma</span> <span class="o">@</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>And the result is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.06268173577685926</span>
-</pre></div>
-</div>
-<p>We also need to define the <em>excess greeness</em> of our portfolio, that is the positive or negative deviation from our benchmark greeness:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d42587d5-5031-4eec-b75d-fb1281ac6f70">
-<span class="eqno">(7)<a class="headerlink" href="#equation-d42587d5-5031-4eec-b75d-fb1281ac6f70" title="Permalink to this equation">#</a></span>\[\begin{equation}
-G(x|b) = (x - b)^T G
-\end{equation}\]</div>
-<p>Below is the code to compute the excess greeness of our portfolio:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">excess_greeness</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G</span>
-</pre></div>
-</div>
-<p>And the result is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mf">0.008500000000000021</span>
-</pre></div>
-</div>
-</section>
-<section id="climate-investing-objectives">
-<h3>Climate Investing Objectives<a class="headerlink" href="#climate-investing-objectives" title="Permalink to this headline">#</a></h3>
-<p>In the previous example, we compared the climate performance of a portfolio against a benchmark, with predefined portfolio’s weights.</p>
-<p>However, the objective of investors is to improve the portfolio’s greeness while controlling the tracking error volatility.</p>
-<p>Denoting <span class="math notranslate nohighlight">\(\gamma\)</span> as the risk tolerance parameter, we have the following optimization problem:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-\begin{aligned}
-&amp; x^* = 
-&amp; &amp; argmin \frac{1}{2} \sigma^2 (x |b) - \gamma G (x | b) \\
-&amp; \text{subject to}
-&amp; &amp; 1_5^Tx = 1, \\
-&amp;&amp;&amp; 0_5 \leq x \leq 1_5.
-\end{aligned}
-\end{equation*}\]</div>
-<p>Where the constraints simply mean that the sum of the resulting weights <span class="math notranslate nohighlight">\(x\)</span> need to be 1 and that individual weights <span class="math notranslate nohighlight">\(x_i\)</span> need to between 0 and 1.</p>
-<p>Varying the parameter value of <span class="math notranslate nohighlight">\(\gamma\)</span> gives you the efficient frontier of tracking a benchmark with a greeness objective.</p>
-<p>Below we install and import the <code class="docutils literal notranslate"><span class="pre">qpsolvers</span></code> package and formulate the QP problem of the optimization:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install qpsolvers 
-
-from qpsolvers import solve_qp
-
-def portfolio_tilting(Sigma, G, b, gamma):
-  &quot;&quot;&quot;QP formulation&quot;&quot;&quot;
-  
-  P = Sigma # Q 
-  q = - (gamma * G + Sigma @ b) # R, minus because we want to maximize it!
-  A = np.ones(len(G)).T # A
-  b = np.array([1.]) # B
-  lb = np.zeros(len(G))
-  ub = np.ones(len(G))
-  print(q)
-  x = solve_qp(P = P,
-               q = q,
-               A = A, 
-               b = b,
-               lb = lb,
-               ub = ub,
-               solver = &#39;osqp&#39;)
-  
-  return x
-
-</pre></div>
-</div>
-<p>Below is the code to draw the efficient frontier, varying <span class="math notranslate nohighlight">\(\gamma\)</span> value:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results_excess_greeness</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">results_te</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span>
-
-<span class="n">list_gammas</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
-
-
-<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">list_gammas</span><span class="p">:</span>
-   <span class="n">x</span> <span class="o">=</span> <span class="n">portfolio_tilting</span><span class="p">(</span><span class="n">Sigma</span> <span class="o">=</span> <span class="n">Sigma</span><span class="p">,</span> 
-                    <span class="n">G</span> <span class="o">=</span> <span class="n">G</span><span class="p">,</span>
-                    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span>
-                    <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">)</span>
-   <span class="n">excess_greeness</span><span class="p">,</span> <span class="n">te</span> <span class="o">=</span> <span class="n">get_perf_tilting</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> 
-                                       <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> 
-                                       <span class="n">Sigma</span> <span class="o">=</span> <span class="n">Sigma</span><span class="p">,</span>
-                                       <span class="n">G</span> <span class="o">=</span> <span class="n">G</span><span class="p">)</span>
-   <span class="n">results_excess_greeness</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">excess_greeness</span><span class="p">)</span>
-   <span class="n">results_te</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">te</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_te</span><span class="p">,</span> <span class="n">results_excess_greeness</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;TE Volatility&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Greeness Excess&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><img alt="Efficient frontier" src="_images/efficientfrontier.PNG" /></p>
-</section>
 </section>
 </section>
 

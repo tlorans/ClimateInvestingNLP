@@ -9,7 +9,7 @@ To provide a shared definition of green activites, the EU Commission has introdu
 
 The main drawback of this initiative is that underlying data simply doesn't exist at the issuer level yet (Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston`), at least as long as the Corporate Sustainability Reporting Directive (CSRD) is not implemented yet.
 
-## A Green / Brown Taxonomy
+## Green, Brown or Mixed Taxonomy?
 
 As noted by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, a green taxonomy may be restrictive since it tells us nothing about the browness of the issuer. Indeed, an issuer having an exposure to green activities of 30% doesn't means that 70% is brown, but could be neutral.
 
@@ -24,4 +24,8 @@ Finally, a mixed taxonomy would combined both green and brown taxonomies, with n
 The differences between the three approaches (green, brown, mixed taxonomies) are the counterpart of selection (green taxonomy), exclusion (brown taxonomy) and integration (mixed) in ESG strategies.
 
 ## Our Approach: A Mixed Taxonomy
+
+We follow Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston` by adopting the list of green activities (green, enabling and transitional activities) from the EU taxonomy, as listed in the Annex 1 {cite:p}`2021:ANNEX1`. However, due to the lack of data, we fill not follow the alignment process recommended by the EU taxonomy. Our approach stops at the first stage: the eligibility.
+
+We recognize the need for a mixed taxonomy stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`. In the absence of brown taxonomy from the EU Commission, we will follow the approach of the authors by using the activites in oil, gas and coal as a stringent definition of brown activities.
 

@@ -3,204 +3,37 @@
 
 As Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
 
-As we want to estimate a firm level measure of greeness, we develop a text-mining framework based on the green technologies listed by the Project Drawdown (2017) {cite:p}`2017:Drawdown`.
+As we want to estimate a firm level measure of greeness, we develop a text-mining approach.
 
-We apply the framework described previously, using the keywords contained in the business description of S&P 500 firms, extracted from 10-K fillings as $K^{activity}_{i,t}$.
+More specifically, we define the firm-level exposure to a given activity as *the semantic similarity between the business description of the firm and the description of the activity.*
 
-Below is the Python code to load the business description (for 2020 only) in the `materials` folder and retrieve the keywords per business description:
+## Embeddings with a Sentence Transformer Model
 
-```python
-import pandas as pd 
-
-business_desc = pd.read_csv('sandp_business_desc.csv')
-
-from keyphrase_vectorizers import KeyphraseCountVectorizer  
-vectorizer = KeyphraseCountVectorizer(stop_words = 'english')
-
-business_desc.dropna(inplace = True)
-
-list_K = [vectorizer.fit([i]).get_feature_names_out().tolist() for i in (business_desc['Business_description'].tolist())]
-list_K[2]
-```
-
-As an illustration, this outputs the following keywords list for Abbot:
-
-```
-['businessgeneral development',
- 'october',
- 'bill',
- 'discovery',
- 'abbott medical optics',
- 'johnson',
- 'illinois corporation',
- 'sale',
- 'aggregate consideration',
- 'alere',
- 'acquisition',
- 'service provider',
- 'nutritional products',
- 'established pharmaceutical products',
- 'diagnostic device',
- 'vision care business',
- 'manufacture',
- 'reportable segments',
- 'businessabbott',
- 'cash',
- 'development',
- 'item',
- 'principal business',
- 'narrative description',
- 'diversified line',
- 'businessabbott laboratories',
- 'inc.',
- 'diagnostic products',
- 'health care products',
- 'february',
- 'abbott',
- 'medical devices']
-```
-
-We use the list of green technologies from the Project Drawdown as the list of theme-specific keywords $S^{green}$.
-
-Below is the Python code to get the keywords list in the `materials` folder:
-
-```python
-green_tech = pd.read_excel('Green_tech.xlsx')
-S = green_tech.Keyword.tolist()
-S
-```
-
-```
-['Abandoned Farmland Restoration',
- 'Alternative Cement',
- 'Alternative Refrigerants',
- 'Bamboo Production',
- 'Bicycle Infrastructure',
- 'Biochar Production',
- 'Biogas for Cooking',
- 'Biomass Power',
- 'Bioplastics',
- 'Building Automation Systems',
- 'Building Retrofitting',
- 'Carpooling',
- 'Clean Cooking',
- 'Coastal Wetland Protection',
- 'Coastal Wetland Restoration',
- 'Composting',
- 'Concentrated Solar Power',
- 'Conservation Agriculture',
- 'Distributed Energy Storage',
- 'Distributed Solar Photovoltaics',
- 'District Heating',
- 'Dynamic Glass',
- 'Efficient Aviation',
- 'Efficient Ocean Shipping',
- 'Efficient Trucks',
- 'Electric Bicycles',
- 'Electric Cars',
- 'Electric Trains',
- 'Family Planning and Education',
- 'Farm Irrigation Efficiency',
- 'Forest Protection',
- 'Geothermal Power',
- 'Grassland Protection',
- 'Green and Cool Roofs',
- 'Grid Flexibility',
- 'High-Efficiency Heat Pumps',
- 'High-Performance Glass',
- 'High-Speed Rail',
- 'Hybrid Cars',
- 'Improved Aquaculture',
- 'Improved Cattle Feed',
- 'Improved Fisheries',
- 'Improved Manure Management',
- 'Improved Rice Production',
- 'Indigenous Peoples’ Forest\xa0Tenure',
- 'Insulation',
- 'Landfill Methane Capture',
- 'LED Lighting',
- 'Low-Flow Fixtures',
- 'Macroalgae Protection and Restoration',
- 'Managed Grazing',
- 'Methane Digesters',
- 'Methane Leak Management',
- 'Micro Wind Turbines',
- 'Microgrids',
- 'Multistrata Agroforestry',
- 'Net-Zero Buildings',
- 'Nuclear Power',
- 'Nutrient Management',
- 'Ocean Power',
- 'Offshore Wind Turbines',
- 'Onshore Wind Turbines',
- 'Peatland Protection and Rewetting',
- 'Perennial Biomass Production',
- 'Perennial Staple Crops',
- 'Plant-Rich Diets',
- 'Public Transit',
- 'Recycled Metals',
- 'Recycled Paper',
- 'Recycled Plastics',
- 'Recycling',
- 'Reduced Food Waste',
- 'Reduced Plastics',
- 'Refrigerant Management',
- 'Regenerative Annual Cropping',
- 'Seafloor Protection',
- 'Seaweed Farming',
- 'Silvopasture',
- 'Small Hydropower',
- 'Smart Thermostats',
- 'Solar Hot Water',
- 'Sustainable Intensification for Smallholders',
- 'System of Rice Intensification',
- 'Telepresence',
- 'Temperate Forest Restoration',
- 'Tree Intercropping',
- 'Tree Plantations (on Degraded Land)',
- 'Tropical Forest Restoration',
- 'Utility-Scale Energy Storage',
- 'Utility-Scale Solar Photovoltaics',
- 'Walkable Cities',
- 'Waste to Energy',
- 'Water Distribution Efficiency']
-```
-
-Finally, we obtained the exposure to green activities such as:
+We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm $i$, $D_{i}$ and the description of the activity $k$, $A_{k}$:
 
 \begin{equation}
-Exposure^{green}_{i,t} = \frac{1}{K^{activity}_{i,t}}\sum_{k^{activity}}^{K^{activity}_{i,t}}\tau(k^{activity}_{i,t})
+Emb^{D_{i}} = ST(D_{i})
 \end{equation}
 
-Below is the Python code to obtain the resulting green activities exposure code:
+and 
 
-```python
-from sentence_transformers import SentenceTransformer, util
-import torch
+\begin{equation}
+Emb^{A_k} = ST(A_k)
+\end{equation}
 
-# load the embedding model
-ST = SentenceTransformer('all-MiniLM-L6-v2')
+Where $Emb^{D_{i}}$ and $Emb^{A_k}$ are the numerical vector representation (embeddings) of $D_{i}$ and $A_{k}$, performed with the Sentence Transformer model $ST()$.
 
-# get the embeddings
-list_emb_K = [ST.encode(sent, convert_to_tensor=True) for sent in (list_K)]
-emb_S = ST.encode(S, convert_to_tensor=True)
+## Exposure with Cosine Similarity
 
-# get the cosine similarity score for each keywrod
-list_hits = [util.semantic_search(sent, emb_S, top_k=1) for sent in (list_emb_K)]
+We want to be able to determine if the business description $D_{i}$ is related to one of the activity defined in our taxonomy.
 
-# get the list of keywords related to our theme
-list_T = []
+As we now have numerical vector representations $Emb^{D_{i}}$ and $Emb^{A_k}$, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions. 
 
-for sent in tqdm(list_hits):
-  T = []
-
-  for i in range(len(sent)):
-    if sent[i][0]['score'] >= 0.6:
-      T.append(i)
-
-  list_T.append(T)
+One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:
 
 
-# Get the Exposure Code
-business_desc['Exposure_Green_Tech'] = [len(list_T[i]) / len(list_K[i]) for i in range(len(list_T))]
-```
+\begin{equation}
+cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb^{A_k}||}
+\end{equation}
+
+For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.

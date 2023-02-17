@@ -36,7 +36,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="green_activities_sp.html" />
+    <link rel="next" title="Green Activities in the S&amp;P 500 Universe" href="green_activities_sp.html" />
     <link rel="prev" title="A Green Taxonomy" href="greentaxonomy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -103,6 +103,16 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Using Business Description for a Firm-Level Estimate of Greeness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="green_activities_sp.html">
+   Green Activities in the S&amp;P 500 Universe
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="transition_investing.html">
+   Transition Investing
   </a>
  </li>
  <li class="toctree-l1">
@@ -225,12 +235,41 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#embeddings-with-a-sentence-transformer-model">
+   Embeddings with a Sentence Transformer Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exposure-with-cosine-similarity">
+   Exposure with Cosine Similarity
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -242,6 +281,24 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#embeddings-with-a-sentence-transformer-model">
+   Embeddings with a Sentence Transformer Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exposure-with-cosine-similarity">
+   Exposure with Cosine Similarity
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -252,195 +309,33 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="using-business-description-for-a-firm-level-estimate-of-greeness">
 <h1>Using Business Description for a Firm-Level Estimate of Greeness<a class="headerlink" href="#using-business-description-for-a-firm-level-estimate-of-greeness" title="Permalink to this headline">#</a></h1>
 <p>As Alessi and Battiston (2022) <span id="id1">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span> have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors).</p>
-<p>As we want to estimate a firm level measure of greeness, we develop a text-mining framework based on the green technologies listed by the Project Drawdown (2017) <span id="id2">[<a class="reference internal" href="references.html#id16" title="Paul Hawken. Drawdown: The Most Comprehensive Plan Ever Proposed to Reverse Global Warming. Penguin Books, 2017.">Haw17</a>]</span>.</p>
-<p>We apply the framework described previously, using the keywords contained in the business description of S&amp;P 500 firms, extracted from 10-K fillings as <span class="math notranslate nohighlight">\(K^{activity}_{i,t}\)</span>.</p>
-<p>Below is the Python code to load the business description (for 2020 only) in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder and retrieve the keywords per business description:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
-
-<span class="n">business_desc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sandp_business_desc.csv&#39;</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">keyphrase_vectorizers</span> <span class="kn">import</span> <span class="n">KeyphraseCountVectorizer</span>  
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">KeyphraseCountVectorizer</span><span class="p">(</span><span class="n">stop_words</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">)</span>
-
-<span class="n">business_desc</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="n">list_K</span> <span class="o">=</span> <span class="p">[</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Business_description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
-<span class="n">list_K</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>As an illustration, this outputs the following keywords list for Abbot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;businessgeneral development&#39;</span><span class="p">,</span>
- <span class="s1">&#39;october&#39;</span><span class="p">,</span>
- <span class="s1">&#39;bill&#39;</span><span class="p">,</span>
- <span class="s1">&#39;discovery&#39;</span><span class="p">,</span>
- <span class="s1">&#39;abbott medical optics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;johnson&#39;</span><span class="p">,</span>
- <span class="s1">&#39;illinois corporation&#39;</span><span class="p">,</span>
- <span class="s1">&#39;sale&#39;</span><span class="p">,</span>
- <span class="s1">&#39;aggregate consideration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;alere&#39;</span><span class="p">,</span>
- <span class="s1">&#39;acquisition&#39;</span><span class="p">,</span>
- <span class="s1">&#39;service provider&#39;</span><span class="p">,</span>
- <span class="s1">&#39;nutritional products&#39;</span><span class="p">,</span>
- <span class="s1">&#39;established pharmaceutical products&#39;</span><span class="p">,</span>
- <span class="s1">&#39;diagnostic device&#39;</span><span class="p">,</span>
- <span class="s1">&#39;vision care business&#39;</span><span class="p">,</span>
- <span class="s1">&#39;manufacture&#39;</span><span class="p">,</span>
- <span class="s1">&#39;reportable segments&#39;</span><span class="p">,</span>
- <span class="s1">&#39;businessabbott&#39;</span><span class="p">,</span>
- <span class="s1">&#39;cash&#39;</span><span class="p">,</span>
- <span class="s1">&#39;development&#39;</span><span class="p">,</span>
- <span class="s1">&#39;item&#39;</span><span class="p">,</span>
- <span class="s1">&#39;principal business&#39;</span><span class="p">,</span>
- <span class="s1">&#39;narrative description&#39;</span><span class="p">,</span>
- <span class="s1">&#39;diversified line&#39;</span><span class="p">,</span>
- <span class="s1">&#39;businessabbott laboratories&#39;</span><span class="p">,</span>
- <span class="s1">&#39;inc.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;diagnostic products&#39;</span><span class="p">,</span>
- <span class="s1">&#39;health care products&#39;</span><span class="p">,</span>
- <span class="s1">&#39;february&#39;</span><span class="p">,</span>
- <span class="s1">&#39;abbott&#39;</span><span class="p">,</span>
- <span class="s1">&#39;medical devices&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>We use the list of green technologies from the Project Drawdown as the list of theme-specific keywords <span class="math notranslate nohighlight">\(S^{green}\)</span>.</p>
-<p>Below is the Python code to get the keywords list in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">green_tech</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;Green_tech.xlsx&#39;</span><span class="p">)</span>
-<span class="n">S</span> <span class="o">=</span> <span class="n">green_tech</span><span class="o">.</span><span class="n">Keyword</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">S</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Abandoned Farmland Restoration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Alternative Cement&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Alternative Refrigerants&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Bamboo Production&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Bicycle Infrastructure&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Biochar Production&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Biogas for Cooking&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Biomass Power&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Bioplastics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Building Automation Systems&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Building Retrofitting&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Carpooling&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Clean Cooking&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Coastal Wetland Protection&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Coastal Wetland Restoration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Composting&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Concentrated Solar Power&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Conservation Agriculture&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Distributed Energy Storage&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Distributed Solar Photovoltaics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;District Heating&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Dynamic Glass&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Efficient Aviation&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Efficient Ocean Shipping&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Efficient Trucks&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Electric Bicycles&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Electric Cars&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Electric Trains&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Family Planning and Education&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Farm Irrigation Efficiency&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Forest Protection&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Geothermal Power&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Grassland Protection&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Green and Cool Roofs&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Grid Flexibility&#39;</span><span class="p">,</span>
- <span class="s1">&#39;High-Efficiency Heat Pumps&#39;</span><span class="p">,</span>
- <span class="s1">&#39;High-Performance Glass&#39;</span><span class="p">,</span>
- <span class="s1">&#39;High-Speed Rail&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Hybrid Cars&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Improved Aquaculture&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Improved Cattle Feed&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Improved Fisheries&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Improved Manure Management&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Improved Rice Production&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Indigenous Peoples’ Forest</span><span class="se">\xa0</span><span class="s1">Tenure&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Insulation&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Landfill Methane Capture&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LED Lighting&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Low-Flow Fixtures&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Macroalgae Protection and Restoration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Managed Grazing&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Methane Digesters&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Methane Leak Management&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Micro Wind Turbines&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Microgrids&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Multistrata Agroforestry&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Net-Zero Buildings&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Nuclear Power&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Nutrient Management&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Ocean Power&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Offshore Wind Turbines&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Onshore Wind Turbines&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Peatland Protection and Rewetting&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Perennial Biomass Production&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Perennial Staple Crops&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Plant-Rich Diets&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Public Transit&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Recycled Metals&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Recycled Paper&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Recycled Plastics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Recycling&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Reduced Food Waste&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Reduced Plastics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Refrigerant Management&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Regenerative Annual Cropping&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Seafloor Protection&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Seaweed Farming&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Silvopasture&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Small Hydropower&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Smart Thermostats&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Solar Hot Water&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Sustainable Intensification for Smallholders&#39;</span><span class="p">,</span>
- <span class="s1">&#39;System of Rice Intensification&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Telepresence&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Temperate Forest Restoration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Tree Intercropping&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Tree Plantations (on Degraded Land)&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Tropical Forest Restoration&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Utility-Scale Energy Storage&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Utility-Scale Solar Photovoltaics&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Walkable Cities&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Waste to Energy&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Water Distribution Efficiency&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Finally, we obtained the exposure to green activities such as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41053358-65f8-4e16-9949-a23bb5436960">
-<span class="eqno">(1)<a class="headerlink" href="#equation-41053358-65f8-4e16-9949-a23bb5436960" title="Permalink to this equation">#</a></span>\[\begin{equation}
-Exposure^{green}_{i,t} = \frac{1}{K^{activity}_{i,t}}\sum_{k^{activity}}^{K^{activity}_{i,t}}\tau(k^{activity}_{i,t})
+<p>As we want to estimate a firm level measure of greeness, we develop a text-mining approach.</p>
+<p>More specifically, we define the firm-level exposure to a given activity as <em>the semantic similarity between the business description of the firm and the description of the activity.</em></p>
+<section id="embeddings-with-a-sentence-transformer-model">
+<h2>Embeddings with a Sentence Transformer Model<a class="headerlink" href="#embeddings-with-a-sentence-transformer-model" title="Permalink to this headline">#</a></h2>
+<p>We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(D_{i}\)</span> and the description of the activity <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(A_{k}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e725e9c2-ea4b-45cd-b345-189fa39454e0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-e725e9c2-ea4b-45cd-b345-189fa39454e0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+Emb^{D_{i}} = ST(D_{i})
 \end{equation}\]</div>
-<p>Below is the Python code to obtain the resulting green activities exposure code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span><span class="p">,</span> <span class="n">util</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-
-<span class="c1"># load the embedding model</span>
-<span class="n">ST</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
-
-<span class="c1"># get the embeddings</span>
-<span class="n">list_emb_K</span> <span class="o">=</span> <span class="p">[</span><span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="p">(</span><span class="n">list_K</span><span class="p">)]</span>
-<span class="n">emb_S</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># get the cosine similarity score for each keywrod</span>
-<span class="n">list_hits</span> <span class="o">=</span> <span class="p">[</span><span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="n">emb_S</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="p">(</span><span class="n">list_emb_K</span><span class="p">)]</span>
-
-<span class="c1"># get the list of keywords related to our theme</span>
-<span class="n">list_T</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">list_hits</span><span class="p">):</span>
-  <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
-
-  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sent</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">sent</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.6</span><span class="p">:</span>
-      <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-  <span class="n">list_T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-
-
-<span class="c1"># Get the Exposure Code</span>
-<span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Exposure_Green_Tech&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_K</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_T</span><span class="p">))]</span>
-</pre></div>
-</div>
+<p>and</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9c8dd5eb-2faa-4bfa-9c50-6c565c444b79">
+<span class="eqno">(2)<a class="headerlink" href="#equation-9c8dd5eb-2faa-4bfa-9c50-6c565c444b79" title="Permalink to this equation">#</a></span>\[\begin{equation}
+Emb^{A_k} = ST(A_k)
+\end{equation}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span> are the numerical vector representation (embeddings) of <span class="math notranslate nohighlight">\(D_{i}\)</span> and <span class="math notranslate nohighlight">\(A_{k}\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
+</section>
+<section id="exposure-with-cosine-similarity">
+<h2>Exposure with Cosine Similarity<a class="headerlink" href="#exposure-with-cosine-similarity" title="Permalink to this headline">#</a></h2>
+<p>We want to be able to determine if the business description <span class="math notranslate nohighlight">\(D_{i}\)</span> is related to one of the activity defined in our taxonomy.</p>
+<p>As we now have numerical vector representations <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions.</p>
+<p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2bba3d32-6bfc-42ea-a61d-3be47349554d">
+<span class="eqno">(3)<a class="headerlink" href="#equation-2bba3d32-6bfc-42ea-a61d-3be47349554d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb^{A_k}||}
+\end{equation}\]</div>
+<p>For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.</p>
+</section>
 </section>
 
 
@@ -461,7 +356,7 @@ Exposure^{green}_{i,t} = \frac{1}{K^{activity}_{i,t}}\sum_{k^{activity}}^{K^{act
     <a class='right-next' id="next-link" href="green_activities_sp.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Green Activities in the S&amp;P 500 Universe</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

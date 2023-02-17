@@ -1,24 +1,5 @@
-# Transition Investing
 
-In this part, we propose an exploratory approach of Natural Language Processing usages for constructing a green transition S&P 500. 
-
-As exposed by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, we need to specify the measure of greeness for implementing the transition dimension in net zero investing. While the carbon footprint is a well-defined concept, greeness is more difficult to assess. 
-
-We follow Roncalli et al. (2022) {cite:p}`2022:Roncallietal` in choosing the exposure to green activities as our central measure of greeness of issuers. In contrast, we do not use the same measurement approach, developed by Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` (the taxonomy alignement coefficient, or TAC), based on a top-down approach to measure alignment to the EU Taxonomy based on sector-level data (NACE). In what follows, we develop a firm-level exposure to green activities measure with text mining, starting from a specific set of keywords describing green technologies in various sector.
-
-We consider the construction of the transition portfolio based on benchmark optimization. In contrast to Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, we do not adopt an integrated approach (integrating both the decarbonization and transition features), and focus on the transition dimension.
-
-## A Green Taxonomy
-
-In order to be able to determine the degree of greeness of issuers based on their activities, one needs a green taxonomy to determine what is deemed to be green or not. 
-
-To provide a shared definition of green activites, the EU Commission has introduced the EU Taxonomy for sustainable economic activities, based on NACE codes. Activities are defined as green if they provide a contribution to a least one environmental objective (among six, even if technical screening critera have been developed for the two climate objectives only so far {cite:p}`2021:ANNEX1` {cite:p}`2021:ANNEX2`) while at the same time do not significant harm to other environmental objective. Furthermore, the activity must comply with minimum social safeguards (such as the UN guiding principles on business and human rights for example).
-
-The main drawback of this initiative is that underlying data simply doesn't exist at the issuer level yet (Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston`), at least as long as the Corporate Sustainability Reporting Directive (CSRD) is not implemented yet.
-
-Recognizing the current impossibility to assess firm's greeness based on the EU Taxonomy, we choose to follow the taxonomy of climate solutions proposed by the Project Drawdown {cite:p}`2017:Drawdown`. The Project Drawdown's taxonomy lists green technologies supposed to significantly contribute to the green transition into the following sectors: (i) electricity; (ii) other energy; (iii) food, agriculture and land use; (iv) industry; (v) transportation; (vi) buildings; (vii) health and education; (viii) land sinks; (ix) land sinks; (x) coastal and ocean sinks and (xi) engineered sinks.
-
-## Using Business Description for a Firm-Level Estimate of Greeness
+# Using Business Description for a Firm-Level Estimate of Greeness
 
 As Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
 
@@ -223,38 +204,3 @@ for sent in tqdm(list_hits):
 # Get the Exposure Code
 business_desc['Exposure_Green_Tech'] = [len(list_T[i]) / len(list_K[i]) for i in range(len(list_T))]
 ```
-
-## Green Activities in the S&P 500 Universe
-
-Below is the boxplot of our green activities exposure based on the S&P 500 universe, grouped by GICS sector (level 1 of the classification system). Unsurprisingly, aside some potential outliers / errors in other sectors, Energy, Industrials, Information Technology (Solar PV panels are classified as Semiconductors into this sector according to GICS for example) and Materials are among the sectors with the most potential exposure to green technologies. More surprisingly, there is few companies with green technologies exposure the Utilities sector. This can be due to non-exhaustive specific keywords targeting potential climate solutions into these sectors.
-
-![Boxplot Green Exposure](box_plot_green_exposure.PNG)
-
-Below is a bar plot representing the 10 most exposed GICS sub-industries (the lowest level in the GICS classification system). Transportation, Renewables Equipment (Electronic Equipment and Semiconductor Equipment) and Recycling services (Environmental & Facilities Services) are among the most represented activities.
-
-![green_exposure_10_sub_industries](green_exposure_10_sub_industries.PNG)
-
-Below is a bar plot represent the 10 most exposed securities to green technologies. For example, the first one *Enphase*'s business description is the following:
-
-*We are a global energy technology company. We deliver smart, easy-to-use solutions that manage solar generation, storage and communication on one intelligent platform. We revolutionized the solar industry with our microinverter technology and we produce a fully integrated solar-plus-storage solution.*
-
-![10_securities_green_tech_exposure](10_securities_green_tech_exposure.PNG)
-
-## Transition Investing
-
-We use the firm-level measure of greeness computed previously as our main feature to be integrated in our benchmark optimization problem.
-
-We follow the framework described previously and our optimization problem becomes:
-
-
-\begin{equation*}
-\begin{aligned}
-& x^* = 
-& & argmin \frac{1}{2} \sigma^2 (x |b) - \gamma Exposure^{green} (x | b) \\
-& \text{subject to}
-& & 1_n^Tx = 1, \\
-&&& 0_n \leq x \leq 1_n.
-\end{aligned}
-\end{equation*}
-
-## Transition S&P 500

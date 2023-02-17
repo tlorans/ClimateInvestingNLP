@@ -29,3 +29,20 @@ We follow Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston` by adopting 
 
 We recognize the need for a mixed taxonomy stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`. In the absence of brown taxonomy from the EU Commission, we will follow the approach of the authors by using the activites in oil, gas and coal as a stringent definition of brown activities.
 
+In our taxonomy, examples of green technologies are:
+
+- Electricity generation using solar photovoltaic technology
+- Production of heat/cool from bioenergy
+- Underground permanent geological storage of CO2
+
+Examples of enabling technologies are:
+
+- Storage of hydrogen
+- Manufacture of batteries
+
+And examples of transitional technologies are:
+
+- Manufacture of cement
+- Manufacture of iron and steel
+
+

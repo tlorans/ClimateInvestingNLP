@@ -24,7 +24,6 @@ We propose a transition portfolio, focusing on tilting an initial benchmark towa
 introduction
 greentaxonomy
 business_desc
-green_activities_sp
 transition_investing
 conclusion
 references

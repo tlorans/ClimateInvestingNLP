@@ -23,7 +23,7 @@ Emb^{A_k} = ST(A_k)
 
 Where $Emb^{D_{i}}$ and $Emb^{A_k}$ are the numerical vector representation (embeddings) of $D_{i}$ and $A_{k}$, performed with the Sentence Transformer model $ST()$.
 
-## Exposure with Cosine Similarity
+## Cosine Similarity
 
 We want to be able to determine if the business description $D_{i}$ is related to one of the activity defined in our taxonomy.
 
@@ -37,3 +37,12 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
 \end{equation}
 
 For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.
+
+## Greeness Measure
+
+Finally, we adopt the following rule to attribute a *greeness* score to each issuer:
+
+1. If $cos(\theta_{D_{i},k}) \leq 0.5$, a 0 score is attributed to the issuer.
+
+2. If the activity $k$ for which the cosine similarity with the business description was the highest is among the brown activities in our taxonomy, a score of $-cos(\theta_{D_{i},k})$ is attributed. A score of $cos(\theta_{D_{i},k})$ is attributed if the activity is among the green activities in our taxonomy.
+

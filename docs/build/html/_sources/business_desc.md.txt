@@ -133,3 +133,15 @@ plt.show()
 ```
 
 ![Results](results_greeness.PNG)
+
+Only 12 firms among the S&P universe are targeted as green or brown with our greeness measure! This can be explained by:
+
+1. Measuring the greeness of the firms with the business description and a quite stringent cosine similarity threshold is equivalent to looking for pure-players in green technologies which limit the universe.
+
+2. Our approach is equivalent to a classification task in Natural Language Processing. This generally involves at least few examples and fine-tuning plus training a classifier head on top of the fine-tuned model.
+
+Obtaining more interesting results would involve:
+
+1. Applying the approach of identifying green and brown activities at the business segment level, in order to obtain a measure close to the green intensity measure used by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`.
+
+2. Labelling some examples and train / evaluate a SetFit model (Tunstall et al. 2022 {cite:p}`2022:Tunstall`).

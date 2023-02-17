@@ -46,3 +46,6 @@ Finally, we adopt the following rule to attribute a *greeness* score to each iss
 
 2. If the activity $k$ for which the cosine similarity with the business description was the highest is among the brown activities in our taxonomy, a score of $-cos(\theta_{D_{i},k})$ is attributed. A score of $cos(\theta_{D_{i},k})$ is attributed if the activity is among the green activities in our taxonomy.
 
+## Results 
+
+Below is the Python code 

@@ -36,7 +36,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Green Activities in the S&amp;P 500 Universe" href="green_activities_sp.html" />
+    <link rel="next" title="Transition Investing" href="transition_investing.html" />
     <link rel="prev" title="A Green Taxonomy" href="greentaxonomy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -103,11 +103,6 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Using Business Description for a Firm-Level Estimate of Greeness
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="green_activities_sp.html">
-   Green Activities in the S&amp;P 500 Universe
   </a>
  </li>
  <li class="toctree-l1">
@@ -272,6 +267,11 @@ title="Print to PDF"
    Greeness Measure
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -306,6 +306,11 @@ title="Print to PDF"
    Greeness Measure
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -324,13 +329,13 @@ title="Print to PDF"
 <section id="embeddings-with-a-sentence-transformer-model">
 <h2>Embeddings with a Sentence Transformer Model<a class="headerlink" href="#embeddings-with-a-sentence-transformer-model" title="Permalink to this headline">#</a></h2>
 <p>We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(D_{i}\)</span> and the description of the activity <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(A_{k}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2b037dd7-3b73-4731-951d-165df487cc42">
-<span class="eqno">(1)<a class="headerlink" href="#equation-2b037dd7-3b73-4731-951d-165df487cc42" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-165465ee-c49e-452f-8c76-907ced9ab06e">
+<span class="eqno">(1)<a class="headerlink" href="#equation-165465ee-c49e-452f-8c76-907ced9ab06e" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{D_{i}} = ST(D_{i})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8b94b501-d03a-4679-ae42-969fe8ba938f">
-<span class="eqno">(2)<a class="headerlink" href="#equation-8b94b501-d03a-4679-ae42-969fe8ba938f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-72e62234-a22c-4689-bf6f-2438cf2a645f">
+<span class="eqno">(2)<a class="headerlink" href="#equation-72e62234-a22c-4689-bf6f-2438cf2a645f" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{A_k} = ST(A_k)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span> are the numerical vector representation (embeddings) of <span class="math notranslate nohighlight">\(D_{i}\)</span> and <span class="math notranslate nohighlight">\(A_{k}\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
@@ -340,8 +345,8 @@ Emb^{A_k} = ST(A_k)
 <p>We want to be able to determine if the business description <span class="math notranslate nohighlight">\(D_{i}\)</span> is related to one of the activity defined in our taxonomy.</p>
 <p>As we now have numerical vector representations <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions.</p>
 <p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dfd991ae-dfe8-4c2b-8498-11f32f6884d9">
-<span class="eqno">(3)<a class="headerlink" href="#equation-dfd991ae-dfe8-4c2b-8498-11f32f6884d9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-00e32146-07b1-4dc8-8d74-85b5865d1da5">
+<span class="eqno">(3)<a class="headerlink" href="#equation-00e32146-07b1-4dc8-8d74-85b5865d1da5" title="Permalink to this equation">#</a></span>\[\begin{equation}
 cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb^{A_k}||}
 \end{equation}\]</div>
 <p>For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.</p>
@@ -353,6 +358,10 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
 <li><p>If <span class="math notranslate nohighlight">\(cos(\theta_{D_{i},k}) \leq 0.5\)</span>, a 0 score is attributed to the issuer.</p></li>
 <li><p>If the activity <span class="math notranslate nohighlight">\(k\)</span> for which the cosine similarity with the business description was the highest is among the brown activities in our taxonomy, a score of <span class="math notranslate nohighlight">\(-cos(\theta_{D_{i},k})\)</span> is attributed. A score of <span class="math notranslate nohighlight">\(cos(\theta_{D_{i},k})\)</span> is attributed if the activity is among the green activities in our taxonomy.</p></li>
 </ol>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">#</a></h2>
+<p>Below is the Python code</p>
 </section>
 </section>
 
@@ -371,10 +380,10 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
             <p class="prev-next-title">A Green Taxonomy</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="green_activities_sp.html" title="next page">
+    <a class='right-next' id="next-link" href="transition_investing.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Green Activities in the S&amp;P 500 Universe</p>
+        <p class="prev-next-title">Transition Investing</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

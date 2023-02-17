@@ -25,9 +25,9 @@ The differences between the three approaches (green, brown, mixed taxonomies) ar
 
 ## Our Approach: A Mixed Taxonomy
 
-We follow Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston` by adopting the list of green activities (green, enabling and transitional activities) from the EU taxonomy, as listed in the Annex 1 {cite:p}`2021:ANNEX1`. However, due to the lack of data, we fill not follow the alignment process recommended by the EU taxonomy. Our approach stops at the first stage: the eligibility.
+We follow Alessi and Battiston, 2022 {cite:p}`2022:AlessiBattiston` by adopting the list of green activities (we combine both green and enabling technologies, but exclude transitional activities) from the EU taxonomy, as listed in the Annex 1 {cite:p}`2021:ANNEX1`. However, due to the lack of data, we fill not follow the alignment process recommended by the EU taxonomy. Our approach stops at the first stage: the eligibility.
 
-We recognize the need for a mixed taxonomy stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`. In the absence of brown taxonomy from the EU Commission, we will follow the approach of the authors by using the activites in oil, gas and coal as a stringent definition of brown activities.
+We recognize the need for a mixed taxonomy stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`. In the absence of brown taxonomy from the EU Commission, we will follow the approach of the authors by using the activites in oil, gas and coal as a stringent definition of brown activities (we use Energy activities defined by GICS).
 
 In our taxonomy, examples of green technologies are:
 
@@ -35,14 +35,9 @@ In our taxonomy, examples of green technologies are:
 - Production of heat/cool from bioenergy
 - Underground permanent geological storage of CO2
 
-Examples of enabling technologies are:
+And examples of brown technologies are:
 
-- Storage of hydrogen
-- Manufacture of batteries
-
-And examples of transitional technologies are:
-
-- Manufacture of cement
-- Manufacture of iron and steel
+- Oil & Gas Exploration & Production
+- Oil & Gas Storage & Transportation
 
 

@@ -268,8 +268,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results">
-   Results
+  <a class="reference internal nav-link" href="#python-implementation-results">
+   Python Implementation &amp; Results
   </a>
  </li>
 </ul>
@@ -307,8 +307,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results">
-   Results
+  <a class="reference internal nav-link" href="#python-implementation-results">
+   Python Implementation &amp; Results
   </a>
  </li>
 </ul>
@@ -329,13 +329,13 @@ title="Print to PDF"
 <section id="embeddings-with-a-sentence-transformer-model">
 <h2>Embeddings with a Sentence Transformer Model<a class="headerlink" href="#embeddings-with-a-sentence-transformer-model" title="Permalink to this headline">#</a></h2>
 <p>We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(D_{i}\)</span> and the description of the activity <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(A_{k}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-165465ee-c49e-452f-8c76-907ced9ab06e">
-<span class="eqno">(1)<a class="headerlink" href="#equation-165465ee-c49e-452f-8c76-907ced9ab06e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-89991ab4-1eab-45bb-848e-d39c46fcc211">
+<span class="eqno">(1)<a class="headerlink" href="#equation-89991ab4-1eab-45bb-848e-d39c46fcc211" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{D_{i}} = ST(D_{i})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-72e62234-a22c-4689-bf6f-2438cf2a645f">
-<span class="eqno">(2)<a class="headerlink" href="#equation-72e62234-a22c-4689-bf6f-2438cf2a645f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cf7ba28a-aef8-4280-affa-aa2df5eacdcb">
+<span class="eqno">(2)<a class="headerlink" href="#equation-cf7ba28a-aef8-4280-affa-aa2df5eacdcb" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{A_k} = ST(A_k)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span> are the numerical vector representation (embeddings) of <span class="math notranslate nohighlight">\(D_{i}\)</span> and <span class="math notranslate nohighlight">\(A_{k}\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
@@ -345,8 +345,8 @@ Emb^{A_k} = ST(A_k)
 <p>We want to be able to determine if the business description <span class="math notranslate nohighlight">\(D_{i}\)</span> is related to one of the activity defined in our taxonomy.</p>
 <p>As we now have numerical vector representations <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions.</p>
 <p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-00e32146-07b1-4dc8-8d74-85b5865d1da5">
-<span class="eqno">(3)<a class="headerlink" href="#equation-00e32146-07b1-4dc8-8d74-85b5865d1da5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c8479022-6175-473c-96cd-666a7389987b">
+<span class="eqno">(3)<a class="headerlink" href="#equation-c8479022-6175-473c-96cd-666a7389987b" title="Permalink to this equation">#</a></span>\[\begin{equation}
 cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb^{A_k}||}
 \end{equation}\]</div>
 <p>For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.</p>
@@ -359,9 +359,83 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
 <li><p>If the activity <span class="math notranslate nohighlight">\(k\)</span> for which the cosine similarity with the business description was the highest is among the brown activities in our taxonomy, a score of <span class="math notranslate nohighlight">\(-cos(\theta_{D_{i},k})\)</span> is attributed. A score of <span class="math notranslate nohighlight">\(cos(\theta_{D_{i},k})\)</span> is attributed if the activity is among the green activities in our taxonomy.</p></li>
 </ol>
 </section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">#</a></h2>
-<p>Below is the Python code</p>
+<section id="python-implementation-results">
+<h2>Python Implementation &amp; Results<a class="headerlink" href="#python-implementation-results" title="Permalink to this headline">#</a></h2>
+<p>Below is the Python code for determining the greeness measure, using data in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder.</p>
+<p>We first load the file containing the descriptions for the green and brown activities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># our taxonomy</span>
+<span class="n">taxo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;Green_Taxo.xlsx&#39;</span><span class="p">)</span>
+
+<span class="c1"># definitions of green and brown activities</span>
+<span class="n">green_definitions</span> <span class="o">=</span> <span class="n">taxo</span><span class="p">[</span><span class="n">taxo</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Green&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Description</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">brown_definitions</span> <span class="o">=</span> <span class="n">taxo</span><span class="p">[</span><span class="n">taxo</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Brown&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Description</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We then load the data containing the business description. We drop the rows without business description or with too short business description (web-scrapping is an art rather than a science…):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">business_desc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sandp_business_desc.csv&#39;</span><span class="p">)</span>
+
+<span class="n">business_desc</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Business_description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">business_desc</span> <span class="o">=</span> <span class="n">business_desc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="n">list_D</span> <span class="o">=</span> <span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Business_description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then we use the <code class="docutils literal notranslate"><span class="pre">sentence-transformers</span></code> package for embedding our descriptions. Please install it if needed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sentence_transformers</span>
+</pre></div>
+</div>
+<p>Once installed, we can then proceed to the embedding step for the activities description:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span><span class="p">,</span> <span class="n">util</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">ST</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="n">emb_A</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">taxo</span><span class="o">.</span><span class="n">Description</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">convert_to_tensor</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We create the following function to get the greeness score for each row in our dataframe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_exposure</span><span class="p">(</span><span class="n">business_desc</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">emb_A</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">taxo</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+  <span class="n">emb_desc</span> <span class="o">=</span> <span class="n">ST</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="n">business_desc</span><span class="p">],</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="n">emb_desc</span><span class="p">,</span> <span class="n">emb_A</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">taxo</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;corpus_id&#39;</span><span class="p">]][</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">exposure</span> <span class="o">=</span> <span class="o">-</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="p">(</span><span class="n">taxo</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;corpus_id&#39;</span><span class="p">]][</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">exposure</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">exposure</span> <span class="o">=</span> <span class="mf">0.0</span>
+  <span class="k">return</span> <span class="n">exposure</span>
+
+<span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Greeness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">business_desc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_exposure</span><span class="p">(</span><span class="n">business_desc</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;Business_description&#39;</span><span class="p">],</span>
+                                                         <span class="n">emb_A</span> <span class="o">=</span> <span class="n">emb_A</span><span class="p">,</span>
+                                                         <span class="n">taxo</span> <span class="o">=</span> <span class="n">taxo</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s plot the results for non-neutral firms:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>                   
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>  
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">business_desc</span><span class="p">[</span><span class="n">business_desc</span><span class="p">[</span><span class="s1">&#39;Greeness&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Greeness&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">results</span><span class="p">,</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Security&#39;</span><span class="p">,</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Greeness&#39;</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">results</span><span class="o">.</span><span class="n">Security</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Results" src="_images/results_greeness.PNG" /></p>
 </section>
 </section>
 

@@ -46,6 +46,90 @@ Finally, we adopt the following rule to attribute a *greeness* score to each iss
 
 2. If the activity $k$ for which the cosine similarity with the business description was the highest is among the brown activities in our taxonomy, a score of $-cos(\theta_{D_{i},k})$ is attributed. A score of $cos(\theta_{D_{i},k})$ is attributed if the activity is among the green activities in our taxonomy.
 
-## Results 
+## Python Implementation & Results 
 
-Below is the Python code 
+Below is the Python code for determining the greeness measure, using data in the `materials` folder.
+
+We first load the file containing the descriptions for the green and brown activities:
+```python
+import pandas as pd
+
+# our taxonomy
+taxo = pd.read_excel('Green_Taxo.xlsx')
+
+# definitions of green and brown activities
+green_definitions = taxo[taxo['Type']=='Green'].Description.tolist()
+
+brown_definitions = taxo[taxo['Type'] == 'Brown'].Description.tolist()
+```
+
+We then load the data containing the business description. We drop the rows without business description or with too short business description (web-scrapping is an art rather than a science...):
+
+```python
+business_desc = pd.read_csv('sandp_business_desc.csv')
+
+business_desc.dropna(inplace = True)
+mask = (business_desc['Business_description'].str.len() >= 100)
+business_desc = business_desc.loc[mask]
+list_D = business_desc['Business_description'].tolist()
+```
+
+Then we use the `sentence-transformers` package for embedding our descriptions. Please install it if needed with:
+
+```
+pip install sentence_transformers
+```
+
+Once installed, we can then proceed to the embedding step for the activities description:
+
+```python
+from sentence_transformers import SentenceTransformer, util
+import torch
+
+ST = SentenceTransformer('all-MiniLM-L6-v2')
+emb_A = ST.encode(taxo.Description.tolist(), convert_to_tensor = True)
+```
+
+We create the following function to get the greeness score for each row in our dataframe:
+```python
+def get_exposure(business_desc:str, emb_A:list, taxo:pd.DataFrame):
+  emb_desc = ST.encode([business_desc], convert_to_tensor=True)
+  result = util.semantic_search(emb_desc, emb_A, top_k = 1)[0][0]
+  if (taxo.iloc[result['corpus_id']]['Type'] == 'Brown') & (result['score'] > 0.5):
+    exposure = - result['score']
+  elif (taxo.iloc[result['corpus_id']]['Type'] == 'Green') & (result['score'] > 0.5):
+    exposure = result['score']
+
+  else:
+    exposure = 0.0
+  return exposure
+
+business_desc['Greeness'] = business_desc.apply(lambda x: get_exposure(business_desc = x['Business_description'],
+                                                         emb_A = emb_A,
+                                                         taxo = taxo), axis = 1)
+```
+
+Let's plot the results for non-neutral firms:
+```python
+import seaborn as sns                   
+import matplotlib.pyplot as plt     
+import plotly.express as px  
+
+results = business_desc[business_desc['Greeness'] != 0]
+results = results.sort_values(by = 'Greeness', ascending = False)
+
+f , ax = plt.subplots(figsize=(10, 10))
+
+g = sns.barplot(data = results,
+            ax = ax,
+            x = 'Security',
+            y = 'Greeness')
+
+g.set_xticklabels(
+    labels=results.Security.tolist(),
+    rotation=90)
+
+plt.show()
+```
+
+![Results](results_greeness.PNG)

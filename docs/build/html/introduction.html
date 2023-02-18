@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Transition: the Hidden Dimension in Net Zero Investing &#8212; Climate Investing with NLP 0 documentation</title>
+    <title>Transition: the Hidden Dimension in Climate Investing &#8212; Climate Investing with NLP 0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -35,7 +35,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A Green Taxonomy" href="greentaxonomy.html" />
-    <link rel="prev" title="Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Exploratory Approach" href="index.html" />
+    <link rel="prev" title="Exploring the Transition Dimension in Climate Investing with Natural Language Processing" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,7 +90,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Transition: the Hidden Dimension in Net Zero Investing
+   Transition: the Hidden Dimension in Climate Investing
   </a>
  </li>
  <li class="toctree-l1">
@@ -101,11 +101,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="business_desc.html">
    Using Business Description for a Firm-Level Estimate of Greeness
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="green_activities_sp.html">
-   Green Activities in the S&amp;P 500 Universe
   </a>
  </li>
  <li class="toctree-l1">
@@ -274,7 +269,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Transition: the Hidden Dimension in Net Zero Investing</h1>
+                <h1>Transition: the Hidden Dimension in Climate Investing</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -304,24 +299,30 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="transition-the-hidden-dimension-in-net-zero-investing">
-<h1>Transition: the Hidden Dimension in Net Zero Investing<a class="headerlink" href="#transition-the-hidden-dimension-in-net-zero-investing" title="Permalink to this headline">#</a></h1>
-<p>Climate investing is the new investment theme for asset owners and managers. Climate investing can be roughly divided into two main categories categories: (i) climate impact and (ii) climate change risks.</p>
-<p>In <strong>climate impact strategies</strong>, the explicit objective is to <strong>decarbonize the portfolio</strong>. In the context of index offering, this involved initially in constructing low-carbon indices. However, as stated by Roncalli et al. (2022) <span id="id1">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon indices were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy. Today’s reference approach is the Paris-aligned benchmark methodology. But we will see later that it falls short in adressing both dimensions (decarbonizing the portfolio and financing the transition) of net zero investing.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="transition-the-hidden-dimension-in-climate-investing">
+<h1>Transition: the Hidden Dimension in Climate Investing<a class="headerlink" href="#transition-the-hidden-dimension-in-climate-investing" title="Permalink to this headline">#</a></h1>
+<p>Climate investing is the new investment theme for asset owners and managers.</p>
+<p>This involved initially in constructing low-carbon portfolios. However, as stated by Roncalli et al. (2022) <span id="id1">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon portfolios were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy.</p>
+<p>In this part, we will first discuss why the transition dimension is not addressed by the popular Paris-Aligned Benchmarks rulebook. Then, we will discuss our text-mining based approach to tackle the transition dimension.</p>
 <section id="financing-the-transition-the-hidden-dimension-in-paris-aligned-benchmarks">
 <h2>Financing the Transition: the Hidden Dimension in Paris-Aligned Benchmarks<a class="headerlink" href="#financing-the-transition-the-hidden-dimension-in-paris-aligned-benchmarks" title="Permalink to this headline">#</a></h2>
-<p>When asset owners and managers speak about net zero investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least two goals: <strong>decarbonizing the portfolio and financing the transition</strong> (Roncalli et al. 2022 <span id="id2">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>).</p>
-<p>In net zero investing, the Paris-Aligned Benchmarks is a popular methodology. The EU Technical Expert Group (TEG) developed the PAB rulebook stipulating standards for an index to align with the Paris temperature goal of 1.5°C. The minimum requirements are (i) a 7% year-on-year average self-decarbonization in line with IPCC’s 1.5°C scenario and (ii) an initial carbon intensity reduction of 50% relative to the investable universe.</p>
+<p>When asset owners and managers speak about climate investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least <strong>two goals</strong>: <strong>decarbonizing the portfolio</strong> and <strong>financing the transition</strong> (Roncalli et al. 2022 <span id="id2">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>).</p>
+<p>In climate investing, the Paris-Aligned Benchmarks is a popular methodology. The EU Technical Expert Group (TEG) developed the PAB rulebook stipulating standards for an index to align with the Paris temperature goal of 1.5°C. The minimum requirements are:</p>
+<ol class="arabic simple">
+<li><p>a 7% year-on-year average self-decarbonization in line with IPCC’s 1.5°C scenario</p></li>
+<li><p>an initial carbon intensity reduction of 50% relative to the investable universe.</p></li>
+</ol>
 <p>However, the <strong>PAB rulebook falls short in incentivising the transition to a green economy</strong>. To achieve the trajectory, most current PAB actively under-weight high impact sectors such as Energy, Materials or Utilities (GICS sectors), and overweight Information Technology, Financials and Real Estate (Steffen 2022 <span id="id3">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
-<p>Indeed, the PAB rulebook’s exposure constraint requires intensity reductions to be achieved within “<em>high impact sectors</em>”, not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example.</p>
+<p>Indeed, the PAB rulebook’s exposure constraint requires intensity reductions to be achieved within “<em>high climate impact sectors</em>”, not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example.</p>
 <p>In practice, this means that there is a <strong>clear decoupling between the real economy and PABs</strong>. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 <span id="id4">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
-<p>To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) <span id="id5">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate net zero transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach, but focusing on the transition dimension only, while the authors use the transition metrics in combination with decarbonation metrics.</p>
+<p><strong>A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors!</strong></p>
+<p>To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) <span id="id5">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) <span id="id6">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, who propose an integrated approach (using both transition and decarbonation metrics).</p>
 </section>
 <section id="our-approach-a-text-based-transition-investing-methodology">
 <h2>Our Approach: a Text-Based Transition Investing Methodology<a class="headerlink" href="#our-approach-a-text-based-transition-investing-methodology" title="Permalink to this headline">#</a></h2>
-<p>As exposed by Roncalli et al. (2022) <span id="id6">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, we need to specify the measure of greeness for implementing the transition dimension in net zero investing. While the carbon footprint is a well-defined concept, greeness is more difficult to assess.</p>
-<p>We follow Roncalli et al. (2022) <span id="id7">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> in choosing the exposure to green activities as our central measure of greeness of issuers. In contrast, we do not use the same measurement approach, developed by Alessi and Battiston (2022) <span id="id8">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span> (the taxonomy alignement coefficient, or TAC), based on a top-down approach to measure alignment to the EU Taxonomy based on sector-level data (NACE). In what follows, we develop a firm-level exposure to green activities measure with text mining, starting from a specific set of keywords describing green technologies in various sector.</p>
-<p>We consider the construction of the transition portfolio based on benchmark optimization. In contrast to Roncalli et al. (2022) <span id="id9">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, we do not adopt an integrated approach (integrating both the decarbonization and transition features), and focus on the transition dimension.</p>
+<p>As exposed by Roncalli et al. (2022) <span id="id7">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, we need to specify the measure of greeness for implementing the transition dimension in net zero investing. While the carbon footprint is a well-defined concept, greeness is more difficult to assess.</p>
+<p>We follow Roncalli et al. (2022) <span id="id8">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> in choosing the exposure to green activities as our central measure of greeness of issuers. In contrast, we do not use the same measurement approach, developed by Alessi and Battiston (2022) <span id="id9">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span> (the taxonomy alignement coefficient, or TAC), based on a top-down approach to measure alignment to the EU Taxonomy based on sector-level data (NACE). In what follows, we develop a firm-level exposure to green activities measure with text mining, starting from a specific set of keywords describing green technologies in various sector.</p>
+<p>We consider the construction of the transition portfolio based on benchmark optimization. In contrast to Roncalli et al. (2022) <span id="id10">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, we do not adopt an integrated approach (integrating both the decarbonization and transition features), and focus on the transition dimension.</p>
 </section>
 </section>
 
@@ -337,7 +338,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Uncovering Hidden Dimensions of Climate Investing with Natural Language Processing: an Exploratory Approach</p>
+            <p class="prev-next-title">Exploring the Transition Dimension in Climate Investing with Natural Language Processing</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="greentaxonomy.html" title="next page">

@@ -1,22 +1,28 @@
-# Transition: the Hidden Dimension in Net Zero Investing
+# Transition: the Hidden Dimension in Climate Investing
 
-Climate investing is the new investment theme for asset owners and managers. Climate investing can be roughly divided into two main categories categories: (i) climate impact and (ii) climate change risks. 
+Climate investing is the new investment theme for asset owners and managers. 
 
-In **climate impact strategies**, the explicit objective is to **decarbonize the portfolio**. In the context of index offering, this involved initially in constructing low-carbon indices. However, as stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon indices were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy. Today's reference approach is the Paris-aligned benchmark methodology. But we will see later that it falls short in adressing both dimensions (decarbonizing the portfolio and financing the transition) of net zero investing.
+This involved initially in constructing low-carbon portfolios. However, as stated by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon portfolios were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy. 
+
+In this part, we will first discuss why the transition dimension is not addressed by the popular Paris-Aligned Benchmarks rulebook. Then, we will discuss our text-mining based approach to tackle the transition dimension.
 
 ## Financing the Transition: the Hidden Dimension in Paris-Aligned Benchmarks
 
-When asset owners and managers speak about net zero investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least two goals: **decarbonizing the portfolio and financing the transition** (Roncalli et al. 2022 {cite:p}`2022:Roncallietal`).
+When asset owners and managers speak about climate investing, they mainly focus on portfolio decarbonization. But building a net zero investment portfolio is more complex thant building a decarbonized portfolio, because the objective function encompasses at least **two goals**: **decarbonizing the portfolio** and **financing the transition** (Roncalli et al. 2022 {cite:p}`2022:Roncallietal`).
 
-In net zero investing, the Paris-Aligned Benchmarks is a popular methodology. The EU Technical Expert Group (TEG) developed the PAB rulebook stipulating standards for an index to align with the Paris temperature goal of 1.5°C. The minimum requirements are (i) a 7% year-on-year average self-decarbonization in line with IPCC's 1.5°C scenario and (ii) an initial carbon intensity reduction of 50% relative to the investable universe.
+In climate investing, the Paris-Aligned Benchmarks is a popular methodology. The EU Technical Expert Group (TEG) developed the PAB rulebook stipulating standards for an index to align with the Paris temperature goal of 1.5°C. The minimum requirements are:
+1. a 7% year-on-year average self-decarbonization in line with IPCC's 1.5°C scenario
+2. an initial carbon intensity reduction of 50% relative to the investable universe.
 
 However, the **PAB rulebook falls short in incentivising the transition to a green economy**. To achieve the trajectory, most current PAB actively under-weight high impact sectors such as Energy, Materials or Utilities (GICS sectors), and overweight Information Technology, Financials and Real Estate (Steffen 2022 {cite:p}`2022:Steffen`). 
 
-Indeed, the PAB rulebook's exposure constraint requires intensity reductions to be achieved within "*high impact sectors*", not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example. 
+Indeed, the PAB rulebook's exposure constraint requires intensity reductions to be achieved within "*high climate impact sectors*", not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example. 
 
 In practice, this means that there is a **clear decoupling between the real economy and PABs**. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 {cite:p}`2022:Steffen`). 
 
-To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) {cite:p}`2022:Roncallietal` propose to integrate net zero transition metrics into the tilting methodology. The authors propose to use a **green taxonomy** and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach, but focusing on the transition dimension only, while the authors use the transition metrics in combination with decarbonation metrics.
+**A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors!**
+
+To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) {cite:p}`2022:Roncallietal` propose to integrate transition metrics into the tilting methodology. The authors propose to use a **green taxonomy** and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, who propose an integrated approach (using both transition and decarbonation metrics).
 
 ## Our Approach: a Text-Based Transition Investing Methodology
 

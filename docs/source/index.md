@@ -3,9 +3,9 @@
 % You can adapt this file completely to your liking, but it should at least
 % contain the root `toctree` directive.
 
-# Exploring the Transition Dimension in Net Zero Investing with Natural Language Processing
+# Exploring the Transition Dimension in Climate Investing with Natural Language Processing
 
-In this project, we investigate if Natural Language Processing can be helpful to tackle the transition dimension in net zero investing.
+In this project, we investigate if Natural Language Processing can be helpful to tackle the transition dimension in climate investing.
 
 Transition dimension is underlooked due to lack of reported data by firms. Recognizing this lack of structured and standardized data, we propose an end to end framework relying on automatic treatment of unstructured data (text) with Natural Laguage Processing. 
 

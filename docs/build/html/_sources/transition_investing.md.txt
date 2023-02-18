@@ -1,33 +1,17 @@
-# Transition Investing
+# Transition Portfolio
 
-In what follows we present our simple framework for tilting a benchmark according to a dual objective: (i) minimizing the tracking error volatility risk and (ii) improving the *greeness* of the tilted version compared to the benchmark. To do so, we follow the approach from Roncalli (2023) {cite:p}`2023:Roncalli`, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.
+In what follows we present our simple framework for tilting a benchmark according to a dual objective: 
+1. Minimizing the tracking error volatility risk and 
+2. Improving the *greeness* of the tilted version compared to the benchmark. 
+
+To do so, we follow the approach from Roncalli (2023) {cite:p}`2023:Roncalli`, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.
 
 ## Benchmark Greeness
 
 We need first to define the *benchmark greeness*.
-Let's assume $b$ the vector of weights of a benchmark which is equally-weighted:
+Let's assume $b$ the vector of weights of the benchmark which is equally-weighted.
 
-\begin{equation}
-b = \begin{bmatrix}
-           0.2 \\
-           0.2 \\
-           0.2 \\
-           0.2 \\
-           0.2
-         \end{bmatrix}
-\end{equation}
-
-Let's assume $G$ a vector of *greeness* measure of the stocks composing the benchmark:
-
-\begin{equation}
-G = \begin{bmatrix}
-           0.95 \\
-           0.08 \\
-           0.67 \\
-           0.12 \\
-           0.47
-         \end{bmatrix}
-\end{equation}
+Let's assume $G$ a vector of *greeness* measure of the stocks composing the benchmark.
 
 The benchmark greeness can be computed as:
 
@@ -35,70 +19,38 @@ The benchmark greeness can be computed as:
 G(b) = b^TG
 \end{equation}
 
-Below we import the `numpy` package in order to compute the benchmark greeness.
+Below is the Python code to load the data in the `materials` folder:
+```python
+import pandas as pd
+
+greeness = pd.read_csv('results_greeness.csv')
+data_fin = pd.read_csv('data_fin.csv')
+
+df = greeness.merge(data_fin, how = 'inner', on = 'Ticker').dropna()
+
+list_entities = df.Ticker.drop_duplicates().tolist()
+greeness_score = greeness[greeness['Ticker'].isin(list_entities)].Greeness.tolist()
+```
+
+Below is the Python code for computing the benchmark greeness:
 ```python
 import numpy as np
+b = np.array([ 1 / len(list_entities)] * len(list_entities))
 
-b = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
-G = np.array([0.95,0.08,0.67,0.12,0.47])
+G = np.array(greeness_score)
+
 np.dot(b, G)
 ```
 
-According to the illustrative data we use, the benchmark greeness is:
-```
-0.4580000000000001
-```
+## Excess Greeness
 
-### Tracking Error Volatility and Excess Greeness
+Having the previous benchmark, let's assume a portfolio with the same issuers than the benchmark, but with different weights $x$.
 
-Having the previous benchmark, let's assume a portfolio with the same issuers than the benchmark, but with different weights $x$:
-
-\begin{equation}
-x = \begin{bmatrix}
-           0.10 \\
-           0.15 \\
-           0.30 \\
-           0.20 \\
-           0.25
-         \end{bmatrix}
-\end{equation}
-
-Let's have the following covariance matrix:
-
-\begin{equation}
-\Sigma = 
-\begin{pmatrix}
-0.1536 & 0.006 & 0.0108 & 0.0156 & 0.024 \\
-0.006 & 0.17 & 0.018 & 0.026 & 0.04 \\
-0.0108 & 0.018 & 0.1324 & 0.0468 & 0.072 \\
-0.0156 & 0.026 & 0.0468 & 0.1776 & 0.104 \\
-0.024 & 0.04 & 0.072 & 0.104 & 0.28 \\
-\end{pmatrix}
-\end{equation}
-
-We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:
-
-\begin{equation}
-\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
-\end{equation}
-
-Below we compute the tracking error volatility:
 ```python
-x = np.array([0.1, 0.15, 0.30, 0.20, 0.25])
-Sigma = np.array([[ 0.1536,  0.006,  0.0108,  0.0156,  0.024],
-                 [0.006,   0.17,   0.018,   0.026,   0.04],
-                 [0.0108,  0.018,  0.1324,  0.0468,  0.072],
-                 [0.0156,  0.026,  0.0468,  0.1776,  0.104],
-                 [0.024,   0.04,   0.072,   0.104,   0.28]])
-
-te = np.sqrt((x - b).T @ Sigma @ (x - b))
-```
-And the result is:
-```
-0.06268173577685926
+x = np.random.dirichlet(np.ones(len(greeness_score)),size=1)[0]
 ```
 
-We also need to define the *excess greeness* of our portfolio, that is the positive or negative deviation from our benchmark greeness:
+We define the *excess greeness* of our portfolio, that is the positive or negative deviation from our benchmark greeness:
 
 \begin{equation}
 G(x|b) = (x - b)^T G
@@ -109,14 +61,23 @@ Below is the code to compute the excess greeness of our portfolio:
 excess_greeness = (x - b).T @ G
 ```
 
-And the result is:
-```
--0.008500000000000021
+### Tracking Error Volatility
+
+We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:
+
+\begin{equation}
+\sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
+\end{equation}
+
+Below we compute the tracking error volatility:
+```python
+Sigma = df.pivot(index = 'Date', columns = 'Ticker', values = 'Return').fillna(0).cov().reset_index(drop=True).to_numpy()
+te = np.sqrt((x - b).T @ Sigma @ (x - b))
 ```
 
-### Climate Investing Objectives
+### Transition Investing Objectives
 
-In the previous example, we compared the climate performance of a portfolio against a benchmark, with predefined portfolio's weights.
+In the previous example, we compared the greeness performance of a portfolio against a benchmark, with predefined portfolio's weights.
 
 However, the objective of investors is to improve the portfolio's greeness while controlling the tracking error volatility.
 
@@ -139,8 +100,6 @@ Varying the parameter value of $\gamma$ gives you the efficient frontier of trac
 Below we install and import the `qpsolvers` package and formulate the QP problem of the optimization:
 
 ```python
-!pip install qpsolvers 
-
 from qpsolvers import solve_qp
 
 def portfolio_tilting(Sigma, G, b, gamma):
@@ -152,7 +111,6 @@ def portfolio_tilting(Sigma, G, b, gamma):
   b = np.array([1.]) # B
   lb = np.zeros(len(G))
   ub = np.ones(len(G))
-  print(q)
   x = solve_qp(P = P,
                q = q,
                A = A, 
@@ -163,39 +121,142 @@ def portfolio_tilting(Sigma, G, b, gamma):
   
   return x
 
+
+def get_perf_tilting(x, b, Sigma, G):
+  excess_greeness = (x - b).T @ G
+  te = np.sqrt((x - b).T @ Sigma @ (x - b))
+  return excess_greeness, te
 ```
 
-Below is the code to draw the efficient frontier, varying $\gamma$ value:
+## Targeting a Specific Greeness Improvement
+
+We will now target a specific portfolio greeness improvement and see the resulting portfolio's weights.
+
+To do so, one can use bisection algorithm:
 
 ```python
-results_excess_greeness = []
-results_te = []
+import numpy as np
 
-from numpy import arange
+def bisection(f, a, b, tol): 
+    # approximates a root, R, of f bounded 
+    # by a and b to within tolerance 
+    # | f(m) | < tol with m the midpoint 
+    # between a and b Recursive implementation
+    
+    # check if a and b bound a root
+    if np.sign(f(a)) == np.sign(f(b)):
+        raise Exception(
+         "The scalars a and b do not bound a root")
+        
+    # get midpoint
+    m = (a + b)/2
+    
+    if np.abs(f(m)) < tol:
+        # stopping condition, report m as root
+        return m
+    elif np.sign(f(a)) == np.sign(f(m)):
+        # case where m is an improvement on a. 
+        # Make recursive call with a = m
+        return bisection(f, m, b, tol)
+    elif np.sign(f(b)) == np.sign(f(m)):
+        # case where m is an improvement on b. 
+        # Make recursive call with b = m
+        return bisection(f, a, m, tol)
 
-list_gammas = arange(0,1.2, 0.01)
+def greeness_targeting(Sigma, G, b, target_excess_score):
+  f = lambda x: (portfolio_tilting(Sigma = Sigma,
+                        G = G,
+                        b = b,
+                        gamma = x) - b).T @ G - target_excess_score
+    
+  x_star_greeness = portfolio_tilting(Sigma = Sigma,
+                        G = G,
+                        b = b,
+                        gamma = bisection(f, 0, 0.2, 0.01))
+  return x_star_greeness
+```
 
+Let's test with a target improvement of 10%:
 
-for gamma in list_gammas:
-   x = portfolio_tilting(Sigma = Sigma, 
-                    G = G,
-                    b = b,
-                    gamma = gamma)
-   excess_greeness, te = get_perf_tilting(x = x, 
-                                       b = b, 
-                                       Sigma = Sigma,
-                                       G = G)
-   results_excess_greeness.append(excess_greeness)
-   results_te.append(te)
+```python
+x_star_greeness = greeness_targeting(Sigma = Sigma,
+                                     G = G,
+                                     b = b,
+                                     target_excess_score = 0.1)
+```
 
-import matplotlib.pyplot as plt
+And let's plot the resulting top 15 securities in terms of weights deviation from the benchmark:
 
+```python
+results_target = pd.DataFrame({"Ticker":list_entities,
+                               "Security":df.Security.drop_duplicates().tolist(),
+                               "Tilted_Weights":x_star_greeness, "Initial_Weights":b.tolist()})
+results_target['Deviation'] = results_target['Tilted_Weights'] - results_target['Initial_Weights']
 
-plt.plot(results_te, results_excess_greeness)
+import seaborn as sns                    # This is one library for plotting
+import matplotlib.pyplot as plt          # Yet another library for visualization
+import plotly.express as px   
 
-plt.xlabel("TE Volatility")
-plt.ylabel("Greeness Excess")
+results_target = results_target.sort_values(by = 'Deviation', ascending = False)
+
+top_15 = results_target.sort_values(by = 'Deviation', ascending = False).head(15)
+
+f , ax = plt.subplots(figsize=(10, 10))
+
+g = sns.barplot(data = top_15,
+            ax = ax,
+            x = 'Security',
+            y = 'Deviation')
+
+g.set_xticklabels(
+    labels=top_15.Security.tolist(),
+    rotation=90)
+
 plt.show()
 ```
 
-![Efficient frontier](efficientfrontier.PNG)
+```{figure} weights_dev.png
+---
+name: weights
+---
+Figure: Top 15 securities in terms of weights deviation from the benchmark
+```
+
+## TE and Excess Greeness Arbitrage
+
+```python
+list_targets = [0.1, 0.2, 0.3, 0.4 , 0.5]
+
+list_te = []
+
+for target in list_targets:
+  x_star_greeness = greeness_targeting(Sigma = Sigma,
+                                     G = G,
+                                     b = b,
+                                     target_excess_score = target)
+  excess_greeness, te = get_perf_tilting(x = x_star_greeness, 
+                                       b = b, 
+                                       Sigma = Sigma,
+                                       G = G)
+  
+  list_te.append(te)
+
+f , ax = plt.subplots(figsize=(10, 10))
+
+g = sns.barplot(
+            ax = ax,
+            x = np.array(list_targets) * 100,
+            y = np.array(list_te) * 100)
+plt.xlabel("Excess Greeness Target (in %)")
+plt.ylabel("TE Volatility (in %)")
+plt.show()
+```
+
+
+```{figure} arbitrage.png
+---
+name: arbitrage
+---
+Figure: TE Volatility vs. Excess Greeness Targets
+```
+

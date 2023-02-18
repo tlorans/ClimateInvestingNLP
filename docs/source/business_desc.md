@@ -132,7 +132,7 @@ g.set_xticklabels(
 plt.show()
 ```
 
-```{figure} results_greeness.png
+```{figure} results_greeness_measure.png
 ---
 name: results
 ---

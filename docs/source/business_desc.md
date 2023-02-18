@@ -86,7 +86,7 @@ Once installed, we can then proceed to the embedding step for the activities des
 from sentence_transformers import SentenceTransformer, util
 import torch
 
-ST = SentenceTransformer('all-MiniLM-L6-v2')
+ST = SentenceTransformer('paraphrase-mpnet-base-v2')
 emb_A = ST.encode(taxo.Description.tolist(), convert_to_tensor = True)
 ```
 

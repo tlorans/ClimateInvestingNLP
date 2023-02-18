@@ -1,7 +1,7 @@
 
 # Using Business Description for a Firm-Level Estimate of Greeness
 
-As Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` have choosen to follow the EU Taxonomy framework, while data are unavailable at the issuer level, they propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
+Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
 
 As we want to estimate a firm level measure of greeness, we develop a text-mining approach.
 

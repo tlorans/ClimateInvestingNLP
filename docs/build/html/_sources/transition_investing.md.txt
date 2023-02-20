@@ -87,8 +87,8 @@ Denoting $\gamma$ as the risk tolerance parameter, we have the following optimiz
 & x^* = 
 & & argmin \frac{1}{2} \sigma^2 (x |b) - \gamma G (x | b) \\
 & \text{subject to}
-& & 1_5^Tx = 1, \\
-&&& 0_5 \leq x \leq 1_5.
+& & 1_n^Tx = 1, \\
+&&& 0_n \leq x \leq 1_n.
 \end{aligned}
 \end{equation*}
 

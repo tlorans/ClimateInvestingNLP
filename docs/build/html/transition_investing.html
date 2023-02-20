@@ -346,8 +346,8 @@ title="Print to PDF"
 Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of the benchmark which is equally-weighted.</p>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark.</p>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a8f56774-1ce7-4be5-8db0-bcdbe5dc9c1e">
-<span class="eqno">(1)<a class="headerlink" href="#equation-a8f56774-1ce7-4be5-8db0-bcdbe5dc9c1e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-452453f1-8498-49a7-99e4-e8886502d392">
+<span class="eqno">(1)<a class="headerlink" href="#equation-452453f1-8498-49a7-99e4-e8886502d392" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
 <p>Below is the Python code to load the data in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
@@ -379,8 +379,8 @@ G(b) = b^TG
 </pre></div>
 </div>
 <p>We define the <strong>excess greeness</strong> of our portfolio, that is the <strong>positive or negative deviation from our benchmark greeness</strong>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3cae9cb5-bf1f-4cab-855c-7530f5128dc5">
-<span class="eqno">(2)<a class="headerlink" href="#equation-3cae9cb5-bf1f-4cab-855c-7530f5128dc5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d54ffe6f-ddca-4c69-a96e-d3eeb14ffbf6">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d54ffe6f-ddca-4c69-a96e-d3eeb14ffbf6" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
 <p>Below is the code to compute the excess greeness of our portfolio:</p>
@@ -388,8 +388,8 @@ G(x|b) = (x - b)^T G
 </pre></div>
 </div>
 <p>We can also compare the <strong>relative performance of the portfolio compared to the benchmark with the tracking error volatility</strong>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b34b30f3-8316-42aa-a7ac-652405ca28a7">
-<span class="eqno">(3)<a class="headerlink" href="#equation-b34b30f3-8316-42aa-a7ac-652405ca28a7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6d34b07c-ad98-4ee1-91de-61594b75fd33">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6d34b07c-ad98-4ee1-91de-61594b75fd33" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
 \end{equation}\]</div>
 <p>Below we compute the tracking error volatility:</p>
@@ -409,8 +409,8 @@ G(x|b) = (x - b)^T G
 &amp; x^* = 
 &amp; &amp; argmin \frac{1}{2} \sigma^2 (x |b) - \gamma G (x | b) \\
 &amp; \text{subject to}
-&amp; &amp; 1_5^Tx = 1, \\
-&amp;&amp;&amp; 0_5 \leq x \leq 1_5.
+&amp; &amp; 1_n^Tx = 1, \\
+&amp;&amp;&amp; 0_n \leq x \leq 1_n.
 \end{aligned}
 \end{equation*}\]</div>
 <p>Where the constraints simply mean that the sum of the resulting weights <span class="math notranslate nohighlight">\(x\)</span> need to be 1 and that individual weights <span class="math notranslate nohighlight">\(x_i\)</span> need to between 0 and 1.</p>

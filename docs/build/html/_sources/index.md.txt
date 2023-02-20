@@ -3,7 +3,7 @@
 % You can adapt this file completely to your liking, but it should at least
 % contain the root `toctree` directive.
 
-# Exploring the Transition Dimension in Climate Investing with Natural Language Processing
+# Investigating the Transition Dimension in Climate Investing with Natural Language Processing
 
 In this project, we investigate if Natural Language Processing can be helpful to tackle the transition dimension in climate investing.
 

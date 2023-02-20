@@ -1,4 +1,4 @@
-# Transition: the Hidden Dimension in Climate Investing
+# Investigating the Transition Dimension in Climate Investing with Natural Language Processing
 
 Climate investing is the new investment theme for asset owners and managers. 
 
@@ -20,10 +20,9 @@ Indeed, the PAB rulebook's exposure constraint requires intensity reductions to 
 
 In practice, this means that there is a **clear decoupling between the real economy and PABs**. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 {cite:p}`2022:Steffen`). 
 
+A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors.
 
-**A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors!**
-
-To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) {cite:p}`2022:Roncallietal` propose to integrate transition metrics into the tilting methodology. The authors propose to use a **green taxonomy** and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, who propose an integrated approach (using both transition and decarbonation metrics).
+To overcome these shortcomings, Roncalli et al. (2022) {cite:p}`2022:Roncallietal` propose to integrate transition metrics into the tilting methodology. The authors propose to use a **green taxonomy** and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`, who propose an integrated approach (using both transition and decarbonation metrics).
 
 ## Our Approach: a Text-Based Transition Investing Methodology
 

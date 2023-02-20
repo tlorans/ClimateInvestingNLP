@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Transition: the Hidden Dimension in Climate Investing &#8212; Climate Investing with NLP 0 documentation</title>
+    <title>Investigating the Transition Dimension in Climate Investing with Natural Language Processing &#8212; Climate Investing with NLP 0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -35,7 +35,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A Green Taxonomy" href="greentaxonomy.html" />
-    <link rel="prev" title="Exploring the Transition Dimension in Climate Investing with Natural Language Processing" href="index.html" />
+    <link rel="prev" title="Investigating the Transition Dimension in Climate Investing with Natural Language Processing" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,7 +90,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Transition: the Hidden Dimension in Climate Investing
+   Investigating the Transition Dimension in Climate Investing with Natural Language Processing
   </a>
  </li>
  <li class="toctree-l1">
@@ -105,7 +105,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="transition_investing.html">
-   Transition Investing
+   Transition Portfolio
   </a>
  </li>
  <li class="toctree-l1">
@@ -269,7 +269,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Transition: the Hidden Dimension in Climate Investing</h1>
+                <h1>Investigating the Transition Dimension in Climate Investing with Natural Language Processing</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -299,8 +299,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="transition-the-hidden-dimension-in-climate-investing">
-<h1>Transition: the Hidden Dimension in Climate Investing<a class="headerlink" href="#transition-the-hidden-dimension-in-climate-investing" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="investigating-the-transition-dimension-in-climate-investing-with-natural-language-processing">
+<h1>Investigating the Transition Dimension in Climate Investing with Natural Language Processing<a class="headerlink" href="#investigating-the-transition-dimension-in-climate-investing-with-natural-language-processing" title="Permalink to this headline">#</a></h1>
 <p>Climate investing is the new investment theme for asset owners and managers.</p>
 <p>Initially, it involved in constructing low-carbon portfolios. However, as stated by Roncalli et al. (2022) <span id="id1">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, the concept of net zero has accelerated the scope of climate investing. Indeed, while low-carbon portfolios were mostly a tilt of a business-as-usual portfolio (by removing issuers with the highest carbon footprint), the net zero objective is also to green the economy.</p>
 <p>In this part, we will first discuss why the transition dimension is not addressed by the popular Paris-Aligned Benchmarks rulebook. Then, we will discuss our text-mining based approach to tackle the transition dimension.</p>
@@ -315,8 +315,8 @@ title="Print to PDF"
 <p>However, the <strong>PAB rulebook falls short in incentivising the transition to a green economy</strong>. To achieve the trajectory, most current PAB actively under-weight high impact sectors such as Energy, Materials or Utilities (GICS sectors), and overweight Information Technology, Financials and Real Estate (Steffen 2022 <span id="id3">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
 <p>Indeed, the PAB rulebook’s exposure constraint requires intensity reductions to be achieved within “<em>high climate impact sectors</em>”, not through the exclusion of these intensive impact sectors as a whole. However, as the constraint applies to the aggregate of all high impact sectors as a whole, one could divest from electric utilities and shift the weight to water utilities for example.</p>
 <p>In practice, this means that there is a <strong>clear decoupling between the real economy and PABs</strong>. As stated by MSCI for example, the carbon intensity reductions in their benchmark are mainly driven by over-weights in Consumer Discretionary and Information Technology for example (Steffen 2022 <span id="id4">[<a class="reference internal" href="references.html#id11" title="Tom Steffen. A Critique of Paris Aligned Benchmarks. Osmosis, 2022.">Ste22</a>]</span>).</p>
-<p><strong>A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors!</strong></p>
-<p>To overcome these shortcomings of the PAB framework as a net zero investing solution, Roncalli et al. (2022) <span id="id5">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) <span id="id6">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, who propose an integrated approach (using both transition and decarbonation metrics).</p>
+<p>A portfolio contributing to the transition would involve to target overweighting green technologies within carbon intensive sectors.</p>
+<p>To overcome these shortcomings, Roncalli et al. (2022) <span id="id5">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span> propose to integrate transition metrics into the tilting methodology. The authors propose to use a <strong>green taxonomy</strong> and compute the corresponding green intensity for each issuer as a net zero transition metric. In the following, we will follow a similar approach. In the absence of decarbonation metrics data, we will focus on the transition dimension only. This contrasts with the approach adopted by Roncalli et al. (2022) <span id="id6">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>, who propose an integrated approach (using both transition and decarbonation metrics).</p>
 </section>
 <section id="our-approach-a-text-based-transition-investing-methodology">
 <h2>Our Approach: a Text-Based Transition Investing Methodology<a class="headerlink" href="#our-approach-a-text-based-transition-investing-methodology" title="Permalink to this headline">#</a></h2>
@@ -338,7 +338,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Exploring the Transition Dimension in Climate Investing with Natural Language Processing</p>
+            <p class="prev-next-title">Investigating the Transition Dimension in Climate Investing with Natural Language Processing</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="greentaxonomy.html" title="next page">

@@ -1,3 +1,2 @@
 # Conclusion
 
-Regarding the transition dimension, our NLP-based approach has proven to be helpful to build a transition portfolio. However, as every automated measures, the text mining approach can lead to measurement error / unaccuracy. The measure we've proposed is static, while a forward-looking approach could be conducted by determining the trend of evolution of the indicator time serie for example. Finally, combining this indicator with carbon footprint metric could lead to the construction of a sensible net zero portfolio.

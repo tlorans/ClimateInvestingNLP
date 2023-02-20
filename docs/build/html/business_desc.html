@@ -36,7 +36,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Transition Investing" href="transition_investing.html" />
+    <link rel="next" title="Transition Portfolio" href="transition_investing.html" />
     <link rel="prev" title="A Green Taxonomy" href="greentaxonomy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -92,7 +92,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="introduction.html">
-   Transition: the Hidden Dimension in Climate Investing
+   Investigating the Transition Dimension in Climate Investing with Natural Language Processing
   </a>
  </li>
  <li class="toctree-l1">
@@ -107,7 +107,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="transition_investing.html">
-   Transition Investing
+   Transition Portfolio
   </a>
  </li>
  <li class="toctree-l1">
@@ -324,29 +324,29 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="using-business-description-for-a-firm-level-estimate-of-greeness">
 <h1>Using Business Description for a Firm-Level Estimate of Greeness<a class="headerlink" href="#using-business-description-for-a-firm-level-estimate-of-greeness" title="Permalink to this headline">#</a></h1>
 <p>Alessi and Battiston (2022) <span id="id1">[<a class="reference internal" href="references.html#id13" title="Lucia Alessi and Stefano Battiston. Two sides of the same coin: Green Taxonomy alignment versus transition risk in financial portfolios. International Review of Financial Analysis, 2022.">AB22</a>]</span> propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors).</p>
-<p>As we want to estimate a firm level measure of greeness, we develop a text-mining approach.</p>
-<p>More specifically, we define the firm-level exposure to a given activity as <em>the semantic similarity between the business description of the firm and the description of the activity.</em></p>
+<p>As we want to estimate a firm level measure of greeness, we develop a text-mining approach. More specifically, we define the firm-level exposure to a given activity as <em>the semantic similarity between the business description of the firm and the description of the activity.</em></p>
+<p>In this part, we will first explain the Natural Language Processing approach we develop to measure firm-level greeness and then discuss the results.</p>
 <section id="embeddings-with-a-sentence-transformer-model">
 <h2>Embeddings with a Sentence Transformer Model<a class="headerlink" href="#embeddings-with-a-sentence-transformer-model" title="Permalink to this headline">#</a></h2>
-<p>We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(D_{i}\)</span> and the description of the activity <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(A_{k}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-136bab41-96fa-4d0a-b184-7af51cc56faf">
-<span class="eqno">(1)<a class="headerlink" href="#equation-136bab41-96fa-4d0a-b184-7af51cc56faf" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>We first need to <strong>transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation</strong>. To do so, we use a Sentence Transformer model to create <strong>numerical vector representation</strong> of the meanings of the business description of the firm <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(D_{i}\)</span> and the description of the activity <span class="math notranslate nohighlight">\(k\)</span>, <span class="math notranslate nohighlight">\(A_{k}\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-14da1906-561b-425c-85f6-0562a633d6c0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-14da1906-561b-425c-85f6-0562a633d6c0" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{D_{i}} = ST(D_{i})
 \end{equation}\]</div>
 <p>and</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49373791-b0b6-4dee-b89a-2d5e619c9804">
-<span class="eqno">(2)<a class="headerlink" href="#equation-49373791-b0b6-4dee-b89a-2d5e619c9804" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-940e5c40-874e-403a-8155-7f13a5adca96">
+<span class="eqno">(2)<a class="headerlink" href="#equation-940e5c40-874e-403a-8155-7f13a5adca96" title="Permalink to this equation">#</a></span>\[\begin{equation}
 Emb^{A_k} = ST(A_k)
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span> are the numerical vector representation (embeddings) of <span class="math notranslate nohighlight">\(D_{i}\)</span> and <span class="math notranslate nohighlight">\(A_{k}\)</span>, performed with the Sentence Transformer model <span class="math notranslate nohighlight">\(ST()\)</span>.</p>
 </section>
 <section id="cosine-similarity">
 <h2>Cosine Similarity<a class="headerlink" href="#cosine-similarity" title="Permalink to this headline">#</a></h2>
-<p>We want to be able to determine if the business description <span class="math notranslate nohighlight">\(D_{i}\)</span> is related to one of the activity defined in our taxonomy.</p>
-<p>As we now have numerical vector representations <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span>, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions.</p>
+<p>We want to be able to <strong>determine if the business description <span class="math notranslate nohighlight">\(D_{i}\)</span> is related to one of the activity defined in our taxonomy.</strong></p>
+<p>As we now have numerical vector representations <span class="math notranslate nohighlight">\(Emb^{D_{i}}\)</span> and <span class="math notranslate nohighlight">\(Emb^{A_k}\)</span>, we can apply principles from semantic search by determining the <strong>closeness of our two vectors</strong>. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions.</p>
 <p>One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a9f79233-303f-45ff-83d8-a4e56dbf04e9">
-<span class="eqno">(3)<a class="headerlink" href="#equation-a9f79233-303f-45ff-83d8-a4e56dbf04e9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d7260d33-190e-4f4d-9a73-152a664f0ee7">
+<span class="eqno">(3)<a class="headerlink" href="#equation-d7260d33-190e-4f4d-9a73-152a664f0ee7" title="Permalink to this equation">#</a></span>\[\begin{equation}
 cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb^{A_k}||}
 \end{equation}\]</div>
 <p>For each business description, the cosine similarity is computed against each activity description in our taxonomy. The maximum cosine similarity measure is retained, with the associated activity.</p>
@@ -442,6 +442,7 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
 </figcaption>
 </figure>
 <p>A few firms among the S&amp;P universe are targeted as green or brown with our greeness measure. This can be explained by the fact that measuring firms greeness with the business description and a quite stringent cosine similarity threshold is equivalent to looking for pure-players in green technologies which limits the universe.</p>
+<p>This underlines the <strong>narrow investable green securities universe</strong> for the time being.</p>
 <p>Obtaining more granular results would involves applying the approach of identifying green and brown activities at the business segment level, in order to obtain a measure close to the green intensity measure used by Roncalli et al. (2022) <span id="id2">[<a class="reference internal" href="references.html#id2" title="Barahhou Inès, Ben Slimane Mohamed, Oulid Azouz Noureddine, and Roncalli Thierry. Net Zero Investment Portfolios - Part 1. The Comprehensive Integrated Approach. Amundi, 2022.">IMNT22</a>]</span>.</p>
 </section>
 </section>
@@ -464,7 +465,7 @@ cos(\theta_{D_{i},k}) = \frac{Emb^{D_{i}} \cdot Emb^{A_k}}{||Emb^{D_{i}}|| ||Emb
     <a class='right-next' id="next-link" href="transition_investing.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Transition Investing</p>
+        <p class="prev-next-title">Transition Portfolio</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

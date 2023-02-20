@@ -258,21 +258,14 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#excess-greeness">
-   Excess Greeness
+  <a class="reference internal nav-link" href="#portfolio-s-excess-greeness-and-tracking-error">
+   Portfolio’s Excess Greeness and Tracking Error
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tracking-error-volatility">
-     Tracking Error Volatility
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#transition-investing-objectives">
-     Transition Investing Objectives
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transition-investing-objectives">
+   Transition Investing Objectives
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#targeting-a-specific-greeness-improvement">
@@ -280,8 +273,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#te-and-excess-greeness-arbitrage">
-   TE and Excess Greeness Arbitrage
+  <a class="reference internal nav-link" href="#te-and-excess-greeness-trade-off">
+   TE and Excess Greeness Trade-Off
   </a>
  </li>
 </ul>
@@ -309,21 +302,14 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#excess-greeness">
-   Excess Greeness
+  <a class="reference internal nav-link" href="#portfolio-s-excess-greeness-and-tracking-error">
+   Portfolio’s Excess Greeness and Tracking Error
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tracking-error-volatility">
-     Tracking Error Volatility
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#transition-investing-objectives">
-     Transition Investing Objectives
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transition-investing-objectives">
+   Transition Investing Objectives
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#targeting-a-specific-greeness-improvement">
@@ -331,8 +317,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#te-and-excess-greeness-arbitrage">
-   TE and Excess Greeness Arbitrage
+  <a class="reference internal nav-link" href="#te-and-excess-greeness-trade-off">
+   TE and Excess Greeness Trade-Off
   </a>
  </li>
 </ul>
@@ -353,14 +339,15 @@ title="Print to PDF"
 <li><p>Improving the <em>greeness</em> of the tilted version compared to the benchmark.</p></li>
 </ol>
 <p>To do so, we follow the approach from Roncalli (2023) <span id="id1">[<a class="reference internal" href="references.html#id12" title="Thierry Roncalli. Handbook of Sustainable Finance. SSRN, 2023.">Ron23</a>]</span>, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.</p>
+<p>In this part, we first define benchmark greeness, excess greeness and tracking error volatility, before discussing the construction of a transition portfolio and the trade-off involved in targeting portfolio’s greeness improvement.</p>
 <section id="benchmark-greeness">
 <h2>Benchmark Greeness<a class="headerlink" href="#benchmark-greeness" title="Permalink to this headline">#</a></h2>
-<p>We need first to define the <em>benchmark greeness</em>.
+<p>We need first to define the <strong>benchmark greeness</strong>.
 Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of the benchmark which is equally-weighted.</p>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark.</p>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cd24719c-774d-49ae-93cc-035b635f0a42">
-<span class="eqno">(1)<a class="headerlink" href="#equation-cd24719c-774d-49ae-93cc-035b635f0a42" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-0bc29260-133b-48c7-991c-b096473a5de0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-0bc29260-133b-48c7-991c-b096473a5de0" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
 <p>Below is the Python code to load the data in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
@@ -385,26 +372,24 @@ G(b) = b^TG
 </pre></div>
 </div>
 </section>
-<section id="excess-greeness">
-<h2>Excess Greeness<a class="headerlink" href="#excess-greeness" title="Permalink to this headline">#</a></h2>
+<section id="portfolio-s-excess-greeness-and-tracking-error">
+<h2>Portfolio’s Excess Greeness and Tracking Error<a class="headerlink" href="#portfolio-s-excess-greeness-and-tracking-error" title="Permalink to this headline">#</a></h2>
 <p>Having the previous benchmark, let’s assume a portfolio with the same issuers than the benchmark, but with different weights <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">dirichlet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">greeness_score</span><span class="p">)),</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>We define the <em>excess greeness</em> of our portfolio, that is the positive or negative deviation from our benchmark greeness:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-761df55a-14a1-4ce2-a73c-86408352a8ac">
-<span class="eqno">(2)<a class="headerlink" href="#equation-761df55a-14a1-4ce2-a73c-86408352a8ac" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>We define the <strong>excess greeness</strong> of our portfolio, that is the <strong>positive or negative deviation from our benchmark greeness</strong>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-904eb4b4-51cb-49fc-a26f-33da597e3cc7">
+<span class="eqno">(2)<a class="headerlink" href="#equation-904eb4b4-51cb-49fc-a26f-33da597e3cc7" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
 <p>Below is the code to compute the excess greeness of our portfolio:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">excess_greeness</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G</span>
 </pre></div>
 </div>
-<section id="tracking-error-volatility">
-<h3>Tracking Error Volatility<a class="headerlink" href="#tracking-error-volatility" title="Permalink to this headline">#</a></h3>
-<p>We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ccc07a05-8a4d-4309-bfe2-71e4558a01a3">
-<span class="eqno">(3)<a class="headerlink" href="#equation-ccc07a05-8a4d-4309-bfe2-71e4558a01a3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>We can also compare the <strong>relative performance of the portfolio compared to the benchmark with the tracking error volatility</strong>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6b0d66ea-4727-4e43-aaa1-d673cf836d14">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6b0d66ea-4727-4e43-aaa1-d673cf836d14" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
 \end{equation}\]</div>
 <p>Below we compute the tracking error volatility:</p>
@@ -414,9 +399,9 @@ G(x|b) = (x - b)^T G
 </div>
 </section>
 <section id="transition-investing-objectives">
-<h3>Transition Investing Objectives<a class="headerlink" href="#transition-investing-objectives" title="Permalink to this headline">#</a></h3>
+<h2>Transition Investing Objectives<a class="headerlink" href="#transition-investing-objectives" title="Permalink to this headline">#</a></h2>
 <p>In the previous example, we compared the greeness performance of a portfolio against a benchmark, with predefined portfolio’s weights.</p>
-<p>However, the objective of investors is to improve the portfolio’s greeness while controlling the tracking error volatility.</p>
+<p>However, the <strong>objective of investors is to improve the portfolio’s greeness while controlling the tracking error volatility</strong>.</p>
 <p>Denoting <span class="math notranslate nohighlight">\(\gamma\)</span> as the risk tolerance parameter, we have the following optimization problem:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -460,11 +445,10 @@ G(x|b) = (x - b)^T G
 </pre></div>
 </div>
 </section>
-</section>
 <section id="targeting-a-specific-greeness-improvement">
 <h2>Targeting a Specific Greeness Improvement<a class="headerlink" href="#targeting-a-specific-greeness-improvement" title="Permalink to this headline">#</a></h2>
-<p>We will now target a specific portfolio greeness improvement and see the resulting portfolio’s weights.</p>
-<p>To do so, one can use bisection algorithm:</p>
+<p>We will now <strong>target a specific portfolio greeness improvement</strong> and see the resulting portfolio’s weights.</p>
+<p>To do so, one can use the bisection algorithm.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">bisection</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">tol</span><span class="p">):</span> 
@@ -549,14 +533,14 @@ G(x|b) = (x - b)^T G
 </figure>
 <p>With a targeted excess greeness score of 10%, we can see that the properties of our transition portfolio follows the expected behavior of our mixed green-brown taxonomy:</p>
 <ul class="simple">
-<li><p>The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation</p></li>
-<li><p>The neutral securities follow the greenest ones, replacing the brown securities in the portfolio.</p></li>
+<li><p><strong>The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation</strong></p></li>
+<li><p><strong>The neutral securities follow the greenest ones, replacing the brown securities in the portfolio</strong>.</p></li>
 </ul>
 <p>However, we need to investigate the cost associated with this greeness improvement, noteworthy knowing the narrow universe of green investments.</p>
 </section>
-<section id="te-and-excess-greeness-arbitrage">
-<h2>TE and Excess Greeness Arbitrage<a class="headerlink" href="#te-and-excess-greeness-arbitrage" title="Permalink to this headline">#</a></h2>
-<p>We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of improvement.</p>
+<section id="te-and-excess-greeness-trade-off">
+<h2>TE and Excess Greeness Trade-Off<a class="headerlink" href="#te-and-excess-greeness-trade-off" title="Permalink to this headline">#</a></h2>
+<p>We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of greeness improvement.</p>
 <p>Below is the Python code to compute the tracking error for various levels of greeness excess:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">list_targets</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span> <span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
 
@@ -592,7 +576,7 @@ G(x|b) = (x - b)^T G
 <p><span class="caption-text">Figure: TE Volatility vs. Excess Greeness Targets</span><a class="headerlink" href="#arbitrage" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, with both green and neutral activities. However, exceeding 30% of exces greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe.</p>
+<p>A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, spanning green and neutral activities. However, <strong>exceeding 30% of excess greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe</strong>.</p>
 </section>
 </section>
 

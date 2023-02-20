@@ -6,9 +6,11 @@ In what follows we present our simple framework for tilting a benchmark accordin
 
 To do so, we follow the approach from Roncalli (2023) {cite:p}`2023:Roncalli`, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.
 
+In this part, we first define benchmark greeness, excess greeness and tracking error volatility, before discussing the construction of a transition portfolio and the trade-off involved in targeting portfolio's greeness improvement.
+
 ## Benchmark Greeness
 
-We need first to define the *benchmark greeness*.
+We need first to define the **benchmark greeness**.
 Let's assume $b$ the vector of weights of the benchmark which is equally-weighted.
 
 Let's assume $G$ a vector of *greeness* measure of the stocks composing the benchmark.
@@ -42,7 +44,7 @@ G = np.array(greeness_score)
 np.dot(b, G)
 ```
 
-## Excess Greeness
+## Portfolio's Excess Greeness and Tracking Error
 
 Having the previous benchmark, let's assume a portfolio with the same issuers than the benchmark, but with different weights $x$.
 
@@ -50,7 +52,7 @@ Having the previous benchmark, let's assume a portfolio with the same issuers th
 x = np.random.dirichlet(np.ones(len(greeness_score)),size=1)[0]
 ```
 
-We define the *excess greeness* of our portfolio, that is the positive or negative deviation from our benchmark greeness:
+We define the **excess greeness** of our portfolio, that is the **positive or negative deviation from our benchmark greeness**:
 
 \begin{equation}
 G(x|b) = (x - b)^T G
@@ -60,10 +62,7 @@ Below is the code to compute the excess greeness of our portfolio:
 ```python
 excess_greeness = (x - b).T @ G
 ```
-
-### Tracking Error Volatility
-
-We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:
+We can also compare the **relative performance of the portfolio compared to the benchmark with the tracking error volatility**:
 
 \begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
@@ -75,11 +74,11 @@ Sigma = df.pivot(index = 'Date', columns = 'Ticker', values = 'Return').fillna(0
 te = np.sqrt((x - b).T @ Sigma @ (x - b))
 ```
 
-### Transition Investing Objectives
+## Transition Investing Objectives
 
 In the previous example, we compared the greeness performance of a portfolio against a benchmark, with predefined portfolio's weights.
 
-However, the objective of investors is to improve the portfolio's greeness while controlling the tracking error volatility.
+However, the **objective of investors is to improve the portfolio's greeness while controlling the tracking error volatility**.
 
 Denoting $\gamma$ as the risk tolerance parameter, we have the following optimization problem:
 
@@ -130,9 +129,9 @@ def get_perf_tilting(x, b, Sigma, G):
 
 ## Targeting a Specific Greeness Improvement
 
-We will now target a specific portfolio greeness improvement and see the resulting portfolio's weights.
+We will now **target a specific portfolio greeness improvement** and see the resulting portfolio's weights.
 
-To do so, one can use bisection algorithm:
+To do so, one can use the bisection algorithm.
 
 ```python
 import numpy as np
@@ -224,14 +223,14 @@ Figure: Top 15 securities in terms of weights deviation from the benchmark
 
 With a targeted excess greeness score of 10%, we can see that the properties of our transition portfolio follows the expected behavior of our mixed green-brown taxonomy:
 
-- The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation
-- The neutral securities follow the greenest ones, replacing the brown securities in the portfolio.
+- **The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation**
+- **The neutral securities follow the greenest ones, replacing the brown securities in the portfolio**.
 
 However, we need to investigate the cost associated with this greeness improvement, noteworthy knowing the narrow universe of green investments.
 
-## TE and Excess Greeness Arbitrage
+## TE and Excess Greeness Trade-Off
 
-We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of improvement.
+We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of greeness improvement.
 
 Below is the Python code to compute the tracking error for various levels of greeness excess:
 ```python
@@ -271,5 +270,5 @@ name: arbitrage
 Figure: TE Volatility vs. Excess Greeness Targets
 ```
 
-A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, with both green and neutral activities. However, exceeding 30% of exces greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe. 
+A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, spanning green and neutral activities. However, **exceeding 30% of excess greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe**. 
 

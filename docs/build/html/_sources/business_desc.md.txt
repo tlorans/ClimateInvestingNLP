@@ -3,13 +3,13 @@
 
 Alessi and Battiston (2022) {cite:p}`2022:AlessiBattiston` propose a top-down approach to measure firm greeness, by computing a taxonomy alignment coefficient with data at sector level (NACE sectors). 
 
-As we want to estimate a firm level measure of greeness, we develop a text-mining approach.
+As we want to estimate a firm level measure of greeness, we develop a text-mining approach. More specifically, we define the firm-level exposure to a given activity as *the semantic similarity between the business description of the firm and the description of the activity.*
 
-More specifically, we define the firm-level exposure to a given activity as *the semantic similarity between the business description of the firm and the description of the activity.*
+In this part, we will first explain the Natural Language Processing approach we develop to measure firm-level greeness and then discuss the results.
 
 ## Embeddings with a Sentence Transformer Model
 
-We first need to transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation. To do so, we use a Sentence Transformer model to create numerical vector representation of the meanings of the business description of the firm $i$, $D_{i}$ and the description of the activity $k$, $A_{k}$:
+We first need to **transform the business description and activities descriptiom from our taxonomy from unstructured data (text) into a numerical representation**. To do so, we use a Sentence Transformer model to create **numerical vector representation** of the meanings of the business description of the firm $i$, $D_{i}$ and the description of the activity $k$, $A_{k}$:
 
 \begin{equation}
 Emb^{D_{i}} = ST(D_{i})
@@ -25,9 +25,9 @@ Where $Emb^{D_{i}}$ and $Emb^{A_k}$ are the numerical vector representation (emb
 
 ## Cosine Similarity
 
-We want to be able to determine if the business description $D_{i}$ is related to one of the activity defined in our taxonomy.
+We want to be able to **determine if the business description $D_{i}$ is related to one of the activity defined in our taxonomy.**
 
-As we now have numerical vector representations $Emb^{D_{i}}$ and $Emb^{A_k}$, we can apply principles from semantic search by determining the closeness of our two vectors. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions. 
+As we now have numerical vector representations $Emb^{D_{i}}$ and $Emb^{A_k}$, we can apply principles from semantic search by determining the **closeness of our two vectors**. Recalling that dimensions of our vector representation relate to the underlying meaning of the text, computing the closeness of our vectors allows for determining the semantic similarity between our descriptions. 
 
 One way to do so is by computing the cosine similarity between our two vectors. The cosine similarity measures the cosine of the angle of those two vectors. The closer the cosine similarity to 1 is, the more related the descriptions are:
 
@@ -140,5 +140,7 @@ Figure: Greeness Measure
 ```
 
 A few firms among the S&P universe are targeted as green or brown with our greeness measure. This can be explained by the fact that measuring firms greeness with the business description and a quite stringent cosine similarity threshold is equivalent to looking for pure-players in green technologies which limits the universe.
+
+This underlines the **narrow investable green securities universe** for the time being.
 
 Obtaining more granular results would involves applying the approach of identifying green and brown activities at the business segment level, in order to obtain a measure close to the green intensity measure used by Roncalli et al. (2022) {cite:p}`2022:Roncallietal`.

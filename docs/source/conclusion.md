@@ -1,3 +1,11 @@
 # Conclusion
 
-Net zero investing is a trending approach in climate investing. This approach involves two objectives: portfolio's decarbonization and transition to green activities. We've seen that one of the most popular methodology in climate investing - the Paris-Aligned Benchmarks - falls short in addressing the second objective. We've developed a firm-level measure of greeness with a Natural Language Processing approach in order to build a transition portfolio, following a mixed taxonomy. As we increase the targeted portfolio's greeness improvement, we shrink the investable universe towards green technologies pure-players, leading to large increase of tracking error. Overall, we've seen that the transition dimension in net zero investing can be addressed with the use of text-mining, without relying on top-down level approach. Therefore, the transition dimension can be integrated into the construction of net zero portfolio, targeting both the decarbonization and the transition dimensions.
+Net zero investing is a trending approach in climate investing. This approach involves two objectives: **portfolio's decarbonization and transition to green activities**. We've seen that one of the most popular methodology in climate investing - the Paris-Aligned Benchmarks - falls short in addressing the second objective. 
+
+We've developed a **firm-level measure of greeness with a Natural Language Processing** approach in order to build a **transition portfolio**, following a mixed taxonomy. 
+
+As we increase the targeted portfolio's greeness improvement, we **shrink the investable universe** towards green technologies pure-players, leading to large increase of tracking error. 
+
+Overall, we've seen that the **transition dimension in net zero investing can be addressed with the use of text-mining**, without relying on top-down level approach. 
+
+Therefore, the transition dimension can be integrated into the construction of **net zero portfolio**, targeting both the decarbonization and the transition dimensions.

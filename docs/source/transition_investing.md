@@ -222,8 +222,18 @@ name: weights
 Figure: Top 15 securities in terms of weights deviation from the benchmark
 ```
 
+With a targeted excess greeness score of 10%, we can see that the properties of our transition portfolio follows the expected behavior of our mixed green-brown taxonomy:
+
+- The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation
+- The neutral securities follow the greenest ones, replacing the brown securities in the portfolio.
+
+However, we need to investigate the cost associated with this greeness improvement, noteworthy knowing the narrow universe of green investments.
+
 ## TE and Excess Greeness Arbitrage
 
+We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of improvement.
+
+Below is the Python code to compute the tracking error for various levels of greeness excess:
 ```python
 list_targets = [0.1, 0.2, 0.3, 0.4 , 0.5]
 
@@ -252,6 +262,7 @@ plt.ylabel("TE Volatility (in %)")
 plt.show()
 ```
 
+Below is a chart showing the increase of tracking error as we increase the excess greeness target. 
 
 ```{figure} arbitrage.png
 ---
@@ -259,4 +270,6 @@ name: arbitrage
 ---
 Figure: TE Volatility vs. Excess Greeness Targets
 ```
+
+A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, with both green and neutral activities. However, exceeding 30% of exces greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe. 
 

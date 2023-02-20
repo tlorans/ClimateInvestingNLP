@@ -92,7 +92,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="introduction.html">
-   Transition: the Hidden Dimension in Climate Investing
+   Investigating the Transition Dimension in Climate Investing with Natural Language Processing
   </a>
  </li>
  <li class="toctree-l1">
@@ -359,8 +359,8 @@ title="Print to PDF"
 Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of the benchmark which is equally-weighted.</p>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark.</p>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-42a5413e-3cbd-474a-b9bb-dacf04ddf0dc">
-<span class="eqno">(1)<a class="headerlink" href="#equation-42a5413e-3cbd-474a-b9bb-dacf04ddf0dc" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cd24719c-774d-49ae-93cc-035b635f0a42">
+<span class="eqno">(1)<a class="headerlink" href="#equation-cd24719c-774d-49ae-93cc-035b635f0a42" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
 <p>Below is the Python code to load the data in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
@@ -392,8 +392,8 @@ G(b) = b^TG
 </pre></div>
 </div>
 <p>We define the <em>excess greeness</em> of our portfolio, that is the positive or negative deviation from our benchmark greeness:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-59e4466c-96f3-42b9-9446-72553e371b88">
-<span class="eqno">(2)<a class="headerlink" href="#equation-59e4466c-96f3-42b9-9446-72553e371b88" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-761df55a-14a1-4ce2-a73c-86408352a8ac">
+<span class="eqno">(2)<a class="headerlink" href="#equation-761df55a-14a1-4ce2-a73c-86408352a8ac" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
 <p>Below is the code to compute the excess greeness of our portfolio:</p>
@@ -403,8 +403,8 @@ G(x|b) = (x - b)^T G
 <section id="tracking-error-volatility">
 <h3>Tracking Error Volatility<a class="headerlink" href="#tracking-error-volatility" title="Permalink to this headline">#</a></h3>
 <p>We can compare the relative performance of the portfolio compared to the benchmark with the tracking error volatility:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9a4a75d0-3381-4597-8ac7-779f2ed0d401">
-<span class="eqno">(3)<a class="headerlink" href="#equation-9a4a75d0-3381-4597-8ac7-779f2ed0d401" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ccc07a05-8a4d-4309-bfe2-71e4558a01a3">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ccc07a05-8a4d-4309-bfe2-71e4558a01a3" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
 \end{equation}\]</div>
 <p>Below we compute the tracking error volatility:</p>
@@ -547,9 +547,17 @@ G(x|b) = (x - b)^T G
 <p><span class="caption-text">Figure: Top 15 securities in terms of weights deviation from the benchmark</span><a class="headerlink" href="#weights" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>With a targeted excess greeness score of 10%, we can see that the properties of our transition portfolio follows the expected behavior of our mixed green-brown taxonomy:</p>
+<ul class="simple">
+<li><p>The securities with the highest exposure to greeness (ie. the pure-players) are the ones with the highest positive weights deviation</p></li>
+<li><p>The neutral securities follow the greenest ones, replacing the brown securities in the portfolio.</p></li>
+</ul>
+<p>However, we need to investigate the cost associated with this greeness improvement, noteworthy knowing the narrow universe of green investments.</p>
 </section>
 <section id="te-and-excess-greeness-arbitrage">
 <h2>TE and Excess Greeness Arbitrage<a class="headerlink" href="#te-and-excess-greeness-arbitrage" title="Permalink to this headline">#</a></h2>
+<p>We can measure the cost of deviation from the initial benchmark with the tracking error. We can test the properties of our transition metrics by testing the cost associated with various levels of improvement.</p>
+<p>Below is the Python code to compute the tracking error for various levels of greeness excess:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">list_targets</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span> <span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
 
 <span class="n">list_te</span> <span class="o">=</span> <span class="p">[]</span>
@@ -577,12 +585,14 @@ G(x|b) = (x - b)^T G
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Below is a chart showing the increase of tracking error as we increase the excess greeness target.</p>
 <figure class="align-default" id="arbitrage">
 <img alt="_images/arbitrage.png" src="_images/arbitrage.png" />
 <figcaption>
 <p><span class="caption-text">Figure: TE Volatility vs. Excess Greeness Targets</span><a class="headerlink" href="#arbitrage" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>A low level of targeted improvement leads to small tracking error, because from 10 to 30% of excess greeness target, the investment universe is still large, with both green and neutral activities. However, exceeding 30% of exces greeness target leads to important tracking error, as the investment universe shrinks to the narrow green activities pure-players universe.</p>
 </section>
 </section>
 

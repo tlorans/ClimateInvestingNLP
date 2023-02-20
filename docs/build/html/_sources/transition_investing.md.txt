@@ -1,8 +1,8 @@
 # Transition Portfolio
 
-In what follows we present our simple framework for tilting a benchmark according to a dual objective: 
+In what follows we present our simple framework for the construction of a portfolio with a dual objective: 
 1. Minimizing the tracking error volatility risk and 
-2. Improving the *greeness* of the tilted version compared to the benchmark. 
+2. Improving the *greeness* of the portfolio version compared to the benchmark. 
 
 To do so, we follow the approach from Roncalli (2023) {cite:p}`2023:Roncalli`, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.
 

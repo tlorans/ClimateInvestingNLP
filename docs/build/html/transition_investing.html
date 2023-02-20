@@ -333,10 +333,10 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="transition-portfolio">
 <h1>Transition Portfolio<a class="headerlink" href="#transition-portfolio" title="Permalink to this headline">#</a></h1>
-<p>In what follows we present our simple framework for tilting a benchmark according to a dual objective:</p>
+<p>In what follows we present our simple framework for the construction of a portfolio with a dual objective:</p>
 <ol class="arabic simple">
 <li><p>Minimizing the tracking error volatility risk and</p></li>
-<li><p>Improving the <em>greeness</em> of the tilted version compared to the benchmark.</p></li>
+<li><p>Improving the <em>greeness</em> of the portfolio version compared to the benchmark.</p></li>
 </ol>
 <p>To do so, we follow the approach from Roncalli (2023) <span id="id1">[<a class="reference internal" href="references.html#id12" title="Thierry Roncalli. Handbook of Sustainable Finance. SSRN, 2023.">Ron23</a>]</span>, formulating our tilting problem as a portfolio optimization with the presence of a benchmark.</p>
 <p>In this part, we first define benchmark greeness, excess greeness and tracking error volatility, before discussing the construction of a transition portfolio and the trade-off involved in targeting portfolio’s greeness improvement.</p>
@@ -346,8 +346,8 @@ title="Print to PDF"
 Let’s assume <span class="math notranslate nohighlight">\(b\)</span> the vector of weights of the benchmark which is equally-weighted.</p>
 <p>Let’s assume <span class="math notranslate nohighlight">\(G\)</span> a vector of <em>greeness</em> measure of the stocks composing the benchmark.</p>
 <p>The benchmark greeness can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0bc29260-133b-48c7-991c-b096473a5de0">
-<span class="eqno">(1)<a class="headerlink" href="#equation-0bc29260-133b-48c7-991c-b096473a5de0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a8f56774-1ce7-4be5-8db0-bcdbe5dc9c1e">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a8f56774-1ce7-4be5-8db0-bcdbe5dc9c1e" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(b) = b^TG
 \end{equation}\]</div>
 <p>Below is the Python code to load the data in the <code class="docutils literal notranslate"><span class="pre">materials</span></code> folder:</p>
@@ -379,8 +379,8 @@ G(b) = b^TG
 </pre></div>
 </div>
 <p>We define the <strong>excess greeness</strong> of our portfolio, that is the <strong>positive or negative deviation from our benchmark greeness</strong>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-904eb4b4-51cb-49fc-a26f-33da597e3cc7">
-<span class="eqno">(2)<a class="headerlink" href="#equation-904eb4b4-51cb-49fc-a26f-33da597e3cc7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3cae9cb5-bf1f-4cab-855c-7530f5128dc5">
+<span class="eqno">(2)<a class="headerlink" href="#equation-3cae9cb5-bf1f-4cab-855c-7530f5128dc5" title="Permalink to this equation">#</a></span>\[\begin{equation}
 G(x|b) = (x - b)^T G
 \end{equation}\]</div>
 <p>Below is the code to compute the excess greeness of our portfolio:</p>
@@ -388,8 +388,8 @@ G(x|b) = (x - b)^T G
 </pre></div>
 </div>
 <p>We can also compare the <strong>relative performance of the portfolio compared to the benchmark with the tracking error volatility</strong>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6b0d66ea-4727-4e43-aaa1-d673cf836d14">
-<span class="eqno">(3)<a class="headerlink" href="#equation-6b0d66ea-4727-4e43-aaa1-d673cf836d14" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b34b30f3-8316-42aa-a7ac-652405ca28a7">
+<span class="eqno">(3)<a class="headerlink" href="#equation-b34b30f3-8316-42aa-a7ac-652405ca28a7" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \sigma(x|b) = \sqrt{(x - b)^T \Sigma (x - b)}
 \end{equation}\]</div>
 <p>Below we compute the tracking error volatility:</p>
